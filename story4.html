@@ -1,0 +1,2044 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风拥枯葵</title>
+<link rel="preload" href="./_shared/fonts/CrimsonPro-Regular.ttf" as="font" type="font/ttf" crossorigin="">
+<link rel="preload" href="./_shared/fonts/InstrumentSerif-Italic.ttf" as="font" type="font/ttf" crossorigin="">
+<style>
+:root{
+  --bg:#1b1410;
+  --bg2:#251b12;
+  --bg3:#120d08;
+  --ink:#f1e7d6;
+  --muted:#c2ac8f;
+  --faint:#7d6a52;
+  --rule:#3b2f20;
+  --accent:#e0aa4e;
+  --accent2:#a9b08a;
+  --accent-soft:rgba(224,170,78,0.13);
+  --accent2-soft:rgba(169,176,138,0.13);
+  --paper:#241a12;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+@font-face{
+  font-family:'CrimsonPro';
+  src:url('./_shared/fonts/CrimsonPro-Regular.ttf') format('truetype');
+  font-weight:400;font-style:normal;
+}
+@font-face{
+  font-family:'CrimsonPro';
+  src:url('./_shared/fonts/CrimsonPro-Italic.ttf') format('truetype');
+  font-weight:400;font-style:italic;
+}
+@font-face{
+  font-family:'CrimsonPro';
+  src:url('./_shared/fonts/CrimsonPro-Bold.ttf') format('truetype');
+  font-weight:700;font-style:normal;
+}
+@font-face{
+  font-family:'InstrumentSerif';
+  src:url('./_shared/fonts/InstrumentSerif-Regular.ttf') format('truetype');
+  font-weight:400;font-style:normal;
+}
+@font-face{
+  font-family:'InstrumentSerif';
+  src:url('./_shared/fonts/InstrumentSerif-Italic.ttf') format('truetype');
+  font-weight:400;font-style:italic;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"CrimsonPro","Noto Serif CJK SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif;
+  font-size:18px;
+  line-height:2.15;
+  letter-spacing:0.02em;
+  overflow-x:hidden;
+}
+::selection{background:rgba(224,170,78,0.3);color:#fff;}
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:var(--bg3);}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#4a3a26,#2c2115);border-radius:6px;border:2px solid var(--bg3);}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#5d4a2f,#3b2f20);}
+.progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  box-shadow:0 0 14px rgba(224,170,78,0.55);}
+body::before{
+  content:";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(1100px 620px at 85% -6%, rgba(169,176,138,0.12), transparent 60%),
+    radial-gradient(900px 700px at -12% 38%, rgba(224,170,78,0.08), transparent 60%),
+    radial-gradient(1000px 800px at 50% 112%, rgba(37,27,18,0.9), transparent 70%);
+}
+
+/* ---------- Top nav ---------- */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;
+  align-items:center;padding:0.9rem 1.6rem;background:rgba(27,20,16,0.82);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);}
+.topnav a{color:var(--muted);text-decoration:none;font-size:0.85rem;letter-spacing:0.08em;transition:color .2s;}
+.topnav a:hover{color:var(--accent);}
+.topnav .brand{font-family:"CrimsonPro",serif;font-style:italic;color:var(--accent);letter-spacing:0.06em;}
+
+/* ---------- Hero (dusk wind, no illustration) ---------- */
+.s4-hero{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:7rem 1.6rem 4rem;overflow:hidden;
+  background:
+    radial-gradient(760px 480px at 74% 30%, rgba(224,170,78,0.16), transparent 62%),
+    linear-gradient(180deg,var(--bg3) 0%,var(--bg) 55%,var(--bg2) 100%);}
+.s4-hero .wrap{max-width:780px;position:relative;z-index:3;}
+.s4-kicker{font-family:"CrimsonPro",serif;font-style:italic;letter-spacing:0.32em;font-size:0.9rem;
+  color:var(--accent);margin-bottom:1.7rem;text-transform:lowercase;}
+.s4-title{font-size:clamp(2.8rem,8vw,5rem);font-weight:700;letter-spacing:0.16em;line-height:1.15;color:var(--ink);
+  text-shadow:0 0 40px rgba(224,170,78,0.25);}
+.s4-sub{margin-top:1.3rem;font-size:clamp(1rem,2.6vw,1.3rem);color:var(--muted);letter-spacing:0.1em;}
+.s4-rule{width:64px;height:2px;margin:1.9rem auto;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+.s4-desc{margin:0 auto;max-width:38rem;font-size:0.98rem;color:var(--muted);line-height:2;}
+.s4-desc b{color:var(--ink);font-weight:600;}
+
+/* sun glow + drifting petals to evoke wind */
+.sun{position:absolute;top:14%;right:13%;width:96px;height:96px;border-radius:50%;z-index:2;
+  background:radial-gradient(circle at 40% 36%, #fbe3b0, #eacc8a 48%, #d9a95f 78%, rgba(224,170,78,0) 100%);
+  box-shadow:0 0 70px 22px rgba(224,170,78,0.30),0 0 160px 60px rgba(224,170,78,0.10);
+  opacity:0.85;animation:breath 6s ease-in-out infinite;}
+@keyframes breath{0%,100%{opacity:0.7;transform:scale(1);}50%{opacity:0.95;transform:scale(1.06);}}
+.petals{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+.petal{position:absolute;top:-6%;width:8px;height:14px;border-radius:60% 40% 60% 60%;
+  background:linear-gradient(160deg,rgba(224,170,78,0.85),rgba(169,176,138,0.55));
+  opacity:0;animation:fall linear infinite;}
+@keyframes fall{0%{transform:translateY(0) translateX(0) rotate(0deg);opacity:0;}
+  8%{opacity:0.85;}
+  100%{transform:translateY(92vh) translateX(-6vw) rotate(600deg);opacity:0;}}
+
+/* ---------- Layout ---------- */
+.wrap{max-width:42rem;margin:0 auto;padding:0 1.6rem;}
+
+/* ---------- TOC ---------- */
+.toc{padding:1rem 0 3.5rem;}
+.toc-card{background:linear-gradient(180deg,var(--paper),rgba(36,26,18,0.55));border:1px solid var(--rule);border-radius:16px;
+  padding:3rem 2.8rem;box-shadow:0 18px 48px rgba(0,0,0,0.4);}
+.toc-title{text-align:center;font-size:1.2rem;font-weight:700;letter-spacing:0.32em;color:var(--ink);}
+.toc-title::before{content:"∿";display:block;font-family:"InstrumentSerif",serif;font-size:1rem;color:var(--accent);
+  letter-spacing:0;margin-bottom:1.1rem;opacity:0.9;text-shadow:0 0 18px rgba(224,170,78,0.5);}
+.toc-rule{width:48px;height:1px;margin:1.2rem auto 2.2rem;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.toc-list{list-style:none;max-width:30rem;margin:0 auto;columns:1;}
+.toc-list li{margin-bottom:0.7rem;text-align:center;}
+.toc-list a{color:var(--muted);text-decoration:none;font-size:0.98rem;letter-spacing:0.06em;transition:color .2s;}
+.toc-list a:hover{color:var(--accent);}
+
+/* ---------- Chapter ---------- */
+.chapter{padding:5.8rem 1.6rem 1.5rem;max-width:42rem;margin:0 auto;}
+.chapter-head{text-align:center;margin-bottom:3.8rem;position:relative;}
+.chapter-head::after{content:";position:absolute;bottom:-1.2rem;left:50%;transform:translateX(-50%);
+  width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--muted),transparent);opacity:0.5;}
+.ch-compact{font-family:"InstrumentSerif",serif;letter-spacing:0.38em;font-size:0.82rem;color:var(--accent);
+  text-transform:lowercase;margin-bottom:1.2rem;}
+.ch-zh{font-size:clamp(1.6rem,4.4vw,2.2rem);font-weight:600;letter-spacing:0.18em;color:var(--ink);}
+.ch-rule{width:56px;height:1px;margin:1.8rem auto 0;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+
+.story-para{margin-bottom:1.8rem;text-align:justify;color:var(--muted);line-height:2.2;}
+.story-para:first-of-type .drop{font-family:"InstrumentSerif",serif;font-size:4.2rem;line-height:0.8;float:left;
+  padding:0.6rem 0.7rem 0.2rem 0;color:var(--accent);font-weight:700;}
+.story-para .lead{color:var(--ink);font-weight:500;}
+mark.key{background:none;color:var(--accent);font-weight:600;}
+.dialogue{color:#f3e9d8;position:relative;padding-left:1.05em;}
+.dialogue::before{content:";position:absolute;left:0;top:0.4em;bottom:0.4em;width:2px;
+  background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:2px;opacity:0.45;}
+.story-para.em{text-align:center;color:var(--muted);padding:1.8rem 0 1rem;
+  margin:2rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  background:var(--accent-soft);}
+.story-para.em .quote{font-family:"InstrumentSerif",serif;font-style:italic;color:var(--accent2);
+  font-size:1.1rem;letter-spacing:0.08em;line-height:1.8;}
+
+.orn{text-align:center;margin:4.5rem 0 1.5rem;color:var(--accent);font-family:"InstrumentSerif",serif;
+  font-size:1.2rem;letter-spacing:0.8em;opacity:0.7;}
+.orn::before{content:";display:inline-block;width:2.5rem;height:1px;background:var(--accent);opacity:0.5;
+  margin:0 1rem 0.3rem 0;vertical-align:middle;}
+.orn::after{content:";display:inline-block;width:2.5rem;height:1px;background:var(--accent);opacity:0.5;
+  margin:0 0 0.3rem 1rem;vertical-align:middle;}
+
+/* ---------- Ending ---------- */
+.ending{padding:7rem 1.6rem 5rem;text-align:center;position:relative;max-width:42rem;margin:0 auto;}
+.ending::before{content:";display:block;width:2rem;height:1px;margin:0 auto 3rem;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.ending .glyph{font-size:2.6rem;color:var(--accent);line-height:1;text-shadow:0 0 32px rgba(224,170,78,0.55);
+  animation:pulseGlyph 3s ease-in-out infinite;}
+@keyframes pulseGlyph{0%,100%{opacity:0.7;transform:scale(1);}50%{opacity:1;transform:scale(1.15);}}
+.ending .big{font-size:clamp(2rem,5.5vw,2.8rem);font-weight:700;letter-spacing:0.2em;margin-top:2rem;color:var(--ink);}
+.ending .en{font-family:"InstrumentSerif",serif;font-style:italic;font-size:clamp(1.2rem,3.4vw,1.7rem);
+  color:var(--accent2);margin-top:1.4rem;letter-spacing:0.06em;}
+.ending p{margin:2rem auto 0;max-width:32rem;color:var(--muted);font-size:1rem;line-height:2.1;}
+
+/* ---------- Footer ---------- */
+footer{padding:2.5rem 1.6rem 5rem;text-align:center;color:var(--faint);font-size:0.85rem;}
+footer .small{letter-spacing:0.2em;}
+
+/* ---------- Responsive ---------- */
+@media (max-width:600px){
+  body{font-size:16px;line-height:2;}
+  .wrap{padding:0 1.25rem;}
+  .s4-hero{min-height:74vh;padding:6rem 1.4rem 3rem;}
+  .sun{width:66px;height:66px;top:12%;right:10%;}
+  .chapter{padding:4.5rem 1.25rem 0.5rem;}
+  .chapter-head{margin-bottom:3rem;}
+  .story-para{margin-bottom:1.5rem;line-height:2.1;}
+  .story-para:first-of-type .drop{font-size:3.4rem;}
+  .orn{margin:3.2rem 0 1rem;}
+  .ending{padding:5rem 0 3.5rem;}
+  .toc-card{padding:2rem 1.4rem;}
+}
+@media (max-width:400px){
+  .s4-title{font-size:clamp(2.2rem,11vw,3rem);}
+  .ch-zh{font-size:1.35rem;}
+  .ending .big{font-size:1.7rem;}
+  .ending .en{font-size:1.15rem;}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topnav"><span class="brand">风拥枯葵</span><a href="index.html">返回首页</a></nav>
+
+<!-- ================= STORY FOUR HERO ================= -->
+<header class="s4-hero">
+  <div class="petals" id="petals"></div>
+  <div class="sun"></div>
+  <div class="wrap">
+    <div class="s4-kicker">The Wind Embraces the Sunflower</div>
+    <h1 class="s4-title">风拥枯葵</h1>
+    <div class="s4-sub">一缀秋风，一朵花，和一个倘在心里的人</div>
+    <div class="s4-rule"></div>
+    <p class="s4-desc">遇见朱沐辰那天，我正在修一个漏水的水龙头。一间只开了一条缝的门，一个有些怕生的少年，和一盒放在料理台上的牛奶。往后的很多年，我才慢慢明白——有些人，光是遇见，就已经很好了。</p>
+  </div>
+</header>
+
+<!-- ================= STORY FOUR TOC ================= -->
+<section class="toc">
+  <div class="wrap">
+    <div class="toc-card">
+      <div class="toc-title">目录</div>
+      <div class="toc-rule"></div>
+      <ol class="toc-list">
+        <li><a href="#c1">意外的交集</a></li>
+        <li><a href="#c2">主动的靠近</a></li>
+        <li><a href="#c3">信任的建立</a></li>
+        <li><a href="#c4">秘密的约定</a></li>
+        <li><a href="#c5">依赖的加深</a></li>
+        <li><a href="#c6">邻里的非议</a></li>
+        <li><a href="#c7">偷偷的联系</a></li>
+        <li><a href="#c8">现实的重击</a></li>
+        <li><a href="#c9">家庭的介入</a></li>
+        <li><a href="#c10">被迫的分离</a></li>
+        <li><a href="#c11">两年后的重逢</a></li>
+        <li><a href="#c12">疏离的靠近</a></li>
+        <li><a href="#c13">矛盾的爆发</a></li>
+        <li><a href="#c14">理性的放手</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STORY FOUR BODY ================= -->
+    <section class="chapter" id="c1">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 1</div>
+        <h2 class="ch-zh">意外的交集</h2>
+        <div class="ch-rule"></div>
+      </div>
+    <p class="story-para">我遇见朱沐辰那天，正在修一个漏水的水龙头。老旧居民楼三层的走廊很长，光线昏暗，空气里有股潮湿的霉味。我提着工具箱站在302门口，听见里面传来很轻的脚步声，门开了条缝。</p>
+    <p class="story-para">一个男孩探出半张脸。他很小，头发有些乱，眼睛在昏暗中显得很亮。他没说话，只是看着我。</p>
+    <p class="story-para">“修水管的。”我说，把工牌递过去。</p>
+    <p class="story-para">他这才把门打开。客厅很空，只有一张旧沙发和一台小电视。水管在厨房，漏水声滴滴答答的，地面上积了一小摊水。他光脚站在厨房门口，穿着件洗得发白的T恤，袖子有些长，遮住了半截手指。</p>
+    <p class="story-para">我没多问，蹲下来检查。是老式的铸铁水管，阀门锈死了。我拧了两次没拧动，从工具箱里拿出扳手。男孩还站在那儿，一动不动地看着我干活。</p>
+    <p class="story-para">“你家里人呢？”我问。</p>
+    <p class="story-para">“……奶奶去医院了。”他的声音很轻，带着点试探。</p>
+    <p class="story-para">我没再说话。扳手咬住阀门，我使了点劲，锈死的螺纹发出刺耳的摩擦声。阀门终于松动了，水流喷出来一些，我侧身避开，袖口还是湿了一片。</p>
+    <p class="story-para">男孩递过来一块叠得方方正正的毛巾。我接过来擦了擦手，毛巾是温热的，像是刚晒过太阳。</p>
+    <p class="story-para">“谢谢。”</p>
+    <p class="story-para">他摇摇头，退回到厨房门边，背贴着墙。我继续干活，换了垫片，重新拧紧。漏水声停了，厨房里只剩下我收拾工具时金属碰撞的叮当声。</p>
+    <p class="story-para">“好了。”我站起来，水龙头已经不再滴水。我拧开试试，水流很稳。“下次要是还漏，就让人把这个阀门换了，太老了。”</p>
+    <p class="story-para">他点点头，走到水槽边，伸手摸了摸水龙头接口处，确认是干的，然后抬头看了我一眼。那双眼睛很干净，睫毛很长，看人的时候会微微垂下去一点。</p>
+    <p class="story-para">我从工具箱里拿出两盒牛奶，是早上便利店买多了剩下的。递过去的时候，他愣了下，没接。</p>
+    <p class="story-para">“拿着吧。”我把牛奶放在料理台上，“小孩多喝牛奶，长个子。”</p>
+    <p class="story-para">他盯着牛奶看了一会儿，然后伸手拿过去，抱在怀里。那样子让我想起从前喂过的流浪猫，给吃的也不敢直接叼走，总要犹豫很久。</p>
+    <p class="story-para">“走了。”我提起工具箱。</p>
+    <p class="story-para">走到门口时，听见身后传来很小的声音：“……多少钱？”</p>
+    <p class="story-para">我回头，他已经走到客厅中间，手里还抱着那两盒牛奶。客厅的窗帘没拉开，光线很暗，他站在那片阴影里，显得更小了。</p>
+    <p class="story-para">“不用。”我说，“房东付过了。”</p>
+    <p class="story-para">他嘴唇动了动，好像还想说什么，但最终只是点了点头。我拉开门，走廊的风灌进来，带着楼下传来的饭菜香。我走下楼梯时，还能听见他关门的声音，很轻，像怕惊动什么。</p>
+    <p class="story-para">那天的活儿结束得早。我回到租的房子，是个单间，在城中村一栋自建房的顶楼。房间很小，一张床，一张桌子，墙角堆着几箱行李。我还没完全搬进来，大部分东西还装在纸箱里。</p>
+    <p class="story-para">我洗了把脸，看着镜子里的人。皮肤晒得有点黑，眼角有道细小的疤，是去年在工地被铁丝刮的。头发该剪了，我伸手捋了把，发梢戳到脖子。</p>
+    <p class="story-para">手机响了，是房东。问我房租什么时候能交齐。我说月底，一定。挂掉电话，我坐在床沿上点了根烟。窗外是另一栋楼的后墙，离得很近，能看到对面厨房里有人在炒菜。油锅爆开的滋啦声顺着窗户缝钻进来。</p>
+    <p class="story-para">我想起今天那个男孩。他家里太安静了，安静得不像有孩子住的地方。我见过很多这样的房子，大人不在，小孩自己待着，电视开一整天，声音放得很大，好像这样就能填满那些空。</p>
+    <p class="story-para">烟抽到一半，手机又震了下。是工头发来的，说明天有个急活儿，在城西，早上六点得到。我回了句“好”，把烟按灭。桌上的泡面已经凉了，我倒了点热水进去，搅了搅，面条泡得有点软了。</p>
+    <p class="story-para">吃饭的时候，我又想起那块毛巾。温热的，叠得很整齐。他递过来的时候，手指很细，关节泛着白。</p>
+    <p class="story-para">我摇摇头，把最后一口面吃完。别人的事，少管。</p>
+    <p class="story-para">第二天我起得很早。天还没亮透，巷子里的路灯还亮着。我骑车去城西，清晨的风很凉，吹得工装外套鼓起来。路上人很少，只有几个扫街的环卫工，扫帚划过地面的声音在空旷的街道上显得很清晰。</p>
+    <p class="story-para">工地是栋老楼翻新，我负责检查整栋楼的水电线路。活不难，但琐碎，得一层一层爬。到中午的时候，后背已经湿透了。我在楼梯间坐着吃盒饭，饭是凉的，油凝成了白色的块。</p>
+    <p class="story-para">楼下传来小孩的喧闹声，应该是附近小学放学了。我扒完最后一口饭，把饭盒扔进塑料袋。下午还得去一趟昨天那栋楼，房东说304的插座有问题，让我顺道看看。</p>
+    <p class="story-para">到的时候是下午三点多。楼道里很安静，我走上三楼，经过302门口时停顿了一下。门关着，门把手上挂了个小小的塑料袋，里面装着什么东西。我凑近看，是两瓶矿泉水，袋子上贴了张便签纸，字写得很工整：</p>
+    <p class="story-para">“给修水管的叔叔。谢谢。”</p>
+    <p class="story-para">我拿起塑料袋，水是冰的，瓶身上凝着水珠。便签纸上的字用蓝色圆珠笔写的，一笔一划，很用力。我站在那里看了会儿，然后把它折好，放进工装口袋。</p>
+    <p class="story-para">304的活儿很快干完了，是个插座松了。我收拾工具下楼，在二楼拐角碰见个老太太，拎着菜篮子上楼，走得很慢。我侧身让她先过，她看了我一眼，又看了看我手里的工具箱。</p>
+    <p class="story-para">“修水管的？”她问。</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“302的水管修好了？”</p>
+    <p class="story-para">“修好了。”</p>
+    <p class="story-para">老太太点点头，继续往上走。走了两步又停下来，回头看我：“那孩子一个人在家，不容易。”</p>
+    <p class="story-para">我没接话。她也没再说，慢慢上楼去了。我走出楼道，太阳已经偏西了，阳光斜斜地照在水泥地上，把影子拉得很长。</p>
+    <p class="story-para">骑车回去的路上，我拐去便利店买了瓶水。结账时看见柜台边的货架上摆着那种盒装牛奶，我拿了两盒。回到住处，我把牛奶放在桌子上，和那两瓶矿泉水摆在一起。</p>
+    <p class="story-para">窗外传来小孩的哭闹声，还有大人的呵斥。我靠在床头，点了根烟。烟雾在昏暗的光线里慢慢散开，我想起那双眼睛，在昏暗的厨房门口，安静地看着我干活。</p>
+    <p class="story-para">手机震动，工头发来明天的排班表。我扫了一眼，关掉屏幕。烟抽完了，我把烟蒂按进易拉罐，罐子里已经积了半罐烟灰。</p>
+    <p class="story-para">晚上我煮了碗面，端着碗坐到窗边。对面楼的灯一盏盏亮起来，能看见各家各户的人在厨房忙活，在客厅走动。302那栋楼在另一个方向，从我的窗户看不见。</p>
+    <p class="story-para">我吃完面，把碗洗了。收拾桌子时，手碰到那两盒牛奶。纸盒凉凉的，我拿起来看了看保质期，还有一个月。</p>
+    <p class="story-para">最后我把牛奶放进了背包。明天还要去那片干活，如果路过，就放门口。</p>
+    <p class="story-para">就这一次。我想。毕竟那孩子给了水。</p>
+    <p class="story-para">第二天我又去了那栋楼。不是专门去的，是有家住户预约了检查电路，正好在同一栋。我干完活下楼，在三楼停下。302门口还是那样，静悄悄的。我从背包里拿出牛奶，蹲下身放在门边。</p>
+    <p class="story-para">起身时，我听见里面传来很轻的脚步声。门没开，但猫眼暗了一下，又亮了。</p>
+    <p class="story-para">他知道我在外面。</p>
+    <p class="story-para">我没走，站在那儿等了等。大概过了十几秒，门开了条缝。他露出半张脸，眼睛从下往上看着我。</p>
+    <p class="story-para">“给你的。”我指指地上的牛奶。</p>
+    <p class="story-para">他没说话，拉开门。他还是穿着那件偏大的T恤，光着脚。他弯腰拿起牛奶，抱在怀里，然后抬头看我，嘴唇动了动。</p>
+    <p class="story-para">“谢谢。”声音很小，但比昨天清楚了些。</p>
+    <p class="story-para">“不用。”我说，“我走了。”</p>
+    <p class="story-para">“等一下。”</p>
+    <p class="story-para">我停下来。他从门后拿出个小塑料袋，递过来。我接过来看，是两个苹果，洗得很干净，表皮还带着水珠。</p>
+    <p class="story-para">“奶奶买的。”他说，“她说要谢谢你。”</p>
+    <p class="story-para">我拿着苹果，塑料袋很薄，能感觉到苹果圆润的形状。“替我谢谢她。”</p>
+    <p class="story-para">他点点头，然后往后退了一步，手扶着门框，好像犹豫要不要关上门。走廊尽头传来别人家开门的声音，他像是被惊到，迅速把门关上了。</p>
+    <p class="story-para">我站在门口，听见里面锁舌扣上的轻响。然后脚步声远了，渐渐听不见。</p>
+    <p class="story-para">我提着苹果下楼。楼道里很暗，只有每层的小窗户透进来一点光。我走到一楼，阳光刺眼，我眯了眯眼睛。手里的苹果沉甸甸的，表皮是漂亮的红色，在光下泛着光泽。</p>
+    <p class="story-para">我骑车离开小区，苹果放在车筐里，随着颠簸轻轻滚动。路过菜市场时，我停下来买了点菜。很久没自己做饭了，大部分时间都是凑合。</p>
+    <p class="story-para">晚上我炒了两个菜，就着米饭吃。苹果我没动，放在桌子上，和牛奶摆在一起。吃完饭我坐在床上看手机，工友群里在聊天，有人抱怨活儿难干，有人说起哪个工地工资高。我看了会儿，退出群聊。</p>
+    <p class="story-para">窗外传来电视的声音，是隔壁在看晚间新闻。我躺下来，双手枕在脑后，盯着天花板上的一块水渍。那水渍的形状像朵云，边缘泛黄。</p>
+    <p class="story-para">我想起那双眼睛。在昏暗的光线里，安静地，带着点怯生生地看着我。</p>
+    <p class="story-para">像某种小动物。在确认来者是否危险。</p>
+    <p class="story-para">我翻了个身，闭上眼。明天还得早起，去另一个区干活。睡觉前，我听见窗外传来隐隐的哭声，不知道是哪家小孩在闹。哭声持续了一会儿，停了。</p>
+    <p class="story-para">夜，已然沉得很深了。</p>
+  </section>
+    <section class="chapter" id="c2">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 2</div>
+        <h2 class="ch-zh">主动的靠近</h2>
+        <div class="ch-rule"></div>
+      </div>
+    <p class="story-para">那之后我常去那片老城区干活。工头把附近几个小区的维修单都派给我，说是我熟悉那片。我没说什么，接了单子。</p>
+    <p class="story-para">每天早上我骑车穿过还没醒透的街道，车筐里放着工具，后座绑着梯子。三月的风还带着凉意，吹在脸上像细砂纸磨过。工地离朱沐辰住的那栋楼隔两条街，是栋待拆的厂房，外墙爬满了裂缝。</p>
+    <p class="story-para">我第一次看见他是在周二下午。那天我在厂房二楼换电线，从破了的窗户能看见对面小学的操场。放学铃响，孩子们从楼里涌出来，校门口很快聚成一团一团的。我在高处，看得清楚。</p>
+    <p class="story-para">他出来得晚，一个人，书包背得有点歪。出校门后没像其他孩子那样跑向小卖部或家长，而是沿着围墙走，走得很慢，走走停停。最后他在路口站住了，转过身，面朝工地的方向。</p>
+    <p class="story-para">距离太远，我看不清他的表情。只能看见他站着，一动不动，像在等什么。过了大概五分钟，他低下头，继续往前走，拐进了回家的那条巷子。</p>
+    <p class="story-para">我把钳子扔回工具箱，金属碰撞声在空荡的厂房里回响。灰尘在从窗户斜射进来的光柱里翻滚，像一群细小的飞虫。</p>
+    <p class="story-para">第二天差不多的时间，我又朝窗外看了一眼。他还在那里，同样的位置，同样的姿势。这次他站了更久，久到操场上的孩子都散光了，门卫开始锁校门。</p>
+    <p class="story-para">第三天也是。</p>
+    <p class="story-para">周五下午，工头让我去仓库取材料。我骑车路过那条巷子时，下意识放慢了速度。巷子很窄，两边是低矮的平房，墙根长着青苔。他在前面走，背影很单薄，书包显得很大。他走路习惯贴着墙，手偶尔会蹭到墙面。</p>
+    <p class="story-para">我没按铃，跟在他后面慢慢骑。车轮碾过坑洼的水泥地，发出轻微的颠簸声。他听见声音，回头看了一眼。</p>
+    <p class="story-para">看见我时，他脚步顿了一下。然后他转过身，继续往前走，但速度更慢了，几乎是挪。我超过他，在前面的岔路口停下，单脚撑地，回头看他。</p>
+    <p class="story-para">他走到我面前，低着头，头发有点乱，额发被汗黏在皮肤上。他没说话，只是站着，手抓着书包带子，指节泛白。</p>
+    <p class="story-para">“放学了？”我问。</p>
+    <p class="story-para">他点点头。</p>
+    <p class="story-para">“回家？”</p>
+    <p class="story-para">他又点头。</p>
+    <p class="story-para">我没再问，他也没动。巷子很静，远处传来收废品的吆喝声，拖着长长的尾音。有户人家的窗户开着，里面在放电视，隐约能听见广告的声音。</p>
+    <p class="story-para">“我要去仓库。”我指了指前面，“顺路。”</p>
+    <p class="story-para">他还是点头。我推着车往前走，他跟在旁边，隔着一米左右的距离。我能听见他的脚步声，很轻，偶尔有石子被踢到，滚进路边的排水沟。</p>
+    <p class="story-para">走到仓库门口，我停下锁车。他站在几步外，看着我。仓库管理员老陈从窗户探出头：“小黄，东西在里面，自己拿。”</p>
+    <p class="story-para">“好。”</p>
+    <p class="story-para">我推开铁门进去，里面很暗，堆满了建材和工具。我找到要取的PVC管，数了数根数，抱起来往外走。出门时看见他还站在那儿，保持着刚才的姿势，只是书包从肩上滑下来了一点，他往上提了提。</p>
+    <p class="story-para">“还不回家？”我把管子绑在车后座。</p>
+    <p class="story-para">“就回。”</p>
+    <p class="story-para">他没动。我绑好管子，拍了拍手上的灰。太阳已经偏西了，巷子里的光线开始变暗，他的影子被拉得很长，细瘦的一条。</p>
+    <p class="story-para">“你奶奶呢？”</p>
+    <p class="story-para">“在家。”他终于说了两个字，声音还是轻。</p>
+    <p class="story-para">我没再问，推着车往前走。他跟着，这次距离近了些，我能听见他呼吸的声音，有点急促，可能是走得太快了。快到岔路口时，他停下脚步。</p>
+    <p class="story-para">“我往这边。”他指了指左边那条更窄的巷子。</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">他看着我，嘴唇抿了抿，好像想说什么，但最后只是低下头，转身走了。我看着他走远，背影在昏暗的巷子里越来越模糊，最后拐了个弯，看不见了。</p>
+    <p class="story-para">周六我休息，但也没闲着。房东说卫生间的水阀有点漏，让我看看。我检查了下，是垫片老化了，得换。我去五金店买了配件，回来时在楼下小卖部门口看见了他。</p>
+    <p class="story-para">他拿着瓶酱油，正从店里出来。看见我，他愣了一下，站在原地。</p>
+    <p class="story-para">“买东西？”我问。</p>
+    <p class="story-para">“嗯。”他把酱油往身后藏了藏，好像那是什么不该被看见的东西。</p>
+    <p class="story-para">我点点头，从他身边走过。上到三楼时，听见身后传来脚步声，很轻，但跟得很紧。我回头，他就在下面半层，正仰头看着我。</p>
+    <p class="story-para">“你家也住这儿？”他问。</p>
+    <p class="story-para">“租的。”我掏出钥匙开门，“四楼。”</p>
+    <p class="story-para">他没说话，继续往上走。我开门进去，他也到了四楼，在自家门口停下。他掏出钥匙开门，钥匙串上只有两把，碰撞时发出清脆的声响。</p>
+    <p class="story-para">门开了，他走进去，但没关严，留了条缝。我听见里面传来老太太的咳嗽声，还有他放轻的声音：“奶奶，酱油买回来了。”</p>
+    <p class="story-para">我关上门。房间很小，一张床，一张桌子，墙上糊着旧报纸。我蹲下来修水阀，扳手拧开发出刺耳的声音。修好后开水试了试，不漏了。我把工具收好，洗了手，坐在床沿上点了根烟。</p>
+    <p class="story-para">窗外能看见对面楼的阳台，晾着衣服，在风里摇晃。楼下有小孩在哭，大人呵斥了几句，哭声停了，变成抽噎。</p>
+    <p class="story-para">敲门声很轻，三下，停顿，又两下。我起身开门。</p>
+    <p class="story-para">他站在门外，手里端着个小碗，碗里装着几个橘子，剥好了，白色的橘络也仔细撕掉了。</p>
+    <p class="story-para">“奶奶让我拿给你的。”他把碗递过来。</p>
+    <p class="story-para">我接过来，橘子还带着凉意，应该是刚从冰箱拿出来的。“谢谢。”</p>
+    <p class="story-para">“不客气。”他转身要走，又回头，“水管……修好了？”</p>
+    <p class="story-para">“修好了。”</p>
+    <p class="story-para">他点点头，下楼去了。脚步声渐渐消失。我看着碗里的橘子，橙黄的一瓣瓣，码得很整齐。我拿起一瓣放进嘴里，很甜，汁水充足。</p>
+    <p class="story-para">第二天下午，我又在工地看见了他。这次他没在校门口停留，而是直接走到工地围挡外面，找了个石墩坐下，从书包里拿出作业本。他写得很慢，写几个字就抬头往工地里看一眼。</p>
+    <p class="story-para">我在二楼干活，从那个角度能看见他的头顶。他头发很软，被风吹得有点乱。他写作业的姿势很端正，背挺得笔直，左手压着本子边缘。</p>
+    <p class="story-para">工友老张凑过来，顺着我的目光往下看：“那谁家孩子？天天坐那儿。”</p>
+    <p class="story-para">“附近的吧。”</p>
+    <p class="story-para">“家里没人管？”老张点了根烟，“这地方多脏，灰大。”</p>
+    <p class="story-para">我没接话，继续拧螺丝。老张抽完烟，下楼去了。过了一会儿，我听见他大声说话的声音：“小孩，这儿危险，去别处写作业！”</p>
+    <p class="story-para">我走到窗边往下看。朱沐辰抬起头，看了老张一眼，又往我这边看了一眼，然后慢慢收拾书包，站起身。他没走远，只是挪到对面街边的长椅上，继续写。</p>
+    <p class="story-para">老张回来时嘟囔了句：“现在的小孩……”</p>
+    <p class="story-para">我没说话，手里的活干完了，我收拾工具下楼。经过长椅时，他抬起头看我，手里还握着笔。</p>
+    <p class="story-para">“还不回家？”我问。</p>
+    <p class="story-para">“作业还没写完。”</p>
+    <p class="story-para">我在长椅的另一头坐下，和他保持着大约一个人的距离。他继续埋头写作业，笔尖划过纸面，发出沙沙的声响。我点了根烟，目光落在街上偶尔驶过的车辆上。</p>
+    <p class="story-para">“你天天来这儿？”我问。</p>
+    <p class="story-para">他笔尖顿了一下：“……嗯。”</p>
+    <p class="story-para">“为什么？”</p>
+    <p class="story-para">他没回答，只是低下头，把本子翻到下一页。他写的是数学题，阿拉伯数字很工整，等号画得笔直。有一道题他算了很久，橡皮擦了又擦，纸都快擦破了。</p>
+    <p class="story-para">“错了。”我说。</p>
+    <p class="story-para">他转头看我。我指着他算的那道题：“这一步，进位进错了。”</p>
+    <p class="story-para">他盯着本子看了会儿，重新算。这次算对了，答案写上去，他松了口气，肩膀放松下来。</p>
+    <p class="story-para">“谢谢。”他小声说。</p>
+    <p class="story-para">“不用。”</p>
+    <p class="story-para">我抽完烟，把烟蒂按灭在旁边的垃圾桶上。他作业也写完了，正一本一本往书包里收。收铅笔盒时，他手滑了一下，铅笔滚到地上，一直滚到我脚边。</p>
+    <p class="story-para">我捡起来递给他。铅笔是普通的HB，用了很久，笔杆上有牙印，深深浅浅的。</p>
+    <p class="story-para">“谢谢。”他又说，接过铅笔，放进笔盒。</p>
+    <p class="story-para">“你奶奶身体好些了？”</p>
+    <p class="story-para">“好点了。”他拉上书包拉链，“但还是咳嗽。”</p>
+    <p class="story-para">“吃药了吗？”</p>
+    <p class="story-para">“吃了。”他背好书包，站起来，“我该回去了。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">他走了几步，又停下，转身看我：“你明天还来吗？”</p>
+    <p class="story-para">“来。”</p>
+    <p class="story-para">他点点头，这次真的走了。我看着他穿过马路，走进巷子，消失在那片灰扑扑的楼群里。长椅上还留着他坐过的痕迹，几道浅浅的印子。</p>
+    <p class="story-para">我起身，拎起工具箱。工地里传来敲打声，当当当，很有节奏。天边开始泛红，云被染成淡淡的橘色。</p>
+    <p class="story-para">回到住处，我看见门口放着个塑料袋。里面装着两个包子，还是温的。塑料袋上没贴纸条，但我知道是谁放的。</p>
+    <p class="story-para">我把包子拿进屋，就着凉水吃了。包子是白菜馅的，油不多，味道很淡。吃完我把塑料袋洗干净，晾在窗台上。塑料薄膜在夕阳下泛着光，轻轻晃动。</p>
+  </section>
+    <section class="chapter" id="c3">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 3</div>
+        <h2 class="ch-zh">信任的建立</h2>
+        <div class="ch-rule"></div>
+      </div>
+    <p class="story-para">那件事发生在周四下午。我记得那天风很大，吹得工地围挡的蓝色铁皮哗啦哗啦响。我在二楼拆旧线路，灰尘扬起来，眯得眼睛发疼。</p>
+    <p class="story-para">老张在楼下喊我，声音被风吹得断断续续。我探出头，看见他指着街对面。几个孩子围成一圈，中间那个小小的身影很熟悉——朱沐辰蹲在地上，书包掉在一边，书本文具散了一地。</p>
+    <p class="story-para">围着他的三个男孩看起来比他大些，应该是初中生。其中一个用脚尖踢了踢地上的文具盒，金属盒子滚出去老远。朱沐辰没动，只是蹲着，手护着头。</p>
+    <p class="story-para">我放下钳子下了楼。老张拉住我：“小孩打架，你别——”</p>
+    <p class="story-para">我没听完，推开铁皮门走出去。风刮过来，卷着沙土。那几个男孩看见我，动作停了一下。我穿着工装，身上沾着灰，手里还提着把活动扳手。</p>
+    <p class="story-para">“干什么呢？”我问。</p>
+    <p class="story-para">声音不大，但在风声里显得很硬。三个男孩互相看看，站在最前面的那个开口：“他撞到我了。”</p>
+    <p class="story-para">朱沐辰还蹲着，肩膀缩得很紧。我看见他耳朵红了，不知道是冻的还是别的。</p>
+    <p class="story-para">“撞到你了？”我走过去，扳手垂在身侧，“所以呢？”</p>
+    <p class="story-para">那男孩往后退了半步，但嘴上还硬：“所以他得道歉。”</p>
+    <p class="story-para">“谁看见他撞你了？”</p>
+    <p class="story-para">“我们都看见了！”旁边两个跟着嚷。</p>
+    <p class="story-para">我把扳手换到左手，金属在掌心里有点凉。我看着说话的那个男孩，他校服拉链敞着，里面是件褪色的T恤。我看了他几秒，然后说：“滚。”</p>
+    <p class="story-para">他没动。我又往前一步，离他只有半米。他比我矮一个头，得仰着脸看我。我们对视了几秒钟，他别开眼，弯腰捡起地上的书包，扔给旁边的人。</p>
+    <p class="story-para">“走。”他转身，另外两个跟着，三个人走得很快，拐进巷子不见了。</p>
+    <p class="story-para">我蹲下身，开始捡地上的东西。课本边角卷了，铅笔断了几根，橡皮滚到了排水沟边上。我捡起文具盒，盖子变形了，凹进去一块。朱沐辰还蹲着，没抬头。</p>
+    <p class="story-para">“没事了。”我说。</p>
+    <p class="story-para">他没动。我伸手想拉他，他躲了一下，然后自己慢慢站起来。他脸上有灰，左边颧骨处擦破了皮，渗着血丝。他低头拍打裤子上的土，动作很慢，一下一下的。</p>
+    <p class="story-para">“疼吗？”我问。</p>
+    <p class="story-para">他摇摇头，继续拍裤子。拍完了，他抬起脸看我，眼睛很红，但没哭。风吹乱了他的头发，几缕发丝贴在额头上。他吸了吸鼻子，伸手去接我手里的课本。</p>
+    <p class="story-para">“谢谢。”声音哑哑的。</p>
+    <p class="story-para">“书包给我。”我说。</p>
+    <p class="story-para">他递过来。我把捡起来的东西一样样放回去，课本、作业本、铅笔盒。铅笔盒盖子合不严，我用力按了按，金属发出轻微的变形声。最后我把拉链拉上，递还给他。</p>
+    <p class="story-para">“走吧。”我说。</p>
+    <p class="story-para">他没动，看着我手里的扳手。我这才注意到还提着，手心里全是汗。我把扳手别在后腰的工具带上，转身往回走。走了几步，听见身后跟来的脚步声。</p>
+    <p class="story-para">回到工地，老张在门口抽烟，看见我们，欲言又止。我摆摆手，领着朱沐辰上了二楼。这里相对干净些，有个用木板搭的临时桌子，上面摆着我的水杯和半包烟。</p>
+    <p class="story-para">“坐。”我指了指旁边的水泥袋。</p>
+    <p class="story-para">他坐下，书包抱在怀里。我从工具包里翻出创可贴，是之前干活划伤手时买的，还剩最后两个。我撕开一个，递给他。</p>
+    <p class="story-para">“自己贴。”</p>
+    <p class="story-para">他接过去，笨拙地撕掉背胶。动作很慢，手指有点抖。贴歪了，创可贴的一角翘起来。他又撕下来，重新贴，这次好点了，但还是有点斜。</p>
+    <p class="story-para">“那几个，”我拧开水杯喝了口水，“经常找你？”</p>
+    <p class="story-para">他点头，手放在膝盖上，手指绞在一起。</p>
+    <p class="story-para">“为什么？”</p>
+    <p class="story-para">他沉默了很久。楼下的敲打声停了，四周安静下来，只有风还在吹，从窗户破洞钻进来，发出呜呜的声音。</p>
+    <p class="story-para">“他们说我……”他开口，声音很小，“说我没人要。”</p>
+    <p class="story-para">说这话时他没看我，盯着地面上一道裂缝。裂缝里积着灰，有几粒小石子。</p>
+    <p class="story-para">我没说话，点了根烟。烟雾散开，在昏暗的光线里变成灰白的絮。他咳嗽了一声，我这才反应过来，把烟按灭在旁边的铁皮罐上。</p>
+    <p class="story-para">“你奶奶呢？”我问。</p>
+    <p class="story-para">“在医院。”他说，“今天复查。”</p>
+    <p class="story-para">“你一个人在家？”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“吃饭呢？”</p>
+    <p class="story-para">“自己做。”他顿了顿，补充道，“我会煮面条。”</p>
+    <p class="story-para">我没再接话。窗外天色暗下来了，云层很厚，看样子要下雨。我收拾工具，把散落的电线卷好，螺丝装进铁盒。他坐在那儿看我收拾，膝盖并得很紧。</p>
+    <p class="story-para">“走吧。”我说，“送你回去。”</p>
+    <p class="story-para">“不用。”他站起来，“我自己能回。”</p>
+    <p class="story-para">“顺路。”</p>
+    <p class="story-para">他没再推辞。我们一前一后下楼，老张已经走了，工地里空荡荡的。我锁上铁皮门，推着自行车出来。他走在我旁边，隔着一米左右的距离。</p>
+    <p class="story-para">雨开始下了，先是零星几滴，然后密起来。我没带伞，他也没有。我加快脚步，他也跟着加快。到巷子口时，雨已经下大了，砸在地上溅起水花。</p>
+    <p class="story-para">“跑！”我说。</p>
+    <p class="story-para">我们一起跑进巷子。雨很大，很快就把衣服打湿了。他跑不快，书包在背后一颠一颠的。我放慢速度，等他跟上来。到他家楼下时，两个人都湿透了，头发贴在脸上，往下滴水。</p>
+    <p class="story-para">他掏出钥匙开门，手抖得厉害，钥匙对了好几次才插进锁孔。门开了，他站在门口，回头看我。雨水顺着他的脸往下淌，流过创可贴的边缘。</p>
+    <p class="story-para">“进来擦擦。”他说。</p>
+    <p class="story-para">我犹豫了一下。屋里很暗，没开灯，有股陈旧的气味。他走进去，按下开关，顶灯亮了，是那种老式的日光灯，光线发青。我站在门口，脚下很快积了一小滩水。</p>
+    <p class="story-para">“进来吧。”他又说，声音在空荡的客厅里显得很轻。</p>
+    <p class="story-para">我走了进去，带上门。客厅和我上次来一样，没什么变化。沙发罩洗过了，但还是很旧。电视柜上摆着个相框，里面是张全家福，三个人，应该是他小时候和父母拍的。照片上的他大概三四岁，被抱在中间，笑得很开心。</p>
+    <p class="story-para">他进了里屋，很快拿着条毛巾出来，递给我。毛巾是干的，但有点硬，洗了很多次那种。我擦了擦脸和头发，他把自己的书包放在椅子上，也拿起条小毛巾擦。</p>
+    <p class="story-para">“你衣服湿了。”他说。</p>
+    <p class="story-para">“没事。”</p>
+    <p class="story-para">“会感冒。”</p>
+    <p class="story-para">我没接话，继续擦头发。他站在那里，看着我，然后转身进了厨房。我听见开柜子的声音，还有倒水的声音。过了一会儿，他端出来一杯热水，杯子上印着卡通图案，漆已经掉了一半。</p>
+    <p class="story-para">“喝点热的。”他把杯子递给我。</p>
+    <p class="story-para">我接过来，水很烫，杯壁传来的温度让我意识到自己手很凉。我喝了口，水温顺着喉咙往下，身体暖和了些。他给自己倒了杯，小口小口地喝，眼睛从杯沿上方看我。</p>
+    <p class="story-para">“你经常一个人在家？”我问。</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“不害怕？”</p>
+    <p class="story-para">他摇摇头，又点点头，最后说：“习惯了。”</p>
+    <p class="story-para">雨还在下，敲在窗户上噼啪作响。客厅的窗户关不严，有水渗进来，在窗台上积了一小摊。他看见了，去卫生间拿了块抹布，蹲下来擦。动作很熟练，应该经常做。</p>
+    <p class="story-para">“你爸妈呢？”我问完就后悔了。</p>
+    <p class="story-para">他擦窗户的手停了一下，然后继续擦。“在外地。”</p>
+    <p class="story-para">“多久回来一次？”</p>
+    <p class="story-para">“过年。”他说，声音很平，“有时候也不回。”</p>
+    <p class="story-para">他把抹布洗干净，晾在水池边。回来时，他站在客厅中间，双手垂在身侧，像在等什么指示。我想起那些被领养的小动物，在笼子里待久了，放出来也不会跑，就站在原地。</p>
+    <p class="story-para">“作业写完了？”我问。</p>
+    <p class="story-para">“在学校写完了。”</p>
+    <p class="story-para">“那吃饭吧。”我说，“我去买点。”</p>
+    <p class="story-para">“不用。”他走到冰箱前，打开门。里面东西很少，两层鸡蛋，一把青菜，几个西红柿。“有面条。”</p>
+    <p class="story-para">他拿出鸡蛋和西红柿，又开了下面的冷冻室，翻出小半袋冻肉。动作很熟练，但个子不够高，垫着脚才够到上面的橱柜。我走过去，帮他拿下挂面。</p>
+    <p class="story-para">“我自己可以。”他说。</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">他烧水，洗菜，打鸡蛋。厨房很小，两个人有点转不开。我退到门口，看他忙碌。他切西红柿时很小心，左手按着，右手拿刀，切得很慢，但厚薄均匀。打鸡蛋时单手操作，蛋壳在碗沿一磕，手指一掰，蛋黄蛋白落进碗里，蛋壳完整地扔进垃圾桶。</p>
+    <p class="story-para">水开了，他下面条。蒸汽腾起来，模糊了他的脸。他用筷子搅了搅，防止粘连。然后热锅，倒油，炒鸡蛋，盛出来，再炒西红柿，最后把鸡蛋倒回去一起炒。加盐，加水，等汤滚了，把煮到半熟的面条捞进去。</p>
+    <p class="story-para">整个过程很安静，只有锅铲碰撞和水的沸腾声。他做得很认真，嘴唇抿着，眼睛盯着锅里的东西。最后关火，拿碗，盛面。盛了两碗，一碗多一碗少。</p>
+    <p class="story-para">多的那碗推到我面前。面条上铺着西红柿炒蛋，红的黄的，颜色很好。他自己那碗很少，只盖了个底。</p>
+    <p class="story-para">“你多吃点。”我说。</p>
+    <p class="story-para">“我够了。”</p>
+    <p class="story-para">我没再推，拿起筷子。他坐我对面，也拿起筷子，但没动，等我先吃。我吃了一口，味道很淡，盐放少了，但熟了，能吃。</p>
+    <p class="story-para">“好吃吗？”他问，声音里带着点试探。</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">他这才开始吃，吃得很慢，一根一根地挑。我们都没说话，只有吃面的声音。窗外雨声小了，变成淅淅沥沥的轻响。灯光下，我能看清他脸上的绒毛，很细，在光线里泛着淡淡的金色。</p>
+    <p class="story-para">吃完，我洗碗。他站在旁边，用抹布擦灶台。洗到第二个碗时，他突然开口：“黄铭哲。”</p>
+    <p class="story-para">我愣了一下。他第一次叫我的名字。</p>
+    <p class="story-para">“嗯？”</p>
+    <p class="story-para">“今天……谢谢。”</p>
+    <p class="story-para">“没事。”我说，继续洗碗。</p>
+    <p class="story-para">“他们以前也这样。”他说，声音很轻，像在自言自语，“我习惯了。但今天……谢谢你。”</p>
+    <p class="story-para">我没说话，把洗好的碗放在沥水架上。水很凉，冲在手上有些发麻。他擦完灶台，把抹布洗干净，拧干，挂好。每个动作都很仔细。</p>
+    <p class="story-para">收拾完，雨也停了。我该走了。走到门口时，他叫住我。</p>
+    <p class="story-para">“你明天还来工地吗？”</p>
+    <p class="story-para">“来。”</p>
+    <p class="story-para">“哦。”他点点头，手指抠着门框上翘起的漆皮，“那你路上小心。”</p>
+    <p class="story-para">“嗯。”我拉开门，又停下，“把门锁好。”</p>
+    <p class="story-para">“好。”</p>
+    <p class="story-para">我走出去，听见身后锁门的声音，两声，一道一道。楼道里很黑，声控灯坏了，我摸黑下楼。走出单元门时，天已经黑了，路灯亮起来，地上积着水，倒映着昏黄的光。</p>
+    <p class="story-para">骑车回去的路上，我想起他切西红柿时认真的样子，还有那碗很淡的面。风很凉，吹在湿衣服上，激起一阵鸡皮疙瘩。到家后，我冲了个热水澡，出来时看见桌上那袋包子，已经硬了。</p>
+    <p class="story-para">我拿起来咬了一口，慢慢地嚼。面皮发干，馅儿也没什么味道。但我吃完了，一整个。</p>
+    <p class="story-para">躺下时，手机响了。是工头，说明天早上七点开工，让我别迟到。我说知道了，挂了电话。房间里很暗，只有窗外透进来一点路灯光。我盯着天花板，想起那双眼睛，在昏暗的厨房里，很认真地盯着锅。</p>
+    <p class="story-para">还有那句“我习惯了”。</p>
+    <p class="story-para">声音很小，但听得很清楚。</p>
+  </section>
+    <section class="chapter" id="c4">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 4</div>
+        <h2 class="ch-zh">秘密的约定</h2>
+        <div class="ch-rule"></div>
+      </div>
+    <p class="story-para">我租下四楼那个房间是在三月底。房租不贵，但也不便宜，押一付三几乎掏空了我前几个月的积蓄。房间朝北，终年不见阳光，墙面有霉斑，水龙头关不严，总在滴水。但我还是签了合同，因为房东说可以月付，而且离工地近。</p>
+    <p class="story-para">搬进来那天，我只带了一个行李箱和一个编织袋。行李箱是大学时买的，轮子坏了，拖起来很费劲。编织袋里装着被褥和几件厚衣服。我把东西拖上四楼，开门时对门正好出来人。</p>
+    <p class="story-para">是个中年女人，提着垃圾袋。她看见我，愣了一下，然后点点头。我也点点头，算是打过招呼。她下楼去了，脚步声很重，在楼道里回响。</p>
+    <p class="story-para">房间比之前看的还要小。一张木板床，一张掉了漆的桌子，一把椅子。窗户对着另一栋楼的后墙，距离很近，能看清对面厨房里油污的痕迹。我打开窗户透气，有风进来，带着楼下小吃摊的味道。</p>
+    <p class="story-para">收拾东西花了一下午。我把被褥铺好，衣服挂进那个小小的壁橱，工具箱放在床底下。桌子擦了三遍，还是有黏腻感。最后我坐下来，点了根烟，看着这个将要住下去的地方。</p>
+    <p class="story-para">滴水声很有规律，嗒，嗒，嗒。听见敲门声。</p>
+    <p class="story-para">很轻，三下。我起身开门。</p>
+    <p class="story-para">朱沐辰站在门口，手里端着个碗。看见我，他眼睛睁大了一点，然后低下头，把碗递过来：“奶奶让送的，饺子。”</p>
+    <p class="story-para">碗还冒着热气，是刚煮好的。我能闻见韭菜鸡蛋的味道。我接过来，说了声谢谢。他站在那儿没走，手在裤缝上蹭了蹭。</p>
+    <p class="story-para">“你搬来了？”他问，声音很轻。</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“住这儿？”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">他点点头，视线越过我肩膀，看了眼房间里面。然后他收回目光，说：“那，我回去了。”</p>
+    <p class="story-para">“等等。”我放下碗，从行李箱侧袋里摸出个小盒子，递给他，“给你。”</p>
+    <p class="story-para">他接过去，是个新的文具盒。铁皮的，上面印着太空飞船的图案。前天路过文具店时看见的，不贵，就买了。</p>
+    <p class="story-para">“旧的坏了。”我说。</p>
+    <p class="story-para">他拿着文具盒，手指在上面摩挲。铁皮在光下反着光，飞船的图案颜色很鲜艳。他看了很久，然后抬起头，眼睛很亮。</p>
+    <p class="story-para">“谢谢。”</p>
+    <p class="story-para">“不客气。”我说，“趁热吃饺子吧。”</p>
+    <p class="story-para">“嗯。”他转身要走，又停住，回头看我，“你明天在吗？”</p>
+    <p class="story-para">“在。”</p>
+    <p class="story-para">“哦。”他点点头，下楼去了。我听见他开门的声音，很轻的咔哒声。</p>
+    <p class="story-para">我关上门，回到桌边。饺子有十二个，个头不大，但很饱满。我拿起筷子尝了一个，味道不错，咸淡刚好。吃完第五个时，我才发现碗底还放着个小碟子，里面是醋和蒜泥。他准备得很细心。</p>
+    <p class="story-para">第二天早上，我被楼下小孩的哭声吵醒。看看手机，六点十分。我躺在床上，听着哭声从嘹亮到抽噎，最后变成断断续续的哼唧。然后是大人的说话声，锅碗碰撞声，电视新闻声。这栋楼隔音不好，什么声音都听得见。</p>
+    <p class="story-para">我起床洗漱。水很凉，泼在脸上让人清醒。换好工装，我拎着工具箱下楼。三楼的门关着，很安静。我放轻脚步，但还是被听见了——门开了条缝，朱沐辰探出头来。</p>
+    <p class="story-para">“早。”他说，声音带着刚睡醒的哑。</p>
+    <p class="story-para">“早。”我继续下楼。</p>
+    <p class="story-para">“你去工地吗？”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“今天几点回来？”</p>
+    <p class="story-para">我想了想：“五六点吧。”</p>
+    <p class="story-para">“哦。”门关上了。</p>
+    <p class="story-para">一整天我都在想他那个“哦”是什么意思。老张说我干活不专心，螺丝拧歪了两次。我说昨晚没睡好。中午吃饭时，我特意绕到街对面那家便利店，买了盒牛奶。下午三点多，雨又来了，不大，但很密。工头说提前收工，大家早点回。</p>
+    <p class="story-para">我骑车回去，雨衣不够大，裤腿湿了半截。到楼下时，看见朱沐辰坐在楼梯上，膝盖上放着本书。听见我的脚步声，他抬起头。</p>
+    <p class="story-para">“你没带伞？”他合上书站起来。</p>
+    <p class="story-para">“带了，雨大。”</p>
+    <p class="story-para">我们一起上楼。他走在我前面，脚步很轻。到三楼时，他停下，从书包侧袋里掏出个小塑料袋，递给我：“给。”</p>
+    <p class="story-para">我接过来，是块手帕，叠得方正正的，洗得很干净，边角有点起毛了。</p>
+    <p class="story-para">“擦擦。”他说。</p>
+    <p class="story-para">“谢谢。”</p>
+    <p class="story-para">“不客气。”他拿出钥匙开门，进去前又回头看了我一眼，“你吃饭了吗？”</p>
+    <p class="story-para">“还没。”</p>
+    <p class="story-para">“我煮了粥，你要喝吗？”</p>
+    <p class="story-para">我想说不用，但肚子不争气地叫了一声。他听见了，嘴角弯了一下，很快又抿平。“等我一下。”他关上门，几分钟后端着个小锅出来，还有两个碗和两双筷子。</p>
+    <p class="story-para">“就在这儿吃吧。”他说，在楼梯上坐下，把锅放在上一级台阶。</p>
+    <p class="story-para">我也坐下。楼梯很窄，两个人得侧着坐。他盛粥，动作小心，怕洒出来。粥是白米粥，熬得很稠，上面飘着几粒红枣。他递给我一碗，自己那碗很少。</p>
+    <p class="story-para">“你奶奶呢？”我问。</p>
+    <p class="story-para">“睡了。”他说，“她咳得厉害，吃了药就困。”</p>
+    <p class="story-para">我们安静地喝粥。粥是温的，不烫嘴。红枣很甜，煮化了，米油都熬出来了。楼道里很暗，只有每层的小窗透进来一点天光。雨声淅淅沥沥，从楼外传来。</p>
+    <p class="story-para">“好喝吗？”他小声问。</p>
+    <p class="story-para">“好喝。”</p>
+    <p class="story-para">他笑了，很浅的笑，嘴角弯起一点点。然后他继续喝粥，小口小口地，像只小猫。</p>
+    <p class="story-para">“你经常自己做饭？”我问。</p>
+    <p class="story-para">“嗯。奶奶身体不好，我放学回来做。”</p>
+    <p class="story-para">“都会做什么？”</p>
+    <p class="story-para">“煮粥，煮面，炒鸡蛋，炒土豆丝。”他数着，“还会蒸米饭，但有时候水放多，就成稀饭了。”</p>
+    <p class="story-para">“不错。”</p>
+    <p class="story-para">他又笑了，这次明显些，眼睛弯起来。喝了粥，他把碗收进锅里，盖子盖好。“我拿上去了，碗明天还你。”</p>
+    <p class="story-para">“我来洗。”</p>
+    <p class="story-para">“不用。”他站起来，“你手破了。”</p>
+    <p class="story-para">我低头看，右手虎口处有道小口子，是今天拧铁丝时划的，已经结痂了。我自己都没注意到。</p>
+    <p class="story-para">“没事。”我说。</p>
+    <p class="story-para">“会感染。”他很认真地说，然后端着锅上楼了。我听见他开门、关门的声音，很轻，像怕吵醒什么。</p>
+    <p class="story-para">第二天是周六。我醒得比平时晚，七点多才睁眼。窗外在下雨，天色阴沉。我躺在床上听着雨声，想着今天没什么活，可以休息一天。但躺久了也无聊，我起床，煮了包泡面当早饭。</p>
+    <p class="story-para">吃完面，我坐在窗边抽烟。雨不大，但下得密，对面楼的墙面被淋成深灰色。我看见三楼那扇窗户，窗帘拉开了一半，里面很暗，看不清。</p>
+    <p class="story-para">烟抽到一半，传来敲门声。很轻，但持续，一下接一下。我起身开门。</p>
+    <p class="story-para">朱沐辰站在门外，背着书包，手里拿着伞。伞是蓝色的，有些旧，伞骨折了一根，用胶带缠着。</p>
+    <p class="story-para">“我能在你这儿写作业吗？”他问，声音比平时还要小。</p>
+    <p class="story-para">“家里怎么了？”</p>
+    <p class="story-para">“奶奶在睡觉，不能吵。”他说，“而且……而且我有道题不会。”</p>
+    <p class="story-para">我让开身，他走进来，收了伞，靠在门边。他环顾房间，目光在每样东西上停留片刻。床，桌子，椅子，墙角的行李箱。然后他走到桌边，放下书包，拿出作业本。</p>
+    <p class="story-para">“哪道题？”我问。</p>
+    <p class="story-para">他翻开数学练习册，指着一道应用题。我拉过椅子坐下，看了遍题目。是行程问题，甲和乙从两地相向而行，求相遇时间。不算难，但步骤多。</p>
+    <p class="story-para">我拿了张草稿纸，开始给他讲。先画线段图，标出距离和速度，然后列方程。他听得很认真，身体微微前倾，眼睛盯着纸。我讲完一遍，问他懂没懂。</p>
+    <p class="story-para">“好像懂了。”他说，但语气不太确定。</p>
+    <p class="story-para">“自己做一遍。”</p>
+    <p class="story-para">他接过笔，开始写。写几步停一下，看看我。我点点头，他继续。写到一半卡住了，咬着笔头皱眉。我提示了一句，他恍然大悟，继续往下算。最后得出答案，和标准答案一致。</p>
+    <p class="story-para">“对了。”我说。</p>
+    <p class="story-para">他松了口气，肩膀垮下来。然后他继续写其他作业，我坐在旁边看手机。工友群里有几个人在聊天，说哪个工地工资高，哪个老板不靠谱。我看了一会儿，退出。</p>
+    <p class="story-para">他写得很认真，背挺得笔直，左手按着本子边缘。写字时嘴唇会不自觉地跟着动，像是在默念。有根头发垂下来，在眼前晃，他吹了几次没吹开，伸手捋到耳后。</p>
+    <p class="story-para">时间慢慢过去。雨一直下，窗玻璃上蒙了层水汽。我起身去倒水，顺便给他也倒了一杯。他接过去，小声说谢谢，喝了一口，继续写。</p>
+    <p class="story-para">十点多，他写完语文作业，合上本子。“写完了。”</p>
+    <p class="story-para">“检查了吗？”</p>
+    <p class="story-para">“检查了。”他把作业本收进书包，拉链拉好，但没起身。他坐在椅子上，手放在膝盖上，眼睛看着窗外。</p>
+    <p class="story-para">“你每个周末都写作业？”我问。</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“不出门玩？”</p>
+    <p class="story-para">“没什么好玩的。”他说，然后顿了顿，“以前去图书馆，但最近在装修，关了。”</p>
+    <p class="story-para">我想了想，说：“以后周六下午，你可以来这儿写作业。”</p>
+    <p class="story-para">他转过头看我，眼睛睁大了些。</p>
+    <p class="story-para">“如果你愿意。”我补充道。</p>
+    <p class="story-para">他没说话，只是点头，一下，两下，三下。点得很用力，头发跟着晃。</p>
+    <p class="story-para">“两点到五点。”我说，“其他时间我可能不在。”</p>
+    <p class="story-para">“好。”他说，声音很轻，但很清晰。</p>
+    <p class="story-para">“有不会的可以问我。”</p>
+    <p class="story-para">“好。”</p>
+    <p class="story-para">他又点头，这次嘴角弯起来，想笑又忍住的样子。他从书包里掏出个什么东西，握在手心，递给我。</p>
+    <p class="story-para">是颗水果糖，透明糖纸包着，能看见里面橙黄色的糖块。</p>
+    <p class="story-para">“给你。”他说。</p>
+    <p class="story-para">我接过来。糖纸被手心的温度焐得有点软了。我剥开，把糖放进嘴里。很甜，橙子味的。</p>
+    <p class="story-para">“甜吗？”他问。</p>
+    <p class="story-para">“甜。”</p>
+    <p class="story-para">他笑了，这次没忍住，笑得眼睛弯起来。然后他站起来，背好书包：“我该回去了，奶奶该吃药了。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">他走到门口，拿起伞，又回头看我：“下周六，两点。”</p>
+    <p class="story-para">“两点。”</p>
+    <p class="story-para">他开门出去，脚步声在楼道里响起，渐渐往下。我站在窗边，看着楼下。过了一会儿，他出现在楼门口，撑开那把蓝色的伞，走进雨里。伞有点大，他得仰着头才能看清路。走到巷子中间时，他回头往上看了一眼。我站在窗后，他应该看不见我，但他还是朝这个方向挥了挥手。</p>
+    <p class="story-para">很小幅度的挥手，很快又放下。然后他转过身，继续往前走，消失在拐角。</p>
+    <p class="story-para">我坐回椅子上，嘴里的糖化完了，只剩下一点点甜味在舌尖。我拿起那颗糖纸，对着光看。糖纸是透明的，有细小的褶皱，在光下泛着七彩的光。</p>
+    <p class="story-para">我把糖纸抚平，夹进桌上的本子里。本子是空的，我之前用来记些零散的东西。糖纸夹在中间，像书签。</p>
+    <p class="story-para">雨还在下，滴滴答答，敲在窗沿上。我点了根烟，看着窗外灰蒙蒙的天。楼下的巷子空荡荡的，只有积水映着天光，亮汪汪的一片。</p>
+    <p class="story-para">下周六，两点。我在心里重复了一遍。</p>
+    <p class="story-para">然后我打开手机日历，在今天的日期下面，做了个标记。</p>
+  </section>
+    <section class="chapter" id="c5">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 5</div>
+        <h2 class="ch-zh">依赖的加深</h2>
+        <div class="ch-rule"></div>
+      </div>
+    <p class="story-para">周六下午两点，朱沐辰没来。</p>
+    <p class="story-para">我坐在房间里，看着桌上摊开的电工手册。窗外的阳光很好，斜斜地照进来，在水泥地上切出一块明晃晃的方形。灰尘在光柱里缓慢浮动，像极了水里悬浮的微粒。</p>
+    <p class="story-para">两点十分。我点了根烟，没抽，夹在指间让它慢慢燃。烟灰积了长长一截，弯曲，断裂，落在桌面上。</p>
+    <p class="story-para">两点半。楼道里传来脚步声，很重，是楼上那对夫妻下楼了。接着是小孩跑跳的声音，咚咚咚，从四楼到一楼。然后安静下来。</p>
+    <p class="story-para">我掐灭烟，拿起手机看了看。没有消息，没有未接来电。屏幕上的时间跳到两点四十五。</p>
+    <p class="story-para">也许他奶奶有事。也许他忘了。也许他只是不想来了。</p>
+    <p class="story-para">我站起来，在房间里走了两圈。房间很小，从这头到那头不过五步。我又坐下，重新翻开电工手册，但一个字也看不进去。图纸上的线路像一团乱麻。</p>
+    <p class="story-para">三点。我决定下楼看看。</p>
+    <p class="story-para">三楼的门关着。我站在门口听了听，里面很安静。抬手想敲门，又放下。转身准备上楼时，门突然开了。</p>
+    <p class="story-para">朱沐辰站在门口，脸色苍白。他看见我，眼睛亮了一下，随即又暗下去。他手里拿着个老人机，屏幕还亮着。</p>
+    <p class="story-para">“我奶奶……”他开口，声音发颤，“我奶奶晕倒了。”</p>
+    <p class="story-para">我跟着他进屋。客厅里，老人躺在地上，侧着身，眼睛闭着。地上有滩水，旁边倒着个玻璃杯，碎片散了一地。我蹲下身，探了探她的鼻息——还有呼吸，但很微弱。</p>
+    <p class="story-para">“叫救护车了吗？”我问。</p>
+    <p class="story-para">他摇头，手抖得厉害，手机差点掉地上。我接过手机，拨了120。接线员的声音很冷静，问我地址，问病人状况。我一一回答，眼睛看着地上的老人。她嘴唇发紫，胸口起伏很慢。</p>
+    <p class="story-para">“他们说马上到。”我挂掉电话，对朱沐辰说。</p>
+    <p class="story-para">他站在那儿，一动不动，眼睛死死盯着奶奶。我扶他坐到沙发上，他身体僵硬得像块木头。我去厨房找了条毛巾，浸湿冷水，拧干，敷在老人额头上。她没反应，只是呼吸，一下，又一下。</p>
+    <p class="story-para">等待的时间很漫长。朱沐辰一直看着奶奶，眼睛一眨不眨。我收拾了地上的玻璃碎片，用拖把把水渍擦干。拖地时，我看见他的手紧紧攥着沙发套，指节白得透明。</p>
+    <p class="story-para">救护车的声音由远及近，停在楼下。很快有人敲门，我开门，两个穿白大褂的抬着担架进来。他们检查老人的瞳孔，测血压，问了我几个问题。我答不上来，看向朱沐辰。</p>
+    <p class="story-para">“她有心脏病。”朱沐辰突然开口，声音很清晰，“在吃这些药。”他跑进卧室，很快拿着几个药瓶出来。</p>
+    <p class="story-para">医护人员看了药瓶，点点头。他们把老人固定在担架上，抬起来。朱沐辰跟到门口，被一个护士拦住：“家属跟一个就行，车里坐不下。”</p>
+    <p class="story-para">他愣住，看看担架，又看看我。我拍拍他的肩：“你在家等着，我去医院。有消息打电话给你。”</p>
+    <p class="story-para">他摇头，很用力地摇头，抓住我的袖子。手指很凉，透过布料都能感觉到寒意。</p>
+    <p class="story-para">“一起去。”他说，声音很小，但很坚决。</p>
+    <p class="story-para">我看向护士。护士叹了口气：“那快点，坐不下就抱着。”</p>
+    <p class="story-para">我们跟着下楼。救护车后门开着，医护人员已经把担架推进去。我先把朱沐辰托上车，然后自己跳上去。车门关上，车里很窄，我坐在靠门的位置，朱沐辰挤在我旁边。他坐得很直，背绷着，眼睛盯着担架上的奶奶。</p>
+    <p class="story-para">车开了，鸣笛声刺耳。车里的灯是惨白的，照得人脸上没有血色。仪器发出规律的滴滴声，一个医护人员在记录什么。另一个给老人戴上氧气面罩，透明的塑料罩子盖住她大半张脸，很快蒙上白雾。</p>
+    <p class="story-para">朱沐辰的手还在抖。我犹豫了一下，握住他的手。很凉，手心全是汗。他没看我，也没抽回手，只是握紧了，指甲掐进我手背的皮肤里。</p>
+    <p class="story-para">医院不远，十分钟就到了。车门打开，医护人员把担架抬下去，推着急救床往里面冲。我们跟着跑，穿过走廊，穿过自动门，最后停在抢救室门口。门开了，担架推进去，门又关上。红色的“抢救中”灯牌亮起来。</p>
+    <p class="story-para">我们被挡在门外。一个护士出来，递给我几张单子：“去办手续，交费。”</p>
+    <p class="story-para">我接过单子，看了一眼。预交金额那一栏的数字让我眼皮跳了跳。我摸了摸口袋，钱包在，但里面的现金不多。朱沐辰站在我旁边，仰头看着那些单子，又看看我，眼睛里有种我从未见过的东西——恐惧，还有别的什么。</p>
+    <p class="story-para">“在这儿等着。”我对他说，“我很快回来。”</p>
+    <p class="story-para">他没说话，只是点头。我在缴费窗口排队，前面有四五个人，每个人都拿着厚厚一叠单子。队伍挪动得很慢，有人和收费员争执，声音很大。我回头看抢救室的方向，看不见朱沐辰，只能看见走廊尽头那扇紧闭的门。</p>
+    <p class="story-para">轮到我了。我把单子递进去，又递上银行卡。机器嘀嘀响了几声，打出一张回执。我拿着回执往回走，脚步很快。回到抢救室门口，朱沐辰还站在那里，姿势都没变，像被钉在了地上。</p>
+    <p class="story-para">“坐会儿。”我指着旁边的塑料椅。</p>
+    <p class="story-para">他摇摇头，还是站着。我拉他坐下，他没反抗，但身体僵硬。我挨着他坐下，塑料椅子很凉，坐久了硌得难受。走廊里人来人往，有哭的，有喊的，有面无表情推着输液架慢慢走的。消毒水的味道很浓，混着别的什么气味，说不清道不明。</p>
+    <p class="story-para">时间过得很慢。墙上的钟滴答滴答，秒针走完一圈，分针挪动一小格。朱沐辰一直盯着抢救室的门，偶尔眨一下眼。我拿出手机，工头打了三个未接来电，我回了个短信，说家里有事，今天去不了。他没多问，只回了句“知道了”。</p>
+    <p class="story-para">“你饿不饿？”我问。</p>
+    <p class="story-para">他摇头。</p>
+    <p class="story-para">“渴吗？”</p>
+    <p class="story-para">还是摇头。</p>
+    <p class="story-para">但我听见他肚子叫了一声，很轻。他低下头，手指绞在一起。我站起来：“我去买点吃的。”</p>
+    <p class="story-para">医院门口有小卖部，我买了两个面包，两盒牛奶。回去的路上，经过缴费窗口，又看见那个和收费员争执的人，现在蹲在墙角，抱着头。我从他身边走过，他肩膀在抖。</p>
+    <p class="story-para">回到抢救室门口，朱沐辰还坐在那里，姿势都没变。我把面包和牛奶递给他，他接过去，但没打开。塑料包装袋在他手里窸窸窣窣地响。</p>
+    <p class="story-para">“吃吧。”我说。</p>
+    <p class="story-para">他撕开包装，咬了一小口，慢慢地嚼。嚼了很久，才咽下去。然后又咬一口。他吃得很慢，像在完成什么任务。我也吃，面包很干，没什么味道。</p>
+    <p class="story-para">吃到一半，抢救室的门开了。一个医生走出来，摘掉口罩：“朱玉芳家属。”</p>
+    <p class="story-para">我们同时站起来。朱沐辰动作太快，面包掉在地上，滚了几圈。他没去捡，只是盯着医生。</p>
+    <p class="story-para">“病人暂时稳定了，是心梗。”医生说，语速很快，“需要住院观察，至少一周。你们去办住院手续，在三楼心内科。”</p>
+    <p class="story-para">“她……醒了吗？”朱沐辰问，声音哑得厉害。</p>
+    <p class="story-para">“醒了，但还很虚弱。等会儿转到病房你们就能看了。”医生说完，转身又进去了。</p>
+    <p class="story-para">朱沐辰站着，没动。我弯腰捡起地上的面包，扔进垃圾桶。然后拉着他去办住院手续。又是一轮排队，缴费，拿单子。这次金额更大，我把银行卡里剩下的钱都刷了，还不够。我打电话给工头，支了下个月的工资。他在电话那头骂了句什么，但还是答应了。</p>
+    <p class="story-para">办完所有手续，天已经黑了。我们上到三楼，找到病房。三人间，靠窗那张床。老人躺在那里，闭着眼睛，鼻子里插着氧气管，手背上扎着针，吊瓶里的液体一滴一滴往下掉。</p>
+    <p class="story-para">朱沐辰走到床边，站了一会儿，然后慢慢蹲下，手轻轻放在奶奶手上。老人眼皮动了动，睁开一条缝。她看见朱沐辰，嘴唇动了动，但没发出声音。只是手指很轻地，回握了一下。</p>
+    <p class="story-para">朱沐辰的肩膀垮下来。他蹲在那儿，头埋得很低，背在抖。我走过去，手放在他肩上。他没抬头，但把脸埋进臂弯里，压抑的抽泣声漏出来，很小，像小怪兽受伤时的呜咽。</p>
+    <p class="story-para">护士进来换药，看见我们，放轻了动作。换完药，她看看我，又看看朱沐辰，说：“家属留一个陪夜就行。那边有折叠床，可以租。”</p>
+    <p class="story-para">“我留。”朱沐辰立刻说，抬起头，眼睛很红，但没眼泪。</p>
+    <p class="story-para">“你回家。”我按住他的肩，“我在这儿。”</p>
+    <p class="story-para">“我要在这儿。”</p>
+    <p class="story-para">“你明天还要上学。”</p>
+    <p class="story-para">“我不去。”</p>
+    <p class="story-para">我们僵持着。最后护士说：“小孩回家吧，医院晚上冷，容易感冒。大人在这儿守着，明天白天再来换。”</p>
+    <p class="story-para">朱沐辰还想说什么，我拉着他出了病房。走廊里，灯光很亮，照得他脸色更加苍白。他嘴唇抿得很紧，盯着地面。</p>
+    <p class="story-para">“听话。”我说，“你奶奶需要人照顾，你要是也病了，谁照顾她？”</p>
+    <p class="story-para">他沉默了很久，然后点点头。我送他下楼，走到医院门口。天完全黑了，路灯亮起来，街上车不多。我拦了辆出租车，拉开车门，把他推进去。</p>
+    <p class="story-para">“到家给我发个短信。”我说，把钥匙递给他，“用家里座机，我手机号你记一下。”</p>
+    <p class="story-para">他报出一串数字。是我的号码。我愣了愣，他什么时候记住的？</p>
+    <p class="story-para">“到家就发。”我又说了一遍。</p>
+    <p class="story-para">他点头，关上车门。出租车开走，尾灯在夜色里渐渐变小，最后拐个弯，不见了。我站在医院门口，风吹过来，有点冷。我站了一会儿，转身上楼。</p>
+    <p class="story-para">病房里很安静。另外两张床的病人睡了，一个在打呼噜。朱沐辰奶奶也睡了，呼吸平稳了些。我在床边坐下，折叠椅很硬，坐着不舒服。但我没去租折叠床，就这样坐着。</p>
+    <p class="story-para">窗外是城市的夜景，高楼亮着灯，远处有霓虹闪烁。我拿出手机，没有短信。时间显示晚上九点二十。我又等了一会儿，九点半，手机震了一下。</p>
+    <p class="story-para">两个字：“到了。”</p>
+    <p class="story-para">我回：“锁好门，早点睡。”</p>
+    <p class="story-para">他回：“嗯。奶奶怎么样？”</p>
+    <p class="story-para">“睡了，没事。”</p>
+    <p class="story-para">“谢谢。”</p>
+    <p class="story-para">我没再回。把手机放回口袋，靠着椅背。病房里的灯调暗了，只有仪器屏幕发着微光。液体一滴一滴往下掉，很有规律。我听着那个声音，眼皮越来越重。</p>
+    <p class="story-para">半梦半醒间，感觉到有人碰我的手。我睁开眼，是朱沐辰奶奶。她醒了，眼睛半睁着，看着我。我想站起来，她摇摇头，很轻地动了动手指，指向旁边的柜子。</p>
+    <p class="story-para">柜子上放着她的包。我拿过来，她示意我打开。里面有些零钱，一张存折，还有个小本子。我拿出本子，翻开，是通讯录。她指了指其中一个名字，又指了指我手里的手机。</p>
+    <p class="story-para">我明白了，拨通那个号码。响了几声，接通了，是个女声，带着睡意：“喂？”</p>
+    <p class="story-para">“你好，我是朱玉芳的……”我顿了一下，“邻居。她心脏病发了，在医院。你是她女儿吗？”</p>
+    <p class="story-para">电话那头沉默了几秒，然后声音清醒了：“哪家医院？病房号？”</p>
+    <p class="story-para">我报了信息。对方说：“我明天早上的车，中午能到。麻烦你先照看一下，医药费我到了给你。”</p>
+    <p class="story-para">“好。”</p>
+    <p class="story-para">挂了电话，老人看着我，眼睛里有种我说不清的情绪。她动了动嘴唇，我凑近听，听见很轻的两个字：“谢谢。”</p>
+    <p class="story-para">我摇摇头，帮她掖好被角。她又闭上眼睛，呼吸渐渐平稳。我坐回椅子，这次彻底睡不着了。窗外的天从漆黑变成深蓝，又从深蓝变成灰白。走廊里开始有脚步声，说话声，新的一天开始了。</p>
+    <p class="story-para">早上七点，护士来查房。量血压，测体温，记录数据。我出去洗了把脸，冷水让人清醒。回来时，看见朱沐辰站在病房门口，背着书包，手里拎着个保温桶。</p>
+    <p class="story-para">“你怎么来了？”我问，“不是让你上学吗？”</p>
+    <p class="story-para">“我请假了。”他说，走进病房，把保温桶放在柜子上，“我给奶奶煮了粥。”</p>
+    <p class="story-para">他打开保温桶，倒出一小碗粥。粥熬得很烂，米粒都开花了。他舀起一勺，吹了吹，递到奶奶嘴边。老人慢慢喝下去，一口，两口。喝了小半碗，摇摇头。</p>
+    <p class="story-para">“再喝点。”朱沐辰小声说。</p>
+    <p class="story-para">“饱了。”老人开口，声音很哑。</p>
+    <p class="story-para">朱沐辰放下碗，用纸巾给奶奶擦嘴。动作很轻，很仔细。然后他拧了毛巾，给奶奶擦脸，擦手。做完这些，他坐在床边的椅子上，从书包里拿出本书，安静地看。</p>
+    <p class="story-para">我出去买早饭。医院食堂人很多，我买了包子豆浆，带回病房。朱沐辰接过包子，小口小口地吃。他眼睛下有淡淡的青色，昨晚应该没睡好。</p>
+    <p class="story-para">“你回家睡会儿。”我说。</p>
+    <p class="story-para">“不用。”</p>
+    <p class="story-para">“我在这儿看着。”</p>
+    <p class="story-para">“我要在这儿。”</p>
+    <p class="story-para">我们又陷入僵持。最后他妥协了，说下午再回去。整个上午，他就坐在那儿，一会儿看看奶奶，一会儿看看书。有人进来换药，他就站起来让开。有人来量体温，他就帮忙递体温计。中午，他妈妈来了。</p>
+    <p class="story-para">是个看起来很干练的女人，提着行李箱，风尘仆仆。她先去看老人，说了几句话，然后转向我，把我叫到走廊。</p>
+    <p class="story-para">“谢谢您。”她说，从包里拿出个信封，“医药费，还有这两天的辛苦费。”</p>
+    <p class="story-para">我没接：“医药费就行。”</p>
+    <p class="story-para">她坚持，我只好收下。点了一下，多了五百。我抽出来还给她，她推回来：“应该的。我听说，这段时间都是您在帮忙。”</p>
+    <p class="story-para">“谈不上帮忙。”我说，“邻里之间。”</p>
+    <p class="story-para">她看着我，眼神里有审视，也有感激，混杂在一起。“我请了假，能待一周。之后……之后再说吧。小辰这段时间麻烦您了。”</p>
+    <p class="story-para">“他挺懂事的。”</p>
+    <p class="story-para">“就是太懂事了。”她说，声音低下去，转头看向病房。透过玻璃窗，能看见朱沐辰坐在床边，正低头削苹果。苹果皮连成长长的一条，垂下来，没有断。</p>
+    <p class="story-para">我们又说了几句，关于病情，关于后续治疗。然后我告辞，说下午还要上工。她再次道谢，送我到电梯口。</p>
+    <p class="story-para">我回到病房，跟朱沐辰说我要走了。他站起来，送我到门口。走廊里人来人往，他站在那儿，看着我，像有什么话要说，但最后只是点点头。</p>
+    <p class="story-para">“晚上我来。”他说。</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">我转身要走，他叫住我。</p>
+    <p class="story-para">“黄铭哲。”</p>
+    <p class="story-para">我回头。他站在病房门口，白色的门框衬得他更加单薄。他看着我，很认真地说：“谢谢你。谢谢你没丢下我。”</p>
+    <p class="story-para">他说得很轻，但每个字都很清晰。走廊的灯光打在他脸上，照出他眼睛里的光。我张了张嘴，想说什么，但最后只是点点头。</p>
+    <p class="story-para">“走了。”我说。</p>
+    <p class="story-para">他站在那儿，直到我走进电梯。电梯门关上，最后看见的是他小小的身影，在白色的走廊里，越来越远。</p>
+    <p class="story-para">走出医院，阳光很刺眼。我眯了眯眼，摸出烟盒，最后一根。点上，抽了一口，尼古丁让人稍微平静。我骑车回工地，一路上想着他说的那句话。</p>
+    <p class="story-para">“谢谢你没丢下我。”</p>
+    <p class="story-para">风吹在脸上，带着初夏的热意。街上人来人往，每个人都匆匆忙忙，朝着各自的方向去。我在红灯前停下，看着对面高楼玻璃幕墙上反射的阳光，很亮，亮得让人睁不开眼。</p>
+    <p class="story-para">绿灯亮了。我蹬动车子，汇入车流。口袋里的手机震了一下，是工头，问我下午能不能去趟新工地。我回了个“好”，把烟蒂扔进路边的垃圾桶。</p>
+    <p class="story-para">烟蒂在空中划了道弧线，准确落入桶内。我继续往前骑，风吹起工装的衣角，扑啦啦地响。</p>
+  </section>
+    <section class="chapter" id="c6">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 6</div>
+        <h2 class="ch-zh">邻里的非议</h2>
+        <div class="ch-rule"></div>
+      </div>
+    <p class="story-para">奶奶出院是两周后的事。</p>
+    <p class="story-para">那天我去帮忙接。朱沐辰妈妈已经回去了，临走前给家里请了个钟点工，每天来三小时，做饭打扫。但朱沐辰说不用，他自己能行。他妈拗不过他，只好作罢。</p>
+    <p class="story-para">医院门口，朱沐辰扶着他奶奶慢慢走出来。老人气色好些了，但走路还是很慢，一步一顿。我接过她手里的包，另一只手虚扶着她的胳膊。她看我一眼，没说话，任由我扶着。</p>
+    <p class="story-para">出租车停在小区门口。下车时，楼上阳台有人探出头看，很快又缩回去。我没在意，扶着老人慢慢上楼。三楼，台阶对她来说有些吃力，走几级就要停一停。朱沐辰走在她另一侧，手一直放在她背后，随时准备搀扶。</p>
+    <p class="story-para">到家后，老人说想躺会儿。朱沐辰扶她进卧室，我站在客厅等着。茶几上摆着药盒，七八个瓶子，上面贴着标签，写着用法用量。我拿起一个看了看，是降压药。</p>
+    <p class="story-para">朱沐辰从卧室出来，轻轻带上门。“医生说要多休息，不能累着。”</p>
+    <p class="story-para">“嗯。”我把包放在沙发上，“这些天有什么事，给我打电话。”</p>
+    <p class="story-para">“好。”</p>
+    <p class="story-para">“煤气会用吗？”</p>
+    <p class="story-para">“会。”</p>
+    <p class="story-para">“药记得按时吃。”</p>
+    <p class="story-para">“记着呢。”他从口袋里掏出个小本子，翻开给我看。上面用不同颜色的笔记着每种药的服用时间，早中晚，饭前饭后，清清楚楚。</p>
+    <p class="story-para">我点点头。客厅里很安静，能听见卧室里老人翻身时床板的吱呀声。阳光从窗户斜射进来，照在沙发上，能看见空气中浮动的微尘。</p>
+    <p class="story-para">“那我走了。”我说。</p>
+    <p class="story-para">“等等。”他跑进厨房，很快拿着个饭盒出来，“给你做的。”</p>
+    <p class="story-para">饭盒是塑料的，透明的盖子，能看见里面装着米饭和菜。我接过来，还是温的。</p>
+    <p class="story-para">“谢谢。”</p>
+    <p class="story-para">“不客气。”他送我出门。楼道里很暗，声控灯没亮。他站在门口，看着我下楼。走到二楼拐角时，我回头看了一眼，他还站在那里，门缝里透出的光勾勒出他小小的轮廓。</p>
+    <p class="story-para">那之后我隔天会去一次。有时候是下班顺路，有时候是特意绕过去。大多是晚上七八点，那时候朱沐辰刚写完作业，奶奶也吃了药准备休息。</p>
+    <p class="story-para">我去的时候会带点东西。有时是水果，有时是楼下买的馒头包子。朱沐辰总是接过去，小声说谢谢，然后端出他做的饭。有时是炒饭，有时是面条，有一次甚至是饺子，他自己擀的皮，大小不一，但都捏得很紧，煮的时候没破。</p>
+    <p class="story-para">我们就在客厅的小茶几上吃。茶几很矮，我得弓着背。他坐我对面，吃得很慢，一边吃一边说些学校的事。数学测验考了九十分，语文老师表扬他作文写得好，体育课跑了倒数第二——但他说这次有人比他更慢。</p>
+    <p class="story-para">奶奶大多时候在卧室休息，偶尔会出来坐坐。她话不多，只是看着我，眼神里有种复杂的东西。有时候她会说“小黄，又麻烦你了”，我说不麻烦。她点点头，又慢慢挪回房间。</p>
+    <p class="story-para">有一次我去得早，六点多，天还没黑透。在楼下碰见三楼另一户的大妈，提着菜篮子正要上楼。她看见我，脚步顿了一下。</p>
+    <p class="story-para">“又来看小辰啊？”她问，脸上带着笑，但笑得不怎么自然。</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“真是热心。”她说，上下打量我一眼，“年轻人，心眼好。”</p>
+    <p class="story-para">我没接话，点点头上楼了。敲门，朱沐辰来开。他系着围裙，手里还拿着锅铲。</p>
+    <p class="story-para">“在做饭？”我问。</p>
+    <p class="story-para">“炒土豆丝。”他说，跑回厨房。我跟进去，厨房里油烟很重，抽油烟机坏了，呼呼地响但没什么用。他踮着脚在炒菜，锅对他来说有点沉，他得用两只手才能颠动。</p>
+    <p class="story-para">“我来吧。”我说。</p>
+    <p class="story-para">“不用，马上好了。”</p>
+    <p class="story-para">他坚持自己炒完。出锅，装盘，土豆丝切得粗细不均，有的已经焦了，有的还生着。但他很认真地把它们摆好，又撒了点葱花。</p>
+    <p class="story-para">“尝尝。”他递过来一双筷子。</p>
+    <p class="story-para">我夹了一筷子，放进嘴里。咸了，而且没炒匀。但我点头说好吃。他眼睛亮了亮，自己也尝了一口，然后皱起眉：“好咸。”</p>
+    <p class="story-para">“配饭吃正好。”</p>
+    <p class="story-para">他看看我，又看看盘子，小声说：“下次我少放点盐。”</p>
+    <p class="story-para">那顿饭我们吃得很慢。他一直在观察我的表情，我每吃一口，他就问一句“咸不咸”，我说不咸，他就松口气。吃到一半，奶奶出来了，坐在沙发上看着我们。她没说话，只是看着，手里的佛珠一颗一颗地拨。</p>
+    <p class="story-para">吃完饭，我洗碗。朱沐辰在旁边擦灶台，突然说：“今天王奶奶问我了。”</p>
+    <p class="story-para">“问什么？”</p>
+    <p class="story-para">“问你是不是我亲戚。”他低着头，用力擦着一块油渍，“我说不是，是邻居。她说邻居怎么天天来。”</p>
+    <p class="story-para">我没说话，水龙头开得很大，水哗哗地冲在碗上。</p>
+    <p class="story-para">“我说你人好，帮我们。”他继续说，声音越来越小，“她说……她说现在好人不多，让我小心点。”</p>
+    <p class="story-para">碗洗好了，我关掉水。厨房里突然安静下来，能听见客厅电视的声音，很小，是新闻联播。</p>
+    <p class="story-para">“她说得对。”我说。</p>
+    <p class="story-para">朱沐辰抬头看我，眼睛睁得很大。</p>
+    <p class="story-para">“你是该小心点。”我擦干手，转过身看他，“对陌生人都要小心。”</p>
+    <p class="story-para">“你不是陌生人。”他说，声音很轻，但很肯定。</p>
+    <p class="story-para">我没接话，把碗放进橱柜。柜门关上的时候发出砰的一声，在安静的厨房里显得很响。</p>
+    <p class="story-para">离开的时候，在楼道里碰见了那位王奶奶。她正下楼扔垃圾，看见我，又看看我身后的门，欲言又止。我侧身让她先过，她走了两步，回头说：“年轻人，有句话不知当讲不当讲。”</p>
+    <p class="story-para">“您说。”</p>
+    <p class="story-para">“小辰那孩子，命苦。”她压低声音，“爸妈不管，奶奶身体又那样。你帮忙，是好事。但……”</p>
+    <p class="story-para">她顿了顿，似乎在斟酌用词：“但人言可畏啊。你一个大小伙子，天天往他家跑，街坊邻居看着，难免说闲话。”</p>
+    <p class="story-para">我没说话。楼梯间的窗户没关，风吹进来，带着楼下垃圾桶的馊味。</p>
+    <p class="story-para">“我是为你好。”她说，“也为那孩子好。他还小，不懂这些。你是大人，该明白。”</p>
+    <p class="story-para">“我明白。”我说，“谢谢您提醒。”</p>
+    <p class="story-para">她叹了口气，摇摇头，下楼去了。脚步声渐渐远去。我站在楼道里，声控灯灭了，四周一片黑暗。我在黑暗里站了一会儿，然后摸黑下楼。</p>
+    <p class="story-para">走出单元门，天完全黑了。路灯亮着，几只飞蛾围着灯罩打转。我点了根烟，没抽，看着烟头的红光在黑暗里明明灭灭。</p>
+    <p class="story-para">之后几天我没去。工头派我去郊区一个新工地，每天早出晚归，回到家倒头就睡。手机很安静，没有电话，也没有短信。周五晚上，我洗完澡躺在床上，突然想起今天是周六前一天。</p>
+    <p class="story-para">按照之前的约定，明天下午朱沐辰会来我这儿写作业。但我没告诉他我这周不在家。</p>
+    <p class="story-para">我拿起手机，翻到通讯录里那个号码。备注是“朱沐辰”，是他自己存的。我想了想，发了条短信：“明天我加班，不用来了。”</p>
+    <p class="story-para">发送。等了几分钟，没有回复。我把手机扔在一边，闭上眼睛。很累，但睡不着。窗外有猫在叫，一声接一声，凄厉得很。</p>
+    <p class="story-para">不知过了多久，手机震了一下。我拿起来看，只有一个字：“哦。”</p>
+    <p class="story-para">我盯着那个字看了很久。屏幕暗了，我按亮，又暗了，又按亮。最后我把手机扣在床头柜上，翻了个身，脸埋进枕头里。</p>
+    <p class="story-para">第二天我确实去了工地，但下午三点就收工了。工头说材料没到，干不了，让大家先回。我骑车往回走，路过菜市场时停下来，买了点排骨和萝卜。天有点阴，像是要下雨。</p>
+    <p class="story-para">回到家，我炖上排骨。水开了，撇去浮沫，放姜片，转小火。房间里很快充满肉香。我坐在窗边，看着外面。天越来越阴，云层很厚，远处传来隐隐的雷声。</p>
+    <p class="story-para">四点，雨开始下。先是几滴，然后密起来，敲在窗玻璃上噼啪作响。我想起朱沐辰今天没带伞，他总是不记得带伞。有次下雨，他跑回家，浑身湿透，第二天就感冒了。</p>
+    <p class="story-para">排骨炖了一个小时，汤变成奶白色。我关火，盛了一碗。很烫，我小口小口地喝。汤很鲜，但一个人喝，总觉得少了点什么。</p>
+    <p class="story-para">雨越下越大。我看了眼手机，四点四十。他应该已经回家了——如果没去我那儿的话。但如果他去了呢？如果他在我门口等，等到现在呢？</p>
+    <p class="story-para">我放下碗，抓起伞冲出门。楼道里很暗，我几乎是一步两阶地往下跑。到三楼时，我停了一下。302的门关着，里面亮着灯。我犹豫了几秒，继续下楼。</p>
+    <p class="story-para">雨真的很大，砸在伞面上像打鼓。我跑到我那栋楼，冲上四楼。走廊里空荡荡的，我门口没有人。我松了口气，又觉得心里空了一块。</p>
+    <p class="story-para">开门进屋，排骨汤还热着。我坐在桌边，继续喝。喝到一半，传来敲门声。</p>
+    <p class="story-para">很轻，很犹豫的敲门声。我起身开门。</p>
+    <p class="story-para">朱沐辰站在门外，浑身湿透。头发贴在脸上，水珠顺着发梢往下滴。他手里拿着书包，抱在怀里，但书包也湿了，往下滴水。他看着我，嘴唇冻得发紫。</p>
+    <p class="story-para">“我……我以为你在家。”他说，声音在抖。</p>
+    <p class="story-para">“进来。”我拉他进屋，关上门。他站在门口，脚下很快积了一小摊水。我拿来毛巾，扔给他。“擦干。”</p>
+    <p class="story-para">他接过毛巾，但没动，只是看着我：“你说你加班。”</p>
+    <p class="story-para">“提前回来了。”我说，“你怎么湿成这样？”</p>
+    <p class="story-para">“我没带伞。”他小声说，开始用毛巾擦头发。动作很慢，好像力气都用完了。</p>
+    <p class="story-para">“去洗个热水澡。”我说，“会感冒。”</p>
+    <p class="story-para">他摇头：“不用，擦干就好。”</p>
+    <p class="story-para">“去洗。”我语气重了些。</p>
+    <p class="story-para">他看我一眼，低下头，慢慢地走向卫生间。我听见水声响起，才转身去厨房，把剩下的排骨汤热了热。又下了把面条，等面熟的时候，我从衣柜里找出件干净的T恤和运动裤，放在卫生间门口。</p>
+    <p class="story-para">“衣服放门口了。”我敲敲门。</p>
+    <p class="story-para">水声停了，里面传来很轻的“嗯”。</p>
+    <p class="story-para">面煮好了，我盛了一大碗，上面铺满排骨和萝卜。朱沐辰从卫生间出来，穿着我的衣服。衣服太大了，T恤下摆到他膝盖，袖子卷了好几道。裤子更长，他得用手提着。</p>
+    <p class="story-para">“吃吧。”我把碗推过去。</p>
+    <p class="story-para">他坐下，拿起筷子。吃得很慢，很小心，像怕弄脏衣服。我坐在对面，看着他吃。热气腾起来，模糊了他的脸。他吃了好几口，才小声说：“好吃。”</p>
+    <p class="story-para">“多吃点。”</p>
+    <p class="story-para">他点头，继续吃。吃到一半，他抬起头：“今天下午……我在你家门口等了很久。”</p>
+    <p class="story-para">“我知道。”</p>
+    <p class="story-para">“我以为你很快就回来。”</p>
+    <p class="story-para">“对不起。”我说，“我该早点告诉你。”</p>
+    <p class="story-para">他摇摇头，又低下头吃面。吃完最后一口，他放下筷子，碗里连汤都喝光了。他看看碗，又看看我，小声说：“我还能来吗？”</p>
+    <p class="story-para">我没立刻回答。他看着我，眼睛很亮，带着水汽，不知道是刚洗完澡的缘故，还是别的。</p>
+    <p class="story-para">“下周吧。”我说。</p>
+    <p class="story-para">“下周几？”</p>
+    <p class="story-para">“老时间，周六下午。”</p>
+    <p class="story-para">他点点头，嘴角弯了一下，但很快又抿平。他站起来：“我该回去了，奶奶该吃药了。”</p>
+    <p class="story-para">“我送你。”</p>
+    <p class="story-para">“不用，雨小了。”</p>
+    <p class="story-para">我走到窗边看了看，雨确实小了，变成细细的雨丝。但我还是拿起伞：“走吧。”</p>
+    <p class="story-para">我们一起下楼。雨后的空气很清新，带着泥土的味道。路灯已经亮了，地上积着水，倒映着昏黄的光。我们并排走着，伞不大，我得把伞往他那边倾。他没说话，只是跟着我的步子。</p>
+    <p class="story-para">到他家楼下，他停下脚步：“我上去了。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">他转身要进楼，又回头：“下周六，两点。”</p>
+    <p class="story-para">“两点。”</p>
+    <p class="story-para">他笑了，这次是真的笑，眼睛弯起来。然后他跑进楼道，脚步声咚咚咚地响，渐渐往上。我站在楼下，看着三楼的灯亮起来，然后窗帘被拉开一条缝。他在窗口朝我挥挥手。</p>
+    <p class="story-para">很小幅度的挥手。我也抬了抬手，然后转身往回走。</p>
+    <p class="story-para">雨停了，但天还阴着。我收起伞，慢慢走着。路过小卖部时，老板娘正在关门，看见我，打了个招呼：“小黄，刚送小辰回家啊？”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“那孩子挺粘你的。”她说，拉下卷帘门，“不过也是，家里没个大人，怪可怜的。”</p>
+    <p class="story-para">我没接话，继续往前走。身后传来卷帘门落锁的咔哒声，在安静的巷子里显得很响。</p>
+    <p class="story-para">回到家，排骨汤已经凉了。我把碗洗了，桌子擦干净。手机在桌上震了一下，是朱沐辰发来的短信：“我到家了。今天谢谢你的衣服和面。”</p>
+    <p class="story-para">我回：“不客气。衣服下次还我就行。”</p>
+    <p class="story-para">他回：“好。晚安。”</p>
+    <p class="story-para">我没再回。把手机扔在桌上，走到窗边。雨后的夜空很干净，能看见几颗星星。对面楼的灯一盏盏熄灭，夜渐渐深了。</p>
+    <p class="story-para">我想起王奶奶的话，还有小卖部老板娘的眼神。人言可畏。四个字，很简单，但很重。</p>
+    <p class="story-para">我点了根烟，没开灯，就着窗外的光抽。烟雾在黑暗里散开，很快消失不见。抽到一半，我把烟按灭，拿出手机，翻到日历。下周六，我圈了个圈。</p>
+    <p class="story-para">然后我躺到床上，闭上眼睛。窗外的猫又开始叫，这次声音小了些，像是累了。</p>
+  </section>
+    <section class="chapter" id="c7">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 7</div>
+        <h2 class="ch-zh">偷偷的联系</h2>
+        <div class="ch-rule"></div>
+      </div>
+    <p class="story-para">那周我没有去他家。一次也没有。</p>
+    <p class="story-para">工头派我去城东一个新开的楼盘做水电预埋，每天天不亮出门，晚上八九点才回。工地离得远，我干脆住在工棚，一周只回来两趟拿换洗衣服。每次都是匆匆来去，上下楼尽量不弄出声音。</p>
+    <p class="story-para">周三晚上回来拿东西，在楼道里碰见了朱沐辰。他拎着垃圾袋下楼，看见我，愣了一下，垃圾袋差点脱手。</p>
+    <p class="story-para">“你……”他开口，又停住，眼睛看着我，像在确认什么。</p>
+    <p class="story-para">“回来拿东西。”我说，侧身让他过。</p>
+    <p class="story-para">他没动，站在那儿，手攥着垃圾袋的提手，塑料发出窸窸窣窣的响声。“你好几天没来了。”</p>
+    <p class="story-para">“忙。”</p>
+    <p class="story-para">“哦。”他低下头，盯着台阶上的一处裂缝。声控灯灭了，楼道陷入昏暗。几秒后，他跺了跺脚，灯又亮起来，惨白的光照着他头顶的发旋。</p>
+    <p class="story-para">“奶奶身体怎么样？”我问。</p>
+    <p class="story-para">“好多了。”他说，“能自己做饭了。”</p>
+    <p class="story-para">“那就好。”</p>
+    <p class="story-para">又是沉默。楼下有人开门，脚步声往上走。朱沐辰往旁边让了让，垃圾袋蹭到墙上，留下道灰印。上楼的是个年轻女人，提着购物袋，看见我们，脚步顿了顿，低头快步上去了。</p>
+    <p class="story-para">“我下去了。”朱沐辰说，往下走。走了两步回头，“你明天还来吗？”</p>
+    <p class="story-para">“不确定。”</p>
+    <p class="story-para">他点点头，继续下楼。我站在那儿，听着他的脚步声，很轻，一级一级，最后消失在一楼。垃圾车的声音响起，哐当哐当，然后安静了。</p>
+    <p class="story-para">我上楼开门，屋里一股闷了好几天的气味。窗户关着，窗帘拉着，地上有层薄灰。我开窗通风，收拾了几件衣服塞进背包。床头柜上放着那个铁皮文具盒，飞船图案在昏暗的光线里反着光。我把它拿起来，又放下。</p>
+    <p class="story-para">下楼时，三楼的门关着。我放轻脚步，但走到二楼时，还是听见门开了。我没回头，继续往下走。走出单元门，夜风吹过来，带着点凉意。我点了根烟，站在路边等车。</p>
+    <p class="story-para">工友老陈的车很快就到，他要去城东接老婆下班，顺路捎我。上车时，我回头看了一眼。三楼的窗户亮着灯，窗帘拉着，但能看见一个人影映在上面，小小的，站了很久。</p>
+    <p class="story-para">老陈顺着我的目光看过去：“看什么呢？”</p>
+    <p class="story-para">“没什么。”我关上车门。</p>
+    <p class="story-para">车开了。老陈打开收音机，里面在放一首老歌，女声沙哑地唱着。我靠着车窗，看外面掠过的路灯，一盏一盏，连成昏黄的线。</p>
+    <p class="story-para">“听说你最近常去那小孩家？”老陈突然问。</p>
+    <p class="story-para">我转头看他。他握着方向盘，眼睛盯着前方：“老王跟我说的，就住你们楼下的那个。”</p>
+    <p class="story-para">我没说话。</p>
+    <p class="story-para">“我没别的意思。”老陈说，换了档，“就是提醒你一句，那孩子家里情况特殊，街坊邻居的，嘴碎。你一个大小伙子，注意点影响。”</p>
+    <p class="story-para">“我知道。”</p>
+    <p class="story-para">“知道就好。”他叹了口气，“这年头，好人难做。你帮他是好心，但别人不这么想。尤其那孩子还小，万一有点什么事，说不清。”</p>
+    <p class="story-para">我没接话。收音机里的歌放完了，开始播广告，推销一种保健品，主持人声嘶力竭。老陈关掉收音机，车里安静下来，只有引擎的嗡嗡声。</p>
+    <p class="story-para">到工地已经十点多了。工棚里很吵，有人在打牌，有人在喝酒。我铺好床躺下，上铺的兄弟在打电话，声音很大，带着浓重的口音。我听不清他在说什么，只觉得吵。</p>
+    <p class="story-para">手机震了一下。是朱沐辰发来的短信：“你明天真的不来吗？”</p>
+    <p class="story-para">我盯着那行字，看了很久。然后回：“这周都忙，下周看。”</p>
+    <p class="story-para">“哦。”他回，很快又发来一条，“那下周六呢？”</p>
+    <p class="story-para">“下周六应该可以。”</p>
+    <p class="story-para">“好。”</p>
+    <p class="story-para">我没再回。把手机塞到枕头底下，闭上眼睛。上铺的电话打完了，四周安静了些。能听见远处公路上卡车驶过的声音，还有工棚外野狗的叫声，一声，两声，然后停了。</p>
+    <p class="story-para">周六下午两点，我站在出租屋的窗前。楼下巷子空荡荡的，只有几只麻雀在啄食地上的什么。阳光很好，晒得地面发白。我点了根烟，抽到一半时，看见了那个小小的身影。</p>
+    <p class="story-para">朱沐辰从巷子那头走过来，走得很慢，走走停停，不时回头看看。他没背书包，手里提着个塑料袋。走到楼下时，他抬头往上看。我退到窗帘后面，过了一会儿，听见很轻的敲门声。</p>
+    <p class="story-para">三下，停顿，又两下。是我们的暗号。</p>
+    <p class="story-para">我开门。他站在门外，脸有点红，喘着气，像是跑过来的。他把塑料袋递给我：“给你带的。”</p>
+    <p class="story-para">我接过来，里面装着两个饭盒。一个装着米饭，一个装着菜，西红柿炒鸡蛋，还有几片火腿。</p>
+    <p class="story-para">“我自己做的。”他说，眼睛亮亮的，“你尝尝。”</p>
+    <p class="story-para">“进来吧。”</p>
+    <p class="story-para">他走进来，在桌边坐下。我打开饭盒，饭菜还温着。鸡蛋炒得有点老，西红柿没去皮，火腿切得很厚。但我拿起筷子，吃了一口。</p>
+    <p class="story-para">“怎么样？”他问，身体微微前倾。</p>
+    <p class="story-para">“不错。”</p>
+    <p class="story-para">他笑了，肩膀放松下来。然后他从口袋里掏出个东西，放在桌上。是个魔方，三阶的，塑料有些旧了，贴纸掉了好几张。</p>
+    <p class="story-para">“这个，”他说，声音小了些，“你能帮我修修吗？转不动了。”</p>
+    <p class="story-para">我拿起来看了看，是里面的轴卡住了。我找出工具箱，拿出螺丝刀，小心地拆开。他在旁边看着，很专注的样子。拆开后发现是一个小塑料片碎了，卡在齿轮里。我用镊子夹出来，又上了点润滑油，重新装好。</p>
+    <p class="story-para">“试试。”我递给他。</p>
+    <p class="story-para">他接过去，转了转，很顺滑。他眼睛又亮了，低头开始拧，手指动得很快。魔方在他手里咔哒咔哒地响，颜色混乱又逐渐归位。我看了一会儿，继续吃饭。</p>
+    <p class="story-para">饭吃完了，他还在拧魔方。最后一面快拼好时，他停下来，抬头看我：“你会玩这个吗？”</p>
+    <p class="story-para">“不会。”</p>
+    <p class="story-para">“我教你。”他说，把魔方打乱，递给我，“很简单的，有公式。”</p>
+    <p class="story-para">我接过来，转了几下。“怎么教？”</p>
+    <p class="story-para">“先拼一面。”他搬着椅子坐到我旁边，手指着魔方，“你看，先找个颜色，把四个角块归位，然后……”</p>
+    <p class="story-para">他讲得很认真，语气像个小老师。我跟着他的指示转，但总是错。他也不急，一遍遍演示，声音很轻，很耐心。阳光从窗外照进来，照在他手上，能看见手指上细小的伤痕，是切菜时留下的。</p>
+    <p class="story-para">“这里应该往左。”他说，手覆在我手上，带着我转了一下。他的手很小，很凉，掌心有薄薄的茧。转完他立刻松开，坐回原来的位置，耳朵有点红。</p>
+    <p class="story-para">我继续转，这次对了。魔方的一面拼好了，虽然乱七八糟，但那几个红色的块确实聚在了一起。</p>
+    <p class="story-para">“看，成了。”他指着那面红色，有点得意。</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“多练几次就会了。”他说，从口袋里又掏出个小本子，翻开，里面用铅笔画着各种公式和步骤，“这个给你，我抄的。”</p>
+    <p class="story-para">我接过来。本子很薄，纸质粗糙，字写得很工整，每个步骤都配有简单的图示。我翻了几页，抬头看他：“你花了多久学的？”</p>
+    <p class="story-para">“一个礼拜。”他说，“数学课教的，老师说玩这个锻炼思维。”</p>
+    <p class="story-para">“数学课还教这个？”</p>
+    <p class="story-para">“嗯，兴趣小组。”他顿了顿，声音低下去，“不过我退了，要回家做饭。”</p>
+    <p class="story-para">我没说话。魔方在我手里，塑料的棱角硌着手心。窗外传来收废品的吆喝声，拖着长长的尾音，渐渐远去。</p>
+    <p class="story-para">“你奶奶，”我开口，又停住，重新组织语言，“她知道你来这儿吗？”</p>
+    <p class="story-para">他摇摇头，手指绞在一起：“我说去同学家写作业。”</p>
+    <p class="story-para">“撒谎不好。”</p>
+    <p class="story-para">“我知道。”他声音更低了，“可是……可是我想来。”</p>
+    <p class="story-para">我看着手里的魔方，红色那一面在光下很刺眼。我把魔方放下，说：“以后别撒谎了。想来就直接来，但别骗人。”</p>
+    <p class="story-para">他抬头看我，眼睛睁得很大：“那如果奶奶不让呢？”</p>
+    <p class="story-para">“那就不来。”</p>
+    <p class="story-para">他抿紧嘴唇，低下头，头发垂下来遮住眼睛。过了很久，他说：“可我想来。”</p>
+    <p class="story-para">声音很轻，但很固执。我张了张嘴，想说什么，但最后只是叹了口气。“随你吧。”</p>
+    <p class="story-para">他又抬起头，眼睛亮了亮。然后他拿起魔方，重新打乱：“我们再来一次，这次我慢点教。”</p>
+    <p class="story-para">我们又练了一个小时。我还是没完全学会，但能拼出两面了。他很有耐心，一遍遍纠正，声音一直很轻。阳光渐渐西斜，在墙上投下长长的影子。</p>
+    <p class="story-para">四点，他该回去了。他站起来，收拾饭盒，动作很慢，像在拖延时间。我把魔方和本子递给他，他接过去，抱在怀里。</p>
+    <p class="story-para">“下周六，”他说，看着我，“还能来吗？”</p>
+    <p class="story-para">“能。”</p>
+    <p class="story-para">“那……”他犹豫了一下，“我能晚上来吗？晚上奶奶睡得早，不会发现。”</p>
+    <p class="story-para">我想了想：“几点？”</p>
+    <p class="story-para">“八点。八点到九点，就一个小时。”他语速很快，像背了很久的台词。</p>
+    <p class="story-para">“太晚了，不安全。”</p>
+    <p class="story-para">“就一个小时。”他重复，眼睛盯着我，眼神里有种近乎哀求的东西，“我跑着来，跑着回，很快的。”</p>
+    <p class="story-para">我看着他。他站在那儿，抱着魔方和饭盒，背挺得笔直，但肩膀微微发抖。窗外传来小孩的嬉闹声，很响，衬得屋里更安静。</p>
+    <p class="story-para">“八点半。”我说，“八点半到九点。九点必须走。”</p>
+    <p class="story-para">他用力点头，嘴角弯起来，笑得眼睛眯成一条缝。“好！八点半，我准时到。”</p>
+    <p class="story-para">“别跑，看着路。”</p>
+    <p class="story-para">“嗯！”</p>
+    <p class="story-para">他走到门口，又回头：“那我走了。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">他开门出去，脚步声咚咚咚地跑下楼，很急，但很轻。我走到窗边，看着他从楼里跑出来，穿过巷子，脚步轻快，几乎要跳起来。跑到拐角时，他回头往上看了一眼，朝我挥挥手，然后消失了。</p>
+    <p class="story-para">我站在窗边，点了根烟。夕阳把巷子的墙面染成橘红色，晾晒的衣服在风里摇晃。楼下那对夫妻在吵架，声音很大，摔东西的声音。然后是一阵沉默，接着是女人的哭声，压抑的，断断续续的。</p>
+    <p class="story-para">烟抽完了，我把烟蒂扔出窗外。红色的光点划了道弧线，落进路边的积水里，发出轻微的嘶声。我拉上窗帘，屋里暗下来。</p>
+    <p class="story-para">桌上还摆着那双筷子，我用过的。我拿起来，走到水池边，拧开水龙头。水很凉，冲在手上，我慢慢地把筷子洗干净，用抹布擦干，放进抽屉。</p>
+    <p class="story-para">然后我坐下来，翻开那个小本子。魔方公式画得很仔细，每一步都标了箭头。最后一页的角落里，用很小的字写着：“谢谢你来。”</p>
+    <p class="story-para">字写得有点歪，可能是趴在桌上写的。我盯着那四个字看了很久，然后合上本子，放进抽屉的最里面。</p>
+    <p class="story-para">手机响了，是工头，问我明天能不能早点去工地。我说能。挂了电话，我躺在床上，看着天花板上那道裂缝。裂缝比上次看见时又长了些，像黑色的闪电。</p>
+    <p class="story-para">八点半到九点。我在心里重复了一遍。半个小时，不长，但也不短。</p>
+    <p class="story-para">窗外的天渐渐黑了。路灯亮起来，光从窗帘缝里漏进来，在地上投下一道细长的亮线。我闭上眼睛，听见远处传来的车声，还有不知谁家的狗在叫。</p>
+    <p class="story-para">很轻，很远的叫声，像从另一个世界传来。</p>
+  </section>
+    <section class="chapter" id="c8">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 8</div>
+        <h2 class="ch-zh">现实的重击</h2>
+        <div class="ch-rule"></div>
+      </div>
+    <p class="story-para">事故发生在周二上午，城西那个旧厂房改造工地。</p>
+    <p class="story-para">我在二楼布电线，走廊很暗，只有尽头的小窗透进来一点光。地上堆着拆除下来的废料，钢筋、碎砖、朽木板。我抱着电缆小心地走，但还是踩到了块松动的木板。木板下面是空的，我整个人往下坠，下意识用手撑地，手腕传来一阵剧痛。</p>
+    <p class="story-para">掉下去的高度不高，大概一米多，是个废弃的通风井。底下全是碎砖块和水泥渣。我坐在地上，疼得眼前发黑。左手腕动不了了，肿得很快，肉眼可见地鼓起一个包。</p>
+    <p class="story-para">楼上有人喊：“小黄？小黄你没事吧？”</p>
+    <p class="story-para">是工友小李。我咬着牙说：“没事，脚滑了。”</p>
+    <p class="story-para">“能上来吗？”</p>
+    <p class="story-para">“能。”</p>
+    <p class="story-para">我试着用右手撑地站起来，左腕疼得冷汗直冒。小李从上面伸手拉我，我借着他的力爬上去。上去后才发现不止手腕，右边膝盖也磕破了，工装裤撕了个口子，血渗出来，和灰土混在一起。</p>
+    <p class="story-para">“得去医院。”小李说。</p>
+    <p class="story-para">“不用，扭了一下。”</p>
+    <p class="story-para">“肿成这样还不用？”小李抓起我的手腕，我疼得倒抽一口冷气。“必须去。走，我送你去。”</p>
+    <p class="story-para">我拗不过他。工地门口有辆破面包车，小李扶我上车，一路开到医院。急诊科人很多，等了半小时才轮到我。医生捏了捏我的手腕，我疼得脸都白了。</p>
+    <p class="story-para">“先去拍个片子。”医生说。</p>
+    <p class="story-para">拍片，等结果。小李在旁边坐立不安，一直说“应该没事的应该没事的”。我靠在塑料椅上，左手越来越肿，皮肤绷得发亮，一跳一跳地疼。</p>
+    <p class="story-para">片子出来，腕骨骨裂，要打石膏。医生开单子的时候说：“得养一个月，这期间这只手不能用劲。”</p>
+    <p class="story-para">“一个月？”我问。</p>
+    <p class="story-para">“最少一个月。”医生头也不抬，“重活不能干，这只手不能受力。去缴费吧。”</p>
+    <p class="story-para">缴费单上的数字让我眼皮一跳。小李抢着要去交，我拦住他：“我自己来。”</p>
+    <p class="story-para">“你都这样了——”</p>
+    <p class="story-para">“我自己来。”我重复，语气有点重。小李愣了一下，没再坚持。</p>
+    <p class="story-para">我掏出钱包，里面的现金不够。又拿出银行卡，刷掉了大半。交完费回到诊室，护士给我打石膏。冰凉的石膏糊在手臂上，很快变硬，沉甸甸的。打好后，左臂从手指到肘部都被固定住了，像个白色的大棒槌。</p>
+    <p class="story-para">“回去注意别碰水，别用力。”护士说，“每周来复查一次。”</p>
+    <p class="story-para">“谢谢。”</p>
+    <p class="story-para">走出医院，天已经黑了。小李说要送我回工地拿东西，我说不用，我自己能行。他看看我的手臂，又看看我，叹了口气：“那你小心点。我跟工头说一声，这阵子你好好养着。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">我在医院门口拦了辆出租车，报了个地址。不是工地，是出租屋。路上，我试着动了动左手手指，还能动，但手腕处传来钝痛。我靠着车窗，看着外面掠过的霓虹灯，一家家饭店、商店、网吧，灯火通明，人影幢幢。</p>
+    <p class="story-para">回到家，屋里一片漆黑。我没开灯，摸黑走到床边，躺下。石膏很重，压得我左半边身子发麻。我平躺着，盯着天花板，脑子一片空白。</p>
+    <p class="story-para">手机响了。是工头。我接了，没说话。</p>
+    <p class="story-para">“小黄，小李跟我说了。”工头的声音从那头传来，带着点无奈，“你怎么这么不小心？”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“伤得重不重？”</p>
+    <p class="story-para">“骨裂，打石膏了。”</p>
+    <p class="story-para">那边沉默了几秒。“那你先养着。这阵子工地活紧，我找别人替你了。等你好了再说。”</p>
+    <p class="story-para">“工钱呢？”我问。</p>
+    <p class="story-para">“这……”工头顿了顿，“你活儿没干完，医药费工地给你报了，但工钱……你看你也干不了活，我这还得找人替你，这费用……”</p>
+    <p class="story-para">“我明白。”我说。</p>
+    <p class="story-para">“你别多想，先养好伤。以后有机会再合作。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">挂了电话，我把手机扔在一边。屋子里很静，能听见自己的呼吸声，还有窗外马路上的车声。我躺了很久，直到肚子咕咕叫起来。</p>
+    <p class="story-para">我爬起来，用一只手艰难地脱掉沾满灰土的外套。右膝的伤口已经结痂了，但一动就疼。我单脚跳着去卫生间，用右手接了捧水，抹了把脸。水很凉，让人稍微清醒了些。</p>
+    <p class="story-para">回到房间，我打开灯。桌上还放着那个魔方，朱沐辰上次落下的。我拿起来，试着用右手转，很笨拙，转几下就掉了。魔方滚到地上，散成几块。我蹲下去捡，石膏太重，差点摔倒。</p>
+    <p class="story-para">捡起魔方块，我坐在床边，试图拼回去。但一只手不行，试了几次都失败了。我把魔方块扔回桌上，塑料碰撞发出清脆的响声。</p>
+    <p class="story-para">晚饭没吃，不饿，只是累。我躺回床上，闭上眼睛。左臂的疼痛一阵一阵的，不剧烈，但持续，像背景噪音，让人无法忽视。我试着数数，数到一百，两百，三百，还是睡不着。</p>
+    <p class="story-para">凌晨三点，我坐起来，点了根烟。右手点烟有点不习惯，打火机摁了好几次才着。我抽着烟，在黑暗里坐着。烟头的红光在黑暗里明明灭灭，像某种微弱的信号。</p>
+    <p class="story-para">天亮时我才迷迷糊糊睡去。睡得不沉，做了很多乱七八糟的梦。梦见工地塌了，我被埋在里面，怎么喊都没人应。梦见自己在数钱，数着数着钱变成了白纸。还梦见朱沐辰，远远地站着，我想走过去，但脚被钉住了，怎么也动不了。</p>
+    <p class="story-para">醒来时已经是下午。阳光从窗帘缝里射进来，在地上切出一道亮线。我坐起来，左臂还是沉，但疼得轻了些。我下床，用一只手勉强煮了包泡面。调料包撕不开，我用牙齿咬，撒了一身。最后面煮好了，很淡，盐放少了。</p>
+    <p class="story-para">吃完面，我数了数剩下的钱。现金还有三百多，银行卡里不到一千。房租这个月底要交，六百。水电费还没算。石膏每周要复查，一次挂号费加换药，至少一百。吃饭，一天就算二十，一个月也要六百。</p>
+    <p class="story-para">我放下钱，点了根烟。烟盒里还剩最后三根。我抽得很慢，想让这支烟烧得久些。但烟还是很快抽完了，我把烟蒂按在易拉罐里，罐子已经满了，烟蒂堆成一个小山。</p>
+    <p class="story-para">手机又响了。是房东。我盯着屏幕上跳动的名字，看了很久，直到自动挂断。过了一会儿，短信来了：“小黄，月底了，房租该交了。看到回电。”</p>
+    <p class="story-para">我没回。把手机调成静音，扔在枕头上。</p>
+    <p class="story-para">接下来的三天，我几乎没出门。每天睡到中午，起来煮泡面，吃完了就坐着，或者躺着。手腕的疼慢慢变成酸胀，石膏边缘磨得皮肤发红。我试着用一只手洗衣服，很费劲，拧不干，晾出去的水滴了一地。</p>
+    <p class="story-para">周五晚上，我决定出去走走。一只手穿外套很麻烦，我折腾了半天才穿好。下楼时碰见对门的大妈，她看见我的石膏，愣了一下。</p>
+    <p class="story-para">“小黄，手怎么了？”</p>
+    <p class="story-para">“干活摔了。”</p>
+    <p class="story-para">“哎呀，严重不？”</p>
+    <p class="story-para">“骨裂，养养就好。”</p>
+    <p class="story-para">“可得小心啊。”她摇摇头，“你们这些年轻人，就是拼。身体要紧，钱是挣不完的。”</p>
+    <p class="story-para">“嗯。”我应着，继续下楼。</p>
+    <p class="story-para">走到街上，才发现自己没地方可去。我在巷子里慢慢走，路过菜市场，已经收摊了，地上堆着烂菜叶，空气里有股腐烂的味道。路过便利店，老板娘在理货，看见我，招招手。</p>
+    <p class="story-para">“小黄，好久不见。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“手怎么了？”</p>
+    <p class="story-para">“摔了。”</p>
+    <p class="story-para">“哎哟，看着挺严重。”她从柜台后走出来，看看我的石膏，“吃饭了没？我这儿有包子，给你热两个？”</p>
+    <p class="story-para">“不用，吃了。”</p>
+    <p class="story-para">“别客气，我请你。”她不由分说地走进里间，很快端出两个包子，用塑料袋装着，还冒着热气。“拿着，肉馅的，刚蒸的。”</p>
+    <p class="story-para">我接过包子，说了声谢谢。包子很软，隔着塑料袋都能感觉到温度。我咬了一口，肉香在嘴里散开，才发现自己真的饿了。</p>
+    <p class="story-para">“多少钱？”我问。</p>
+    <p class="story-para">“不要钱，请你吃的。”老板娘摆摆手，“一个人在外不容易，多吃点，好得快。”</p>
+    <p class="story-para">我又道了谢。离开便利店，我边走边吃包子。很香，肉馅里有葱姜的味道。吃完第二个，我觉得有点力气了。</p>
+    <p class="story-para">走到朱沐辰家楼下时，我停住了。三楼的灯亮着，窗帘拉着，能看见人影晃动。我站在楼下，看了很久。楼上传来电视的声音，是动画片，有夸张的笑声和音效。</p>
+    <p class="story-para">我转身往回走。走到一半，听见后面有人喊：“黄铭哲！”</p>
+    <p class="story-para">回头，朱沐辰站在楼道口，穿着拖鞋，手里提着垃圾袋。他跑过来，跑到我面前，喘着气，眼睛盯着我的石膏。</p>
+    <p class="story-para">“你的手……”</p>
+    <p class="story-para">“摔了一下。”我说。</p>
+    <p class="story-para">“疼吗？”</p>
+    <p class="story-para">“不疼。”</p>
+    <p class="story-para">他伸出手，想碰又不敢碰，悬在半空。“怎么摔的？”</p>
+    <p class="story-para">“工地，踩空了。”</p>
+    <p class="story-para">“医生怎么说？”</p>
+    <p class="story-para">“骨裂，养一个月就好。”</p>
+    <p class="story-para">他咬着嘴唇，看了我一会儿，然后说：“你吃饭了吗？”</p>
+    <p class="story-para">“吃了。”</p>
+    <p class="story-para">“吃的什么？”</p>
+    <p class="story-para">“包子。”</p>
+    <p class="story-para">“哦。”他低下头，脚蹭着地面，“你好几天没来。”</p>
+    <p class="story-para">“嗯，忙。”</p>
+    <p class="story-para">“是手疼，所以不来吗？”</p>
+    <p class="story-para">“不是。”我说，顿了顿，“就是忙。”</p>
+    <p class="story-para">他没再问，只是盯着我的石膏看。路灯下，他的脸很白，眼睛很大，睫毛在脸上投下小小的阴影。风吹过来，吹乱他的头发，他伸手捋了捋。</p>
+    <p class="story-para">“你该上去了。”我说，“垃圾明天再扔也行。”</p>
+    <p class="story-para">“我送你回去。”他说。</p>
+    <p class="story-para">“不用。”</p>
+    <p class="story-para">“我送你。”他坚持，把垃圾袋放在路边，“就送到楼下。”</p>
+    <p class="story-para">我没再拒绝。我们一起往回走，他走在我旁边，时不时侧头看我的石膏。夜风很凉，吹得我空荡荡的袖管轻轻晃动。</p>
+    <p class="story-para">“你这样，还能干活吗？”他小声问。</p>
+    <p class="story-para">“暂时不能。”</p>
+    <p class="story-para">“那……钱呢？”</p>
+    <p class="story-para">“有存款。”</p>
+    <p class="story-para">“哦。”他点点头，过了一会儿又说，“我存钱罐里有钱，你要用吗？”</p>
+    <p class="story-para">“不用。”</p>
+    <p class="story-para">“真的，有三百多呢。”他说，“是我攒的压岁钱。”</p>
+    <p class="story-para">“你自己留着。”我说，“我用不着。”</p>
+    <p class="story-para">他不说话了，只是走。走到楼下，他停下来，仰头看我：“那你明天在家吗？”</p>
+    <p class="story-para">“在。”</p>
+    <p class="story-para">“我能去看你吗？”</p>
+    <p class="story-para">我想了想说：“下午吧，两点。”</p>
+    <p class="story-para">“好。”他笑了，眼睛弯起来，“那我上去了。你小心点，别碰着手。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">他转身往回跑，跑到一半又回头，朝我挥手。我也抬了抬手，看着他跑远，消失在巷子拐角。然后我上楼，开门，进屋。</p>
+    <p class="story-para">房间里很冷，我没开空调。我脱掉外套，躺在床上。石膏压得左半边身子发麻，我侧过身，用右手垫在头下。窗外传来车声，还有不知谁家的狗在叫，一声，两声，然后停了。</p>
+    <p class="story-para">手机在枕边震动。我拿起来看，是朱沐辰发来的短信：“我到家了。你好好休息，明天见。”</p>
+    <p class="story-para">我回了个“嗯”，然后关掉手机。黑暗中，只有石膏的白色隐约可见，像某个陌生的标志，宣告着生活的突然转向。</p>
+    <p class="story-para">我闭上眼睛，听见自己的心跳，很慢，很重。一下，又一下，在安静的房间里格外清晰。</p>
+  </section>
+    <section class="chapter" id="c9">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 9</div>
+        <h2 class="ch-zh">家庭的介入</h2>
+        <div class="ch-rule"></div>
+      </div>
+    <p class="story-para">接到朱沐辰妈妈电话时，我正在医院复查。左手腕的石膏边缘被磨破了皮，护士一边给我换药一边皱眉：“你这怎么弄的？说了不能碰水，不能摩擦。”</p>
+    <p class="story-para">“睡觉蹭的。”我说。</p>
+    <p class="story-para">“小心感染。”护士用棉签蘸了碘伏，涂在红肿的皮肤上，凉丝丝的。手机就在这时候响了，是个陌生号码。我接起来，右手拿着手机贴在耳边。</p>
+    <p class="story-para">“请问是黄铭哲吗？”是个女声，有点熟悉。</p>
+    <p class="story-para">“我是。”</p>
+    <p class="story-para">“我是朱沐辰的妈妈。我们上次在医院见过。”她顿了顿，“你现在方便吗？我和他爸爸想跟你见一面。”</p>
+    <p class="story-para">我看了一眼护士，她已经包好新的纱布，正收拾器械。“在哪儿？”</p>
+    <p class="story-para">“就医院附近的茶楼吧，二楼包厢，叫清心阁。”她说，“我们大概二十分钟后到。”</p>
+    <p class="story-para">挂了电话，护士递给我缴费单：“去一楼交费，下周同一时间再来。”</p>
+    <p class="story-para">“谢谢。”</p>
+    <p class="story-para">我下到一楼，排队缴费。队伍很长，前面是个老太太，拿着厚厚一叠单子，一张一张仔细核对。轮到我时，收费员报了个数字，比我预想的要多。我掏出钱包，里面只剩下最后两百。刷卡付了款，机器吐出凭条，我看了眼余额，三位数。</p>
+    <p class="story-para">走出医院，下午的阳光很好，晒在脸上有些发烫。茶楼就在街对面，是那种老式装修，门楣上挂着褪了色的招牌。我推门进去，一楼没人，只有个服务员趴在柜台上打盹。听见声音，她抬起头，睡眼惺忪：“几位？”</p>
+    <p class="story-para">“有约，清心阁。”</p>
+    <p class="story-para">“二楼左转最里面。”</p>
+    <p class="story-para">楼梯是木质的，踩上去咯吱响。二楼走廊很长，两边是包厢，门都关着。最里面那间的门虚掩着，我敲了敲，里面传来“请进”。</p>
+    <p class="story-para">推开门，包厢不大，一张方桌，四把椅子。朱沐辰妈妈坐在靠窗的位置，对面是个中年男人，穿着夹克，手里端着茶杯。男人看见我，放下杯子，站了起来。</p>
+    <p class="story-para">“你好，我是沐辰的爸爸，朱建明。”他伸出手。</p>
+    <p class="story-para">我用右手和他握了握。他的手很干，很用力。“黄铭哲。”</p>
+    <p class="story-para">“请坐。”他示意我坐，又对服务员说，“再加杯茶。”</p>
+    <p class="story-para">我坐下。服务员很快端来茶杯，倒了水，又退出去，轻轻带上门。包厢里安静下来，能听见窗外街上的车声，还有隔壁包厢隐约的说话声。</p>
+    <p class="story-para">朱沐辰妈妈先开口：“小黄，你的手怎么样了？”</p>
+    <p class="story-para">“好多了。”</p>
+    <p class="story-para">“那就好。”她双手握着茶杯，手指在杯壁上轻轻摩挲，“这次找你来，主要是想感谢你。前阵子我妈生病，多亏你帮忙。”</p>
+    <p class="story-para">“应该的。”我说。</p>
+    <p class="story-para">“听小辰说，你这段时间一直在照顾他。”朱爸爸接过话头，他说话很慢，每个字都咬得很清楚，“我们做父母的，在外地工作，实在顾不上家里。有你在，我们安心很多。”</p>
+    <p class="story-para">我没说话，等他的下文。</p>
+    <p class="story-para">他喝了口茶，放下杯子，杯底碰在玻璃转盘上，发出清脆的响声。“不过呢，”他继续说，“小辰毕竟还是个孩子，才上六年级，正是关键时候。马上要小升初了，学业压力大。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“我们也不是怪你。”朱妈妈说，声音很轻，“你对他好，我们都看在眼里。但是……小辰这段时间，心思好像有点不在学习上。老师说，他最近上课老是走神，作业也马虎。”</p>
+    <p class="story-para">“上次数学测验，才考了八十多分。”朱爸爸补充道，语气里带着明显的不满，“以前他都是九十五以上的。”</p>
+    <p class="story-para">我端起茶杯，喝了一口。茶是茉莉花茶，香气很冲，有点涩。</p>
+    <p class="story-para">“我们跟他谈过。”朱妈妈说，“问他怎么回事，他也不说。后来他奶奶告诉我们，说他经常往你那儿跑，一待就是一下午。”</p>
+    <p class="story-para">“有时候晚上也去。”朱爸爸看着我，眼神很直接，“有这回事吗？”</p>
+    <p class="story-para">“有。”我说。</p>
+    <p class="story-para">包厢里又安静下来。窗外有救护车鸣笛经过，声音由远及近，又由近及远。隔壁包厢的人好像讲了个笑话，爆发出大笑，然后渐渐平息。</p>
+    <p class="story-para">“小黄，你别误会。”朱爸爸说，身体微微前倾，“我们没有怀疑你什么。你帮了我们家这么多，我们感激还来不及。但是——”</p>
+    <p class="story-para">他顿了顿，似乎在斟酌用词：“但是小辰还小，很多事情他不懂。你是个成年人，应该明白，你们这样……走得太近，不合适。”</p>
+    <p class="story-para">“什么不合适？”我问。</p>
+    <p class="story-para">朱爸爸和朱妈妈对视了一眼。朱妈妈开口，声音更轻了：“街坊邻居的，闲话多。你知道的，人多嘴杂，说什么的都有。我们做父母的，听着心里不好受。”</p>
+    <p class="story-para">“小辰在学校，也有同学说闲话。”朱爸爸说，“说他跟个社会青年混在一起。这话难听，但传到老师耳朵里，影响不好。”</p>
+    <p class="story-para">我放下茶杯，陶瓷碰在玻璃上，叮的一声。“所以呢？”</p>
+    <p class="story-para">“所以我们想，”朱爸爸说，语气变得郑重，“你能不能……暂时别跟小辰见面了。”</p>
+    <p class="story-para">我没立刻回答。窗外有只麻雀落在窗台上，蹦跳了几下，又飞走了。我盯着那扇窗户，看了一会儿，然后转回头。</p>
+    <p class="story-para">“他自己怎么想？”我问。</p>
+    <p class="story-para">“他还小，不懂事。”朱爸爸说，“我们是他的监护人，要为他负责。他现在最重要的任务是学习，考个好初中。其他的事情，以后再说。”</p>
+    <p class="story-para">朱妈妈从包里拿出个信封，推到我面前：“一点心意，算是感谢你这段时间的照顾。”</p>
+    <p class="story-para">我没看信封，只是看着她：“是他奶奶告诉你们的？”</p>
+    <p class="story-para">“我们打电话回家，她自己说的。”朱妈妈说，避开我的目光，“老人家年纪大了，思想保守，听不得那些闲话。她身体又不好，我们不想让她操心。”</p>
+    <p class="story-para">“所以你们就回来了？”</p>
+    <p class="story-para">“请了假，专门回来处理这件事。”朱爸爸说，叹了口气，“小黄，我们也是为你好。你还年轻，有自己的生活要过，老被个孩子拖着，也不是个事。”</p>
+    <p class="story-para">“我没觉得拖累。”</p>
+    <p class="story-para">“那是你现在觉得。”朱爸爸的语气严厉了些，“等他再大点，青春期了，叛逆了，到时候你怎么管？再说了，你一个大小伙子，天天跟个小孩混在一起，别人怎么看你？”</p>
+    <p class="story-para">我没说话。包厢里的空调开得很足，有点冷。我左臂的石膏沉甸甸的，压得肩膀发酸。</p>
+    <p class="story-para">“我们知道你是好心。”朱妈妈又说，声音里带着恳求，“但好心有时候也会办坏事。小辰现在还听你的话，等他再大点，万一学坏了，我们找谁去？到时候，你担得起这个责任吗？”</p>
+    <p class="story-para">“我没想让他学坏。”</p>
+    <p class="story-para">“我们没说你让他学坏。”朱爸爸说，语气缓和了些，“但环境对人的影响很大。你现在没工作，手又受伤了，以后怎么打算？自己都顾不过来，怎么照顾他？”</p>
+    <p class="story-para">他说的每句话都对，都合理，都无可辩驳。我端起茶杯，又喝了一口，茶已经凉了，更涩了。</p>
+    <p class="story-para">“我们会给小辰转学。”朱妈妈说，“已经联系好了，下个月就去新学校，住校。这样他也能安心学习，不受干扰。”</p>
+    <p class="story-para">“他自己同意吗？”</p>
+    <p class="story-para">“这由不得他同意不同意。”朱爸爸说，“我们是他的父母，会为他做最好的决定。”</p>
+    <p class="story-para">我点点头，放下茶杯。“我明白了。”</p>
+    <p class="story-para">“那这钱……”朱妈妈指着信封。</p>
+    <p class="story-para">“不用。”我说，推了回去。</p>
+    <p class="story-para">朱爸爸看着我，眼神复杂。过了一会儿，他说：“小黄，你还年轻，路还长。别因为一时的好心，耽误了自己。”</p>
+    <p class="story-para">“我知道。”我站起来，“没别的事，我先走了。”</p>
+    <p class="story-para">“那个……”朱妈妈也站起来，欲言又止，“小辰那边，我们会跟他说的。你就……别去找他了。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“谢谢你这段日子的照顾。”她说，微微欠身。</p>
+    <p class="story-para">我没回应，拉开门走出去。走廊里很暗，我下楼时差点踩空，右手及时抓住扶手。木扶手很光滑，有被无数人摸过的油润感。</p>
+    <p class="story-para">走到街上，阳光刺得人睁不开眼。我站在路边，点了根烟。右手夹烟的动作还不太熟练，烟灰掉在石膏上，我拍了拍，白灰在阳光下飞舞。</p>
+    <p class="story-para">一根烟抽完，我扔进垃圾桶。刚要走，听见身后有人喊：“黄铭哲！”</p>
+    <p class="story-para">回头，朱沐辰从街对面跑过来。他跑得很快，书包在背上一颠一颠的。跑到我面前，他停下，喘着气，脸通红。</p>
+    <p class="story-para">“你怎么在这儿？”他问，眼睛看着我，又看看我身后的茶楼。</p>
+    <p class="story-para">“复查。”我说。</p>
+    <p class="story-para">“你的手……”</p>
+    <p class="story-para">“没事。”我转身要走，他拉住我的袖子。</p>
+    <p class="story-para">“我爸妈回来了。”他说，声音很小，“他们是不是找你了？”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“他们说什么了？”</p>
+    <p class="story-para">“没什么。”</p>
+    <p class="story-para">“你骗人。”他抓得更紧了，“他们肯定说让你别来找我了，对不对？”</p>
+    <p class="story-para">我没说话。街上车来车往，喇叭声、引擎声混在一起。有辆电动车擦着我们驶过，骑车人回头骂了句什么，我没听清。</p>
+    <p class="story-para">“我要转学了。”朱沐辰说，声音在抖，“他们让我住校，一个月才能回一次家。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“我不想转学。”他眼睛红了，但没哭，“我不想住校，我想在家，我想……我想还能来找你。”</p>
+    <p class="story-para">“听你爸妈的。”我说，声音有点哑，“他们为你好。”</p>
+    <p class="story-para">“为我好就可以什么都替我决定吗？”他声音大了起来，带着哭腔，“他们根本不问我想不想！”</p>
+    <p class="story-para">“你还小。”</p>
+    <p class="story-para">“我不小了！”他喊道，眼泪终于掉下来，“我知道谁对我好，我知道！”</p>
+    <p class="story-para">街上有人看过来。我拉着他走到旁边的小巷里。巷子很窄，两边是高墙，墙头长着杂草。里面堆着垃圾桶，味道很难闻。</p>
+    <p class="story-para">“别哭了。”我说。</p>
+    <p class="story-para">“我不想转学……”他蹲下来，把脸埋进膝盖里，肩膀一耸一耸的。书包从肩上滑下来，掉在地上，沾了灰。</p>
+    <p class="story-para">我站着，看着他。阳光从巷口斜射进来，照在他背上，能看见脊椎骨的形状，一节一节的。他哭得很小声，压抑的，像怕被人听见。</p>
+    <p class="story-para">过了很久，他慢慢停下来，抬起头，脸上全是泪痕，眼睛又红又肿。他看着我，突然说：“我们走吧。”</p>
+    <p class="story-para">“去哪儿？”</p>
+    <p class="story-para">“去哪儿都行。”他说，抓住我的裤腿，“你带我走，我们离开这儿。我能干活，我会做饭，我能照顾你——”</p>
+    <p class="story-para">“别说傻话。”我打断他，蹲下来，和他平视，“你才十二岁。”</p>
+    <p class="story-para">“我很快就长大了。”</p>
+    <p class="story-para">“长大还早。”我说，用右手擦了擦他脸上的泪，“听你爸妈的话，好好上学。”</p>
+    <p class="story-para">“那你呢？”他问，眼睛死死盯着我，“你还会在这儿吗？”</p>
+    <p class="story-para">我没回答。他抓住我的手，很用力，指甲掐进肉里。“你说啊，你还会在这儿吗？”</p>
+    <p class="story-para">“我不知道。”我说了实话。</p>
+    <p class="story-para">他松开手，低下头，看着地面。地上有只蚂蚁在爬，拖着一小块面包屑，很吃力地移动。他看着那只蚂蚁，看了很久，然后说：“你是不是也要走了？”</p>
+    <p class="story-para">“手好了，得去找工作。”</p>
+    <p class="story-para">“去哪儿找？”</p>
+    <p class="story-para">“哪儿有活儿去哪儿。”</p>
+    <p class="story-para">“那……那我能给你打电话吗？”</p>
+    <p class="story-para">“你爸妈不会同意的。”</p>
+    <p class="story-para">“我偷偷打。”</p>
+    <p class="story-para">“别这样。”我说，“好好上学，别惹他们生气。”</p>
+    <p class="story-para">他不说话了，只是低着头。巷子里的风吹过来，带着垃圾桶的酸臭味。墙头有只野猫探出头，看了我们一眼，又缩回去了。</p>
+    <p class="story-para">“起来吧。”我说，“地上脏。”</p>
+    <p class="story-para">他没动。我伸手拉他，他借着力站起来，拍了拍裤子上的灰。书包还在地上，我捡起来，递给他。他没接，只是看着我，眼睛很红，很亮，像蒙着一层水雾。</p>
+    <p class="story-para">“黄铭哲。”他说，声音很轻，很认真，“你能不能……别不要我？”</p>
+    <p class="story-para">我心里像被什么东西狠狠撞了一下。我看着他的眼睛，想说些什么，但喉咙发紧，一个字也说不出来。最后我只能伸出手，很轻地，摸了摸他的头。</p>
+    <p class="story-para">“没人不要你。”我说，“你爸妈在，奶奶在，他们都爱你。”</p>
+    <p class="story-para">“那你呢？”</p>
+    <p class="story-para">我没回答。巷口传来脚步声，有人进来了。是个收废品的老头，推着三轮车，车上堆满了纸箱。他从我们身边经过，看了我们一眼，又低下头，继续往前走。车轮碾过不平的地面，发出吱呀吱呀的响声。</p>
+    <p class="story-para">“回去吧。”我说，“你爸妈该着急了。”</p>
+    <p class="story-para">“我不想回去。”</p>
+    <p class="story-para">“听话。”</p>
+    <p class="story-para">他咬着嘴唇，站了很久，最后还是背上了书包。我们一起走出巷子。街上人更多了，下班放学的高峰期。他走在我旁边，低着头，不说话。走到茶楼门口时，他停下脚步。</p>
+    <p class="story-para">“我上去了。”他说。</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“你……”他看着我，眼睛里有很多话，但最后只说了句，“你手没好之前，别去干活。”</p>
+    <p class="story-para">“知道。”</p>
+    <p class="story-para">“那我走了。”</p>
+    <p class="story-para">“去吧。”</p>
+    <p class="story-para">他转身走进茶楼。玻璃门开合，他的身影消失在里面。我站在路边，看着那扇门。过了一会儿，二楼某个窗户的窗帘动了一下，一只手伸出来，朝我挥了挥，很小幅度地挥了挥，然后缩了回去。</p>
+    <p class="story-para">我也抬起手，挥了一下。然后转身，往回走。</p>
+    <p class="story-para">夕阳把我的影子拉得很长，投在路面上，跟着我移动。左手腕的石膏在暮色里泛着淡淡的白色，像一个醒目的标记，提醒着某些无法改变的事实。</p>
+  </section>
+    <section class="chapter" id="c10">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 10</div>
+        <h2 class="ch-zh">被迫的分离</h2>
+        <div class="ch-rule"></div>
+      </div>
+    <p class="story-para">那晚我收拾了行李。</p>
+    <p class="story-para">其实没什么可收拾的。几件换洗衣服，一套工装，工具箱，还有床上那套被褥。我把它们塞进那个旧行李箱和编织袋，箱子轮子还是坏的，拖起来很费劲。收拾到一半，我停下来，坐在床沿上点了根烟。</p>
+    <p class="story-para">窗外是城市的夜，远处高楼亮着灯，近处巷子漆黑一片。三楼那扇窗户也暗着，朱沐辰应该睡了。今天在茶楼外分别时，他回头看了我三次。最后一次回头，嘴唇动了动，没发出声音，但口型像是在说“明天见”。</p>
+    <p class="story-para">没有明天了。我在心里说。</p>
+    <p class="story-para">烟抽到一半，手机响了。是工头。我接起来，他说城东有个急活儿，一家宾馆水管爆了，需要连夜抢修。工钱给得高，但要求现在就去。</p>
+    <p class="story-para">“我手还没好。”我说。</p>
+    <p class="story-para">“我知道。”工头顿了顿，“但那边催得急，说只要有人去，工钱加倍。我想着你这情况……能行吗？用一只手，简单的活儿应该能应付。”</p>
+    <p class="story-para">我看了眼桌上的行李，又看了看左手的石膏。“地址发我。”</p>
+    <p class="story-para">挂了电话，地址很快发过来。在城东开发区，离这儿二十多公里。我把烟按灭，站起身，把刚收拾出来的衣服又拿出来。挑了件厚外套，把工具箱重新检查一遍。扳手、钳子、胶带、生料带，一只手能用的工具不多，但应该够了。</p>
+    <p class="story-para">出门前，我犹豫了一下，还是走到书桌前。拉开抽屉，最里面躺着那个小本子，朱沐辰画的魔方公式。我拿起来，翻到最后一页。“谢谢你来”四个字在昏暗的光线里有些模糊。</p>
+    <p class="story-para">我合上本子，放回抽屉。然后在桌上找了张便签纸，撕下一小条。笔在手里转了两圈，最后写下两句话：</p>
+    <p class="story-para">“好好照顾自己，好好长大。”</p>
+    <p class="story-para">我把纸条折好，放进上衣口袋。然后拎起工具箱，关灯，锁门。楼道里很黑，我摸黑下楼，尽量不发出声音。走到三楼时，还是停了一下。302的门关着，门缝里没有光。我在门口站了几秒，然后继续往下走。</p>
+    <p class="story-para">工友老陈的车已经在楼下等了。他看见我的石膏，皱了皱眉：“你这样能行吗？”</p>
+    <p class="story-para">“试试。”</p>
+    <p class="story-para">“别勉强，不行就说。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">车开往城东。夜里车少，开得很快。老陈开着收音机，里面在放午夜情感热线，一个女声在哭诉婚姻不幸。老陈调了台，换成交通广播，主持人正在报路况。</p>
+    <p class="story-para">“你手还得养多久？”老陈问。</p>
+    <p class="story-para">“一个月。”</p>
+    <p class="story-para">“那之后什么打算？”</p>
+    <p class="story-para">“找工作。”</p>
+    <p class="story-para">“这年头工作不好找。”老陈叹气，“尤其你这手受过伤，重活干不了。轻活又抢不过那些年轻人。”</p>
+    <p class="story-para">我没说话，看着窗外掠过的路灯。一根一根，快速后退，像倒数的计时。</p>
+    <p class="story-para">工地在一家快捷宾馆的后院。水管爆在二楼，水已经漫到一楼大厅。经理急得团团转，看见我们像看见救星。我检查了下，是主水阀老化崩了，得整个换掉。活儿不难，但麻烦在要停整栋楼的水，而且管道位置刁钻，需要人钻到天花板夹层里。</p>
+    <p class="story-para">“我来吧。”我对老陈说。</p>
+    <p class="story-para">“你这手——”</p>
+    <p class="story-para">“一只手够用。”</p>
+    <p class="story-para">我踩着梯子爬上去，夹层里很矮，只能蹲着。里面全是灰和蜘蛛网，手电筒的光束里能看到灰尘飞舞。我单手操作，用腿固定住管子，牙齿咬着手电筒，右手拧螺丝。汗很快流下来，滴进眼睛里，涩得疼。</p>
+    <p class="story-para">拧到第三个螺丝时，左手腕的石膏不小心撞到水管，一阵钝痛传来。我咬着牙，没停，继续拧。螺丝锈死了，很紧，我加了点力，手腕处的疼痛加剧，像有针在扎。</p>
+    <p class="story-para">终于拧松了。我换上新阀门，缠生料带，拧紧。做完这些，衣服已经湿透了，灰和汗混在一起，黏在皮肤上。我从夹层里退出来，下到地面，经理连忙递过来一瓶水。</p>
+    <p class="story-para">“好了，开水试试。”我说。</p>
+    <p class="story-para">老陈去开水阀。水流通畅，没有漏。经理松了口气，连连道谢，从钱包里数出钱。我接过，没数，塞进口袋。</p>
+    <p class="story-para">“小黄，你手在流血。”老陈突然说。</p>
+    <p class="story-para">我低头看，石膏边缘渗出血迹，染红了纱布。应该是刚才撞的，伤口裂开了。</p>
+    <p class="story-para">“得去医院重新包一下。”老陈说。</p>
+    <p class="story-para">“不用，回去自己弄。”</p>
+    <p class="story-para">“这怎么行——”</p>
+    <p class="story-para">“没事。”我摆摆手，拎起工具箱，“走吧。”</p>
+    <p class="story-para">回程路上，我靠着车窗，闭着眼睛。左腕一跳一跳地疼，像有心脏在那里跳动。老陈几次想说什么，最后还是沉默了。收音机里在播报天气，说明天有雨。</p>
+    <p class="story-para">到住处已经凌晨三点。我上楼，开门，没开灯，直接走进卫生间。用剪刀剪开纱布，伤口果然裂开了，血糊了一片。我用凉水冲了冲，疼得倒吸冷气。然后翻出碘伏和棉签，自己消毒，重新用纱布包好。一只手操作很笨拙，纱布缠得歪歪扭扭。</p>
+    <p class="story-para">包完伤口，我坐在床边，看着地上散乱的行李。没多少东西，但好像怎么也收拾不完。我躺下来，盯着天花板，睡意全无。</p>
+    <p class="story-para">天快亮时，我做了决定。</p>
+    <p class="story-para">第二天是周六。我起了个大早，把行李彻底收拾好。衣服叠整齐，工具箱捆牢，被褥卷起来用绳子绑好。做完这些，我坐在桌前，拿出那张纸条，又看了一遍。</p>
+    <p class="story-para">“好好照顾自己，好好长大。”</p>
+    <p class="story-para">字写得有点歪，右手使不上劲。我把纸条折成小方块，捏在手里，纸边硌着掌心。</p>
+    <p class="story-para">八点，我下楼吃了早饭。巷口那家早点摊，老板认识我，多给了根油条。“小黄，手还没好？”</p>
+    <p class="story-para">“快了。”</p>
+    <p class="story-para">“慢慢养，别着急。”他说着，给另一个客人装包子。</p>
+    <p class="story-para">我慢慢吃着，油条很脆，豆浆很烫。吃完后我在巷子里走了两圈。周末的早晨很安静，只有几个老人在遛弯，还有小孩在空地上玩球。球滚到我脚边，我弯腰捡起来，用右手扔回去。小孩接了球，说了声谢谢，又跑开了。</p>
+    <p class="story-para">九点，我回到楼上。从窗户能看见朱沐辰家楼下。他还没出来，可能还在睡。我点了根烟，慢慢抽。烟灰掉在窗台上，积了一小堆。</p>
+    <p class="story-para">十点，楼下传来开门声。朱沐辰出来了，背着书包，手里提着个塑料袋。他站在楼下，往我这边看了一眼。我退到窗帘后面。他看了很久，然后转身，往图书馆的方向走去——那是他以前周六常去的地方。</p>
+    <p class="story-para">等他走远了，我拎起行李下楼。行李箱很重，左手用不上力，我只能用右手提着，一步一步往下挪。到三楼时，我又停了一下。302的门上贴了张春联，是去年的，边角已经翘起。我伸手，把那张纸条从门缝塞了进去。</p>
+    <p class="story-para">纸条很薄，塞进去时几乎没有声音。我盯着那扇门看了几秒，然后转身，继续下楼。</p>
+    <p class="story-para">巷子口有辆三轮车在收废品。我走过去，问：“师傅，去火车站走吗？”</p>
+    <p class="story-para">“走，十块。”师傅说。</p>
+    <p class="story-para">“行李能放下吗？”</p>
+    <p class="story-para">“能。”</p>
+    <p class="story-para">我把行李箱和编织袋搬上车，自己也坐上去。三轮车启动，发动机突突地响。车子驶出巷子，路过早点摊，老板正低头炸油条；路过便利店，老板娘在门口扫地；路过工地围挡，蓝色铁皮在风里哗啦作响。</p>
+    <p class="story-para">我回头看了一眼。那栋灰扑扑的居民楼越来越小，三楼的窗户在阳光下反着光，看不清里面。然后车子拐弯，楼看不见了。</p>
+    <p class="story-para">火车站人很多。我买了张最近的车票，是去邻市的，两小时后发车。买完票，身上的钱所剩无几。我在候车室找了个角落坐下，行李箱放在脚边。</p>
+    <p class="story-para">左手腕的伤口还在疼。我拆开纱布看了看，血已经止住了，但红肿得厉害。我重新包好，靠在椅背上，闭上眼睛。</p>
+    <p class="story-para">周围很吵。小孩的哭声，大人的呵斥声，广播里列车信息的播报声，还有各种方言的交谈声。我坐在这些声音里，觉得异常安静。</p>
+    <p class="story-para">发车前半小时，我去了趟厕所。洗手时，从镜子里看见自己的脸。头发长了，胡子没刮，眼睛下有很深的黑眼圈。我捧了把水洗脸，水很凉，让人清醒。</p>
+    <p class="story-para">回到候车室，我开始检票。队伍很长，慢慢往前挪。轮到我的时候，检票员看了眼我的石膏：“手怎么了？”</p>
+    <p class="story-para">“摔了。”</p>
+    <p class="story-para">“小心点。”她撕下票根，递还给我。</p>
+    <p class="story-para">我接过，拎着行李进站。站台上，火车已经停在那里，绿色的车身，窗户很脏。我找到车厢，上去，放好行李，在靠窗的位置坐下。</p>
+    <p class="story-para">车厢里人不多。对面坐着一对老夫妻，正在分吃一个苹果。旁边是个年轻人，戴着耳机，闭着眼睛。我靠窗坐着，看着站台上来来往往的人。</p>
+    <p class="story-para">发车铃响了。列车缓缓启动，站台开始后退。先是柱子，然后是长椅，然后是垃圾桶，最后是整个车站建筑，一点点变小，消失在视野里。</p>
+    <p class="story-para">城市也在后退。高楼，立交桥，广告牌，一片片居民区。我盯着窗外，看那些熟悉的街景掠过。那条巷子应该就在那边，但我没找到。太快了，一切都太快了。</p>
+    <p class="story-para">列车驶出城区，进入郊野。田野，树林，偶尔掠过的村庄。天空很蓝，云很少。我靠在车窗上，玻璃很凉，贴着额头。</p>
+    <p class="story-para">口袋里的手机震了一下。我拿出来看，是朱沐辰发来的短信：“你去哪儿了？”</p>
+    <p class="story-para">我盯着那行字，看了很久。屏幕暗了，我按亮，又暗了，又按亮。最后我把手机塞回口袋，没回。</p>
+    <p class="story-para">过了一会儿，手机又震了。这次是电话，屏幕上跳动着他的名字。铃声在安静的车厢里显得很突兀，对面那对老夫妻看了我一眼。我按了静音，把手机屏幕朝下扣在小桌板上。</p>
+    <p class="story-para">震动持续了很久，停了。几秒后，又开始震。我拿起手机，直接关了机。</p>
+    <p class="story-para">车厢里恢复安静。只有车轮碾压铁轨的哐当声，有节奏的，一下又一下。我靠着车窗，闭上眼睛。</p>
+    <p class="story-para">我想起第一次见他的样子。门开了一条缝，他探出半张脸，眼睛在昏暗中很亮。想起他递过来的毛巾，温热的，叠得很整齐。想起他做的西红柿炒蛋，盐放少了，但很认真地摆在盘子里。想起他教我玩魔方，手覆在我手上，很凉，很小。想起他蹲在巷子里哭，说“你能不能别不要我”。</p>
+    <p class="story-para">画面一帧一帧闪过，然后模糊，消失。只剩下车轮的声音，哐当，哐当，哐当。</p>
+    <p class="story-para">不知过了多久，乘务员推着小车经过：“盒饭，矿泉水——”</p>
+    <p class="story-para">对面的老夫妻买了两份盒饭。塑料饭盒打开，热气冒出来，是青椒肉丝的味道。我这才想起，从早上到现在，我还没吃过东西。但我不饿，只是累。</p>
+    <p class="story-para">我靠着车窗，睡意终于袭来。半梦半醒间，听见那对老夫妻在低声交谈。</p>
+    <p class="story-para">“这孩子手怎么伤的？”</p>
+    <p class="story-para">“不知道，看样子是干活伤的。”</p>
+    <p class="story-para">“一个人出门，怪可怜的。”</p>
+    <p class="story-para">“少说两句，吃饭。”</p>
+    <p class="story-para">然后声音远了，模糊了。我沉进睡眠里，没有梦，只有一片漆黑，和持续不断的车轮声。</p>
+    <p class="story-para">醒来时，天已经黑了。车窗变成了镜子，映出车厢里的灯光，和我的脸。窗外是连绵的山影，黑黢黢的，偶尔掠过几点灯火，是山里的村庄。</p>
+    <p class="story-para">我坐直身体，左腕的疼痛轻了些，但石膏沉甸甸的，压得肩膀发麻。我活动了一下右手，手指有些僵硬。</p>
+    <p class="story-para">对面的老夫妻已经睡了，头靠着头。旁边的年轻人还在听歌，耳机里漏出一点音乐声，是听不懂的外语歌。</p>
+    <p class="story-para">我拿出手机，开机。屏幕亮起，显示有几条未读短信和未接来电。都是朱沐辰的。最后一条短信是三个小时前发的：“我找到纸条了。我会好好长大。你也要好好的。”</p>
+    <p class="story-para">我盯着那行字，看了很久。然后删除了所有短信和通话记录，把他的号码从通讯录里移除。</p>
+    <p class="story-para">做完这些，我把手机放回口袋，重新靠回车窗。窗外的山影连绵不绝，像黑色的浪，一波一波涌来，又退去。远处有几点灯光，很微弱，但在无边的黑暗里，亮得刺眼。</p>
+    <p class="story-para">列车继续向前，哐当，哐当，驶向陌生的城市，驶向没有他的未来。夜色深浓，吞没了来路，也吞没了去路。只有铁轨无尽延伸，消失在看不见的远方。</p>
+  </section>
+    <section class="chapter" id="c11">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 11</div>
+        <h2 class="ch-zh">两年后的重逢</h2>
+        <div class="ch-rule"></div>
+      </div>
+    <p class="story-para">我回到这座城市是两年后的春天。</p>
+    <p class="story-para">公司在这边接了个酒店翻新的项目，派我来做水电部分的现场监理。工期三个月，我住在项目组安排的宿舍，四人间，上下铺，和其他几个工友挤在一起。房间朝北，终年不见阳光，和我两年前租的那个屋子很像。</p>
+    <p class="story-para">项目在城南，离老城区很远。我每天坐公司的面包车上下工，路上会经过那些熟悉的街道，但我从没下过车。工友问我要不要出去逛逛，我说累，在宿舍睡觉。</p>
+    <p class="story-para">重逢发生在四月中旬。那天下午，工友老刘在梯子上滑了一跤，扭了脚踝。我送他去附近的医院，挂号，拍片子，等结果。医院里人很多，消毒水的味道混着各种体味，闷得人头疼。</p>
+    <p class="story-para">老刘在长椅上哎哟哎哟地叫，我说我去买瓶水。自动贩卖机在一楼大厅角落，我投币，按键，机器咔哒咔哒地响，然后滚出来一瓶矿泉水。我弯腰去拿，起身时看见了那个身影。</p>
+    <p class="story-para">他站在缴费窗口的队伍里，排在第三个。长高了不少，但还是很瘦，穿着件浅蓝色的校服外套，袖子短了一截，露出手腕。头发剪短了，露出干净的额头和耳朵。他手里拿着几张单子，正低头看着。</p>
+    <p class="story-para">我站在贩卖机旁边，没动。水很凉，瓶身上的水珠顺着手掌往下流，滴在地上。队伍慢慢往前挪，轮到他了。他把单子和医保卡递进窗口，说了句什么，声音很轻，我听不见。然后他接过找零和收据，转身要走。</p>
+    <p class="story-para">转身时，他看见了我。</p>
+    <p class="story-para">脚步停住了。他站在那里，隔着十几米的距离，看着我。医院大厅的灯光很亮，白惨惨的，照得人脸上没有血色。他脸上的表情很平静，没有惊讶，也没有其他什么，就是平静地看着我，像在看一个陌生人。</p>
+    <p class="story-para">我们对视了几秒，然后他移开目光，朝我这边走来。脚步不紧不慢，走到我面前时，停住了。</p>
+    <p class="story-para">“黄铭哲。”他说，声音变了些，不像以前那么细，但还是轻。</p>
+    <p class="story-para">“嗯。”我说，手里的水瓶又滴下一滴水。</p>
+    <p class="story-para">“你回来了。”</p>
+    <p class="story-para">“出差，三个月。”</p>
+    <p class="story-para">“哦。”他点点头，视线在我脸上扫过，又垂下，看着地面。他长高了，现在到我肩膀的位置。下巴尖了，侧脸的线条清晰了些，但脸色还是苍白，眼下有淡淡的青色。</p>
+    <p class="story-para">“你……”我开口，又停住，不知道问什么。</p>
+    <p class="story-para">“奶奶复查。”他说，举起手里的单子，“每个月来一次。”</p>
+    <p class="story-para">“她身体怎么样？”</p>
+    <p class="story-para">“老样子，心脏不好，要长期吃药。”他说得很平淡，像在说别人的事。</p>
+    <p class="story-para">我们之间沉默下来。大厅里人来人往，有个小孩在哭，大人抱着哄。广播在叫号，某某请到三诊室。我拧开水瓶，喝了一口，水很凉，顺着喉咙往下。</p>
+    <p class="story-para">“你手好了吗？”他突然问。</p>
+    <p class="story-para">我愣了一下，才反应过来他问的是两年前的手伤。“好了，早好了。”</p>
+    <p class="story-para">“那就好。”他说，顿了顿，“你现在做什么？”</p>
+    <p class="story-para">“水电工，跟个项目。”</p>
+    <p class="story-para">“稳定吗？”</p>
+    <p class="story-para">“还行。”</p>
+    <p class="story-para">“哦。”他又点头，手指捏着那叠单子，纸张发出轻微的窸窣声。他穿着一条洗得发白的牛仔裤，裤脚也短了，露出一截脚踝，很细，骨骼分明。</p>
+    <p class="story-para">“你……”我想问他过得怎么样，但话到嘴边又咽了回去。问了又能怎样。</p>
+    <p class="story-para">“我要上去了。”他说，看了眼电梯方向，“奶奶在楼上等。”</p>
+    <p class="story-para">“去吧。”</p>
+    <p class="story-para">他没立刻走，看了我一眼，嘴唇动了动，好像想说什么，但最后还是什么都没说，转身朝电梯走去。步子很快，几乎是小跑，浅蓝色的校服外套在人群里一闪一闪的，然后消失在电梯门后。</p>
+    <p class="story-para">我站在原地，又喝了口水。水已经没那么凉了，但喉咙还是发干。老刘一瘸一拐地找过来：“小黄，我片子拿好了，医生说要打石膏。”</p>
+    <p class="story-para">“那就打。”我说，扶着他往诊室走。</p>
+    <p class="story-para">“你刚才跟谁说话呢？”老刘问，“看着挺眼熟。”</p>
+    <p class="story-para">“以前一个邻居。”</p>
+    <p class="story-para">“哦。”老刘没再多问，龇牙咧嘴地坐到诊室的椅子上。</p>
+    <p class="story-para">医生给老刘打石膏，我站在门口等着。走廊很长，两边是诊室，门开开关关，病人进进出出。我盯着电梯的方向，看那数字从3跳到2，又跳到1，门开了，出来几个人，没有他。</p>
+    <p class="story-para">“好了，下周来复查。”医生说。我进去扶老刘，石膏打在小腿上，白晃晃的一截。我们慢慢往外走，走到大厅时，我又往电梯方向看了一眼。电梯门关着，指示灯停在5楼。</p>
+    <p class="story-para">打车回宿舍的路上，老刘一直在抱怨倒霉，说这个月奖金要泡汤。我没接话，看着窗外。这座城市两年没见，变了不少。有些楼拆了，有些新楼盖起来。街边的店铺换了招牌，路拓宽了，但车还是堵。</p>
+    <p class="story-para">“你说我这得养多久？”老刘问。</p>
+    <p class="story-para">“伤筋动骨一百天。”</p>
+    <p class="story-para">“三个月？完了完了，老婆非骂死我不可。”</p>
+    <p class="story-para">车在红灯前停下。旁边是家小学，正好放学，孩子们涌出来，穿着各种颜色的衣服，像一群扑腾的鸟。我下意识地找那个浅蓝色的身影，但没找到。他应该上初中了，我想。两年，六年级到初二，是该上初中了。</p>
+    <p class="story-para">回到宿舍，我把老刘安顿好，去食堂打饭。食堂的菜永远那几样，土豆烧肉，炒白菜，西红柿鸡蛋。我打了份，坐在角落里吃。饭很硬，菜很油，我吃了两口就没了胃口。</p>
+    <p class="story-para">手机响了，是项目经理，问老刘的情况。我说打了石膏，得养三个月。经理在电话那头骂了句，说工期紧，让我顶老刘的活儿。我说行。</p>
+    <p class="story-para">吃完饭，我回到宿舍。老刘已经睡了，打着呼噜。另外两个工友还没回来。我坐在下铺，点了根烟。宿舍禁烟，但我没管，对着窗户抽，烟飘出去，散在夜色里。</p>
+    <p class="story-para">窗外是工地的灯光，塔吊上的探照灯很亮，照得半边天发白。机器还在响，咚咚咚，是打桩的声音。我抽着烟，想起医院大厅里他那张平静的脸。太平静了，平静得不像个十四岁的孩子。</p>
+    <p class="story-para">两年前离开时，他哭得眼睛红肿，抓着我的裤腿说“别不要我”。两年后再见，他看着我，像看一个陌生人，说“哦”。</p>
+    <p class="story-para">烟抽完了，我把烟蒂扔出窗外。红色的光点划了道弧线，落进下面的水坑里，嘶的一声，灭了。</p>
+    <p class="story-para">第二次见面是在一周后。我去建材市场买配件，出来时下起了雨。我没带伞，在市场门口的屋檐下躲雨。雨不大，但很密，地上很快湿了一片。</p>
+    <p class="story-para">他从马路对面走过来，撑着把黑色的伞。伞很大，他撑得有点吃力，得仰着头才能看清路。他走得很快，快到市场门口时，看见了我，脚步顿了一下。</p>
+    <p class="story-para">我们隔着雨幕对视。他站在雨里，我站在屋檐下。雨点打在伞面上，噼啪作响。过了几秒，他走过来，走到屋檐下，收了伞。伞上的水珠甩出来，溅到我裤腿上。</p>
+    <p class="story-para">“买东西？”他问，声音被雨声衬得有点模糊。</p>
+    <p class="story-para">“嗯。”我提起手里的塑料袋，里面是些螺丝和接头。</p>
+    <p class="story-para">“哦。”他甩了甩伞，水珠又溅出来一些。他今天穿了件灰色的连帽衫，还是有点大，领口歪着，露出一截锁骨。他看起来更瘦了，锁骨那里凹下去很深。</p>
+    <p class="story-para">雨还在下，没有要停的意思。我们并排站着，看着街上的车来车往。一辆电动车驶过，溅起一片水花，他往后退了半步，躲开了。</p>
+    <p class="story-para">“你奶奶呢？”我问。</p>
+    <p class="story-para">“在家。”他说，顿了顿，“我自己来的，买辅导书。”</p>
+    <p class="story-para">“书店在这边？”</p>
+    <p class="story-para">“嗯，二楼。”</p>
+    <p class="story-para">我们又沉默了。雨声很大，但沉默更响。我摸出烟盒，想抽一根，想到是在公共场合，又放了回去。</p>
+    <p class="story-para">“你还抽烟。”他说，语气很平，不是疑问，是陈述。</p>
+    <p class="story-para">“偶尔。”</p>
+    <p class="story-para">“对肺不好。”</p>
+    <p class="story-para">“知道。”</p>
+    <p class="story-para">他不说话了，低头看着自己的鞋。是双运动鞋，白色，但已经脏了，鞋边有泥点。鞋带系得很紧，勒出鞋面的褶皱。</p>
+    <p class="story-para">“你……”他开口，又停住，手指抠着伞柄上的塑料扣。</p>
+    <p class="story-para">“什么？”</p>
+    <p class="story-para">“没什么。”他摇摇头，抬起头看雨，“这雨一时半会儿停不了。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“我要上去了，书店该关门了。”</p>
+    <p class="story-para">“去吧。”</p>
+    <p class="story-para">他没动，站在那儿，看着雨。伞尖的水一滴一滴往下掉，在水泥地上晕开一个个深色的圆点。过了很久，他说：“你住哪儿？”</p>
+    <p class="story-para">“工地宿舍，城南。”</p>
+    <p class="story-para">“哦。”他又低下头，脚蹭着地面，“我住校，周末才回家。”</p>
+    <p class="story-para">“学校远吗？”</p>
+    <p class="story-para">“不远，三站公交。”他说，突然转头看我，“你要坐公交吗？这雨一时停不了，我可以帮你打伞到车站。”</p>
+    <p class="story-para">“不用，我打车。”</p>
+    <p class="story-para">“打车贵。”</p>
+    <p class="story-para">“公司报销。”</p>
+    <p class="story-para">“哦。”他点点头，又不说话了。雨小了些，从密密的线变成稀疏的点。街对面的霓虹灯亮起来，红红绿绿的光映在湿漉漉的路面上，碎成一片。</p>
+    <p class="story-para">“我真得上去了。”他说。</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">他撑开伞，走进雨里。走了几步，回头看我：“你……注意安全。”</p>
+    <p class="story-para">“你也是。”</p>
+    <p class="story-para">他转身走了，黑色的伞在雨里移动，越来越小，最后进了市场大门。我站在屋檐下，又等了一会儿，雨更小了，变成毛毛雨。我拎着塑料袋走进雨里，雨丝很细，落在脸上凉丝丝的。</p>
+    <p class="story-para">走到公交站，正好有辆车来。我上了车，车上人不多，我坐在靠窗的位置。车窗上蒙着一层水汽，我用袖子擦了擦，能看见外面湿漉漉的街道，和匆匆的行人。</p>
+    <p class="story-para">车开动了。经过市场门口时，我看见他从里面出来，手里多了个塑料袋，应该是书。他撑着伞站在路边，像是在等车。公交车从他面前驶过，他没有抬头，只是看着马路对面，侧脸在雨幕里有些模糊。</p>
+    <p class="story-para">车开远了，他的身影在后视镜里越来越小，最后看不见了。我靠在椅背上，闭上眼睛。塑料袋放在腿上，螺丝在里面碰撞，发出轻微的响声。</p>
+    <p class="story-para">雨停了。太阳从云层后面露出来一点，光很弱，但把湿漉漉的地面照得发亮。车到站了，我下车，走回宿舍。老刘正在用一只脚跳着洗衣服，泡沫溅了一地。</p>
+    <p class="story-para">“回来了？”他问。</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“买着东西了？”</p>
+    <p class="story-para">“买着了。”</p>
+    <p class="story-para">我把塑料袋放在桌上，脱掉湿了的外套。手机震了一下，是项目经理发来的明日工作安排。我看了眼，回复“收到”，然后把手机扔在床上。</p>
+    <p class="story-para">窗外，工地的灯又亮起来了。天黑得很快，雨后的天空是深蓝色的，没有星星。打桩机的声音还在继续，咚咚咚，很有节奏，像这座城市的心跳，沉重，缓慢，不知疲倦。</p>
+    <p class="story-para">我坐在床边，看着窗外那片灯光。远处的居民楼也亮起了灯，一格一格的窗户，透出温暖的光。其中有一格，也许是他家。也许他正在写作业，也许在照顾奶奶，也许只是坐着，看着窗外，像我现在一样。</p>
+    <p class="story-para">但那些都与我无关了。两年时间，足够让一条裂痕变成鸿沟，让熟悉变成陌生。我们之间隔着的，不止是时间，还有那些没说出口的话，和那些已经做出的选择。</p>
+    <p class="story-para">我躺下来，闭上眼睛。老刘洗完了衣服，正在抱怨一只手拧不干。另外两个工友回来了，大声说着今天的趣事。宿舍里很吵，但我很快睡着了。</p>
+    <p class="story-para">没有梦，只有一片沉重的黑暗，和远处机器持续不断的声音。咚咚咚，一下，又一下，像在敲打着什么，又像在提醒着什么。</p>
+  </section>
+    <section class="chapter" id="c12">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 12</div>
+        <h2 class="ch-zh">疏离的靠近</h2>
+        <div class="ch-rule"></div>
+      </div>
+    <p class="story-para">那之后我又见过他几次。</p>
+    <p class="story-para">总是在意料之外的地方。一次是在公交站，我下班等车，他从对面马路走过，背着那个看起来很沉的书包，低着头，走得很快，没看见我。一次是在便利店，我进去买烟，他正好出来，手里拿着瓶矿泉水。我们擦肩而过，他看了我一眼，点点头，脚步没停。</p>
+    <p class="story-para">最近一次是在我住的宿舍附近。那天我加班到晚上九点多，往回走时在巷子口看见了他。他站在路灯下，像是在等人，又像是在犹豫要不要进去。昏黄的光照在他身上，投下长长的影子。</p>
+    <p class="story-para">我走过去，他听见脚步声，转过身。看见是我，他身体僵了一下，然后很快放松，但肩膀还绷着。</p>
+    <p class="story-para">“你怎么在这儿？”我问。</p>
+    <p class="story-para">“路过。”他说，声音很轻，“我同学住这附近。”</p>
+    <p class="story-para">“哪栋？”</p>
+    <p class="story-para">他指了指相反方向的一栋楼：“那边。”</p>
+    <p class="story-para">我没拆穿他。那边是片待拆的平房，早就没人住了。“回家？”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“我送你到公交站。”</p>
+    <p class="story-para">“不用，我自己能回。”</p>
+    <p class="story-para">“顺路。”</p>
+    <p class="story-para">他没再坚持。我们并排走着，隔着一米左右的距离。巷子很窄，地上有积水，得小心绕开。他走得很慢，时不时侧头看两边的楼房，像是在找什么。</p>
+    <p class="story-para">“你在看什么？”我问。</p>
+    <p class="story-para">“没什么。”他立刻收回目光，盯着地面。</p>
+    <p class="story-para">沉默地走了一段。巷子里的路灯坏了几盏，有一段很暗。我打开手机的手电筒，光柱切开黑暗，照出前面坑洼的路面。他走在我旁边，影子在墙上晃动，拉长又缩短。</p>
+    <p class="story-para">“你现在，”他开口，声音在黑暗里显得很清晰，“还抽烟吗？”</p>
+    <p class="story-para">“抽得少了。”</p>
+    <p class="story-para">“哦。”他顿了顿，“我奶奶说，抽烟死得快。”</p>
+    <p class="story-para">“你奶奶身体还好吗？”</p>
+    <p class="story-para">“就那样。药不能停，每个月复查。”他说得很平淡，像在说今天天气不错。</p>
+    <p class="story-para">“你一个人照顾她？”</p>
+    <p class="story-para">“周末回家帮忙，平时有钟点工。”他说，顿了顿，“我爸妈出的钱。”</p>
+    <p class="story-para">“他们还在外地？”</p>
+    <p class="story-para">“嗯，过年回来。”</p>
+    <p class="story-para">我们走出巷子，到了大路上。车多了，人也多了，路边摊的油烟味飘过来。公交站就在前面，已经有人在等。我们走到站台，站在广告牌的阴影里。</p>
+    <p class="story-para">“你坐几路？”我问。</p>
+    <p class="story-para">“12路。”</p>
+    <p class="story-para">“末班车几点？”</p>
+    <p class="story-para">“十点半。”他看了眼手机，“还有二十分钟。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">我们并排站着，看着马路上的车流。路灯很亮，能看清他侧脸的轮廓。下巴尖了些，鼻梁挺了，但还是那种苍白的肤色，像常年不见阳光。他穿着初中的校服，蓝白相间，洗得有些发白。领口有点歪，我没忍住，伸手帮他整了整。</p>
+    <p class="story-para">手指碰到他脖子皮肤时，他颤了一下，很轻微，但我感觉到了。我收回手，他低下头，手不自觉地摸了摸我刚碰过的地方。</p>
+    <p class="story-para">“你……”他开口，又停住，手指抠着书包带子。</p>
+    <p class="story-para">“什么？”</p>
+    <p class="story-para">“你现在，”他抬起头，看着我，眼睛在路灯下很亮，“过得好吗？”</p>
+    <p class="story-para">“还行。”</p>
+    <p class="story-para">“有女朋友吗？”</p>
+    <p class="story-para">“没。”</p>
+    <p class="story-para">“哦。”他又低下头，脚蹭着地面，“我也没有。”</p>
+    <p class="story-para">“你才多大。”</p>
+    <p class="story-para">“十四了。”他说，语气里有种执拗，“我们班有人谈恋爱了。”</p>
+    <p class="story-para">“那是他们的事。”</p>
+    <p class="story-para">“我知道。”他顿了顿，“我没想谈，就是说说。”</p>
+    <p class="story-para">12路车来了。车灯很刺眼，照得站台上的人脸上发白。门开了，几个人上车。他站着没动，看着车门，又看看我。</p>
+    <p class="story-para">“车来了。”我说。</p>
+    <p class="story-para">“嗯。”他没动。</p>
+    <p class="story-para">“不上车？”</p>
+    <p class="story-para">“人太多，等下一班。”</p>
+    <p class="story-para">其实车上人不多，还有空位。但我没说什么。车门关上，车开走了。站台上只剩下我们俩，还有后面长椅上坐着的一个老太太，在打瞌睡。</p>
+    <p class="story-para">“你住宿舍，”他突然问，“几个人一间？”</p>
+    <p class="story-para">“四个。”</p>
+    <p class="story-para">“挤吗？”</p>
+    <p class="story-para">“还行。”</p>
+    <p class="story-para">“有热水吗？”</p>
+    <p class="story-para">“有。”</p>
+    <p class="story-para">“能洗澡吗？”</p>
+    <p class="story-para">“能。”</p>
+    <p class="story-para">一问一答，像面试。他问得很仔细，我答得很简单。问完了，他沉默下来，手指在书包带上绕了一圈又一圈。夜风吹过来，带着凉意，他缩了缩肩膀。</p>
+    <p class="story-para">“冷？”我问。</p>
+    <p class="story-para">“不冷。”</p>
+    <p class="story-para">但我看见他手臂上起了鸡皮疙瘩。我脱下外套，递给他。他看了看外套，又看了看我，没接。</p>
+    <p class="story-para">“穿上。”我说。</p>
+    <p class="story-para">“不用，你自己穿。”</p>
+    <p class="story-para">“我里面还有件衣服。”</p>
+    <p class="story-para">他犹豫了几秒，接过去，披在肩上。外套很大，披在他身上几乎拖到膝盖。他拉起袖子看了看，袖口磨破了，线头露出来。</p>
+    <p class="story-para">“该补补了。”他说。</p>
+    <p class="story-para">“没事，能穿。”</p>
+    <p class="story-para">“我会补。”他抬头看我，“以前奶奶教过我。针脚要密，线要拉紧，不然容易开。”</p>
+    <p class="story-para">“不用麻烦。”</p>
+    <p class="story-para">“不麻烦。”他说得很认真，“我补得挺好的，奶奶的袜子都是我补的。”</p>
+    <p class="story-para">我没接话。他又低下头，手指摩挲着外套的布料，是那种很普通的工装布，洗了很多次，已经发白了。</p>
+    <p class="story-para">“黄铭哲。”他叫我的名字，声音很轻。</p>
+    <p class="story-para">“嗯？”</p>
+    <p class="story-para">“你……”他张了张嘴，好像有很多话要说，但最后只说了句，“你要好好的。”</p>
+    <p class="story-para">“你也是。”</p>
+    <p class="story-para">“我会的。”他说，顿了顿，“我现在挺好的。学习还行，在班里排前十。老师说我考重点高中没问题。”</p>
+    <p class="story-para">“那就好。”</p>
+    <p class="story-para">“奶奶的药按时吃，复查一次不落。钟点工阿姨人很好，做的饭奶奶爱吃。”他语速很快。“我周末回家打扫卫生，洗衣服，陪奶奶说话。她最近精神好多了，能下楼晒太阳了。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“我爸妈……他们还是忙，但每个月都打电话，寄钱。够用。”他说完，停下来，看着马路对面闪烁的霓虹灯，声音低下去，“所以……所以你不用操心。”</p>
+    <p class="story-para">我没说话。心里某个地方被刺了一下，不疼，但那种感觉很明显。像是有什么东西碎了，很轻的一声，但你知道它碎了。</p>
+    <p class="story-para">又一班12路来了。这次车上人更少，只有三四个。他看着车，没动。车门开了，司机看过来。他站着，手攥着外套的衣角，攥得很紧，指节发白。</p>
+    <p class="story-para">“我该走了。”他说，声音有点哑。</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">他脱下外套，递还给我。我接过来，还带着他的体温。他背上书包，朝车门走去。走到车门口，他停了一下，回头看我。</p>
+    <p class="story-para">“黄铭哲。”</p>
+    <p class="story-para">“嗯？”</p>
+    <p class="story-para">“我……”他咬了咬嘴唇，“我上去了。”</p>
+    <p class="story-para">“路上小心。”</p>
+    <p class="story-para">“你也是。”</p>
+    <p class="story-para">他上了车，投币，往里走，在靠窗的位置坐下。车门关上，车启动。我站在原地，看着车开走。车窗里，他回过头，朝我挥手。很小幅度地挥手，像怕被人看见。</p>
+    <p class="story-para">我也抬了抬手。车开远了，尾灯在夜色里变成两个红点，然后转弯，不见了。</p>
+    <p class="story-para">我穿上外套，还能闻到他身上的味道，是那种很普通的洗衣粉味，混着一点淡淡的、属于少年的汗味。我在站台上站了一会儿，然后转身往回走。</p>
+    <p class="story-para">路过便利店时，我进去买了包烟。老板娘认识我，递烟时随口问：“刚才那是小辰吧？长这么高了。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“有两年没见了吧？听说他现在住校，学习可好了。”老板娘一边找零一边说，“就是太瘦了，看着让人心疼。”</p>
+    <p class="story-para">我没接话，接过零钱和烟，走出店门。点了根烟，慢慢往回走。夜很深了，街上人少了，只有几家大排档还开着，油腻的灯光下，几个人在喝酒划拳，声音很大。</p>
+    <p class="story-para">回到宿舍，老刘已经睡了，另外两个工友在打牌。我把外套挂好，去水房洗漱。水很凉，泼在脸上让人清醒。我看着镜子里的人，头发长了，该剪了，下巴上有胡茬。眼睛里有血丝，是熬夜熬的。</p>
+    <p class="story-para">我擦了把脸，回到房间。打牌的工友问我玩不玩，我说累，不玩了。我爬上床，躺下，盯着上铺的床板。木板上有以前的人刻的字，歪歪扭扭的，看不清楚是什么。</p>
+    <p class="story-para">手机震了一下。我拿起来看，是个陌生号码发来的短信：“我到家了。外套我洗了再还你。”</p>
+    <p class="story-para">我盯着那串号码看了一会儿，保存了，备注“朱沐辰”。然后回：“不用还，你留着穿。”</p>
+    <p class="story-para">过了一会儿，他回：“太大了，我穿不了。”</p>
+    <p class="story-para">“那随便你。”</p>
+    <p class="story-para">他没再回。我把手机扔在枕边，闭上眼睛。宿舍里很吵，打牌的声音，说笑的声音，老刘的呼噜声。但我在这些声音里，很清楚地听见了自己的心跳，一下，又一下，在黑暗里格外沉重。</p>
+    <p class="story-para">第二天是周六。我一早就去了工地，有个管道要改，得趁周末没人用的时候弄。干到中午，汗湿透了衣服。我坐在楼梯间吃饭，盒饭是项目部订的，两荤一素，油很大。</p>
+    <p class="story-para">手机震了，是朱沐辰发来的短信：“你在哪儿？”</p>
+    <p class="story-para">“工地。”</p>
+    <p class="story-para">“哪个工地？”</p>
+    <p class="story-para">我发了定位过去。他没再回。我吃完饭，继续干活。下午三点多，我正蹲着拧螺丝，听见有人喊：“黄铭哲。”</p>
+    <p class="story-para">抬头，他站在工地围挡外面，手里提着个塑料袋。他换了自己的衣服，一件白色T恤，一条牛仔裤，看起来很清爽。阳光很烈，他眯着眼睛，朝我挥手。</p>
+    <p class="story-para">我走过去，打开小门让他进来。“你怎么来了？”</p>
+    <p class="story-para">“路过。”他把塑料袋递给我，“给你带的。”</p>
+    <p class="story-para">我接过来，里面是盒切好的水果，西瓜、哈密瓜、火龙果，还有瓶冰水。</p>
+    <p class="story-para">“你自己切的？”我问。</p>
+    <p class="story-para">“嗯，家里水果多，吃不完。”</p>
+    <p class="story-para">我在旁边的水泥管上坐下，他也坐下，隔着一小段距离。我打开盒子，用牙签插了块西瓜，很甜，很凉。他也拿了块，小口小口地吃。</p>
+    <p class="story-para">“你今天不上课？”我问。</p>
+    <p class="story-para">“下午没课，自习，我请假了。”他说，眼睛看着工地里那些钢筋水泥，“这里要盖什么？”</p>
+    <p class="story-para">“写字楼，二十层。”</p>
+    <p class="story-para">“哦。”他看了一圈，“你负责什么？”</p>
+    <p class="story-para">“水电，所有管道线路。”</p>
+    <p class="story-para">“难吗？”</p>
+    <p class="story-para">“还行，做熟了就不难。”</p>
+    <p class="story-para">他点点头，又吃了块哈密瓜。我们安静地坐着，吃着水果。工地里很吵，电钻声，敲打声，但这一小块角落还算安静。阳光从围挡的缝隙漏进来，照在他脸上，能看见细小的绒毛，在光里泛着金色。</p>
+    <p class="story-para">“你手，”他看着我拧螺丝的手，“还疼吗？”</p>
+    <p class="story-para">“早不疼了。”</p>
+    <p class="story-para">“那就好。”他顿了顿，“我以前……我以前老做噩梦，梦见你的手一直流血，怎么都止不住。”</p>
+    <p class="story-para">我看向他。他低着头，盯着手里的牙签，手指捏得很紧，牙签快要断了。</p>
+    <p class="story-para">“梦都是反的。”我说。</p>
+    <p class="story-para">“我知道。”他说，声音很轻，“可我还是怕。”</p>
+    <p class="story-para">我没接话。风吹过来，卷起地上的尘土，他眯了眯眼。我伸手，很轻地，拍掉他头发上的灰。他没躲，只是抬头看我，眼睛很亮，像蒙着一层水光。</p>
+    <p class="story-para">“黄铭哲。”他叫我。</p>
+    <p class="story-para">“嗯？”</p>
+    <p class="story-para">“我能不能……”他咬了咬嘴唇，“我能不能偶尔来看看你？就偶尔，不会打扰你工作。”</p>
+    <p class="story-para">我看着他的眼睛，那双眼睛和两年前一样干净，但多了些别的东西，我看不懂的东西。我想说不行，想说这样不好，但话到嘴边，变成了：“随你。”</p>
+    <p class="story-para">他笑了，很浅的笑，但眼睛弯起来。“那我走了，你忙吧。”</p>
+    <p class="story-para">“我送你出去。”</p>
+    <p class="story-para">“不用，你忙你的。”他站起来，拍了拍裤子上的灰，“水果记得吃完，别放坏了。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">他转身往外走，走到小门时回头看我：“外套我洗了，下次带给你。”</p>
+    <p class="story-para">“好。”</p>
+    <p class="story-para">他走了。我坐在水泥管上，把那盒水果吃完。很甜，很凉，但心里某个地方，像被什么东西堵住了，闷得慌。</p>
+    <p class="story-para">下午的活干得心不在焉。拧螺丝时差点拧滑丝，爬梯子时踩空了一级，幸好抓住了。工友问我是不是累了，我说是有点。</p>
+    <p class="story-para">下班回宿舍的路上，我又路过那个公交站。站台上空荡荡的，只有广告牌亮着灯。我站在那里看了一会儿，然后继续往前走。</p>
+    <p class="story-para">回到宿舍，我把那件外套从挂钩上取下来，摸了摸。洗得很干净，有洗衣粉的味道。袖口的破洞被补好了，针脚很密，很整齐，像他说的一样。</p>
+    <p class="story-para">我把外套叠好，放进衣柜最里面。然后去洗漱，躺下。窗外工地的灯还亮着，光从窗帘缝漏进来，在地上投下一道细细的亮线。</p>
+    <p class="story-para">我盯着那道亮线，看了很久。它随着窗帘的晃动轻轻摇晃，像水波，像呼吸，像某种微弱但持续的、无法忽视的存在。</p>
+  </section>
+    <section class="chapter" id="c13">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 13</div>
+        <h2 class="ch-zh">矛盾的爆发</h2>
+        <div class="ch-rule"></div>
+      </div>
+    <p class="story-para">项目经理找我谈话是在周五下午。他把我叫进板房办公室，关上门，示意我坐。桌上摊着图纸，旁边放着杯茶，已经凉了，茶叶沉在杯底。</p>
+    <p class="story-para">“小黄，”他开口，手指在桌上敲了敲，“你来这边也一个多月了，干得不错。”</p>
+    <p class="story-para">我没说话，等他下文。</p>
+    <p class="story-para">“但是呢，”他顿了顿，拿起茶杯又放下，“有些事，我得问问你。”</p>
+    <p class="story-para">“您说。”</p>
+    <p class="story-para">“你是不是认识一个叫朱沐辰的小孩？”</p>
+    <p class="story-para">我手指蜷了一下。“认识。”</p>
+    <p class="story-para">“他父母，”项目经理盯着我的眼睛，“昨天找到公司总部去了，投诉你。”</p>
+    <p class="story-para">办公室里很闷，空调开了但没什么用。我能听见外面工地的声音，电钻声，敲打声，还有工友的吆喝声。这些声音混在一起，嗡嗡的，像隔着一层膜。</p>
+    <p class="story-para">“投诉我什么？”我问。</p>
+    <p class="story-para">“说你骚扰他们儿子，影响他学习，还说你……”他停住，似乎在斟酌用词，“说你动机不纯。”</p>
+    <p class="story-para">我没立刻回应。窗户外有只鸟飞过，黑色的，很快消失在楼群后面。</p>
+    <p class="story-para">“他们怎么说的？”我问。</p>
+    <p class="story-para">“具体我不清楚，是总部人事部转过来的电话。”项目经理搓了搓脸，看起来很疲惫，“他们说你是社会闲散人员，以前就有前科，接近他们儿子别有用心。要求公司开除你，否则就要报警，还要找媒体曝光。”</p>
+    <p class="story-para">“我没有前科。”</p>
+    <p class="story-para">“我知道。”他叹了口气，“你的人品我信得过。但这年头，这种事说不清楚。尤其是涉及到未成年人，舆论压力大。”</p>
+    <p class="story-para">我看着他。他四十多岁，头发已经白了一半，眼角有很深的皱纹。这个项目是他负责的，工期紧，压力大，现在又出这种事。</p>
+    <p class="story-para">“公司的意思呢？”我问。</p>
+    <p class="story-para">“本来是要直接辞退的。”他说，拿起桌上的烟盒，抽出一根，没点，只是在手里转着，“但我保了你。我说你技术好，这个节骨眼上换人耽误工期。上面松了口，说给你个警告，但不能再跟那孩子有任何接触。”</p>
+    <p class="story-para">“我没有主动找他。”</p>
+    <p class="story-para">“那也不行。”项目经理把烟放在桌上，手指点了点，“从现在开始，你离他远点。他家要是再闹，我也保不住你。”</p>
+    <p class="story-para">我没说话。办公室里更闷了，汗水顺着脊背往下流。</p>
+    <p class="story-para">“小黄，”项目经理身体前倾，压低声音，“我不是不信你。但这种事，沾上了就是一身腥。你才二十出头，以后路还长，别因为一个不相干的孩子，把自己前途搭进去。”</p>
+    <p class="story-para">“他不是不相干的孩子。”我说。</p>
+    <p class="story-para">“什么？”</p>
+    <p class="story-para">“他是我邻居。”</p>
+    <p class="story-para">“邻居？”项目经理愣了一下，然后摇头，“那更麻烦。邻里纠纷最说不清。听我一句劝，断了，彻底断了。对你，对他，都好。”</p>
+    <p class="story-para">我盯着桌面。桌面上有圈水渍，是茶杯留下的，已经干了，留下淡淡的黄印。</p>
+    <p class="story-para">“你要是同意，这事就到此为止。”项目经理靠回椅背，“你继续干你的，我当没发生过。但要是再有一次——”</p>
+    <p class="story-para">“我明白。”我打断他。</p>
+    <p class="story-para">他看着我，看了很久，最后点点头：“明白就好。出去干活吧，下午三号楼的水管要验收。”</p>
+    <p class="story-para">我起身，拉开门。外面的热浪扑面而来，混着水泥和金属的味道。我走回工地，戴上安全帽，工友老李凑过来：“头儿找你啥事？”</p>
+    <p class="story-para">“没什么，进度的事。”</p>
+    <p class="story-para">“吓我一跳，以为你要挨骂呢。”老李咧嘴笑，露出一口黄牙，“走，三号楼。”</p>
+    <p class="story-para">整个下午我都在三号楼。检查管道，测试水压，记录数据。这些事我做过无数遍，闭着眼睛都能做。但今天手有点抖，扳手差点滑脱。老李看了我一眼：“不舒服？”</p>
+    <p class="story-para">“有点热。”</p>
+    <p class="story-para">“这天是邪门，都十月了还这么热。”老李抹了把汗，“干完这层歇会儿。”</p>
+    <p class="story-para">我没应声，继续拧阀门。水流出来，压力正常。我在表格上打勾，笔尖戳破了纸。</p>
+    <p class="story-para">下班回到宿舍，手机上有三个未接来电，都是陌生号码。我没回拨，去水房冲了个澡。水很凉，冲在身上起了一层鸡皮疙瘩。我关掉水，站着，水珠从头发上滴下来，砸在水槽里，嘀嗒，嘀嗒。</p>
+    <p class="story-para">手机又响了。这次是短信，还是那个号码：“我是朱沐辰的妈妈，我们谈谈。”</p>
+    <p class="story-para">我看着那行字，看了很久。然后回：“好，时间地点。”</p>
+    <p class="story-para">她很快发来一个茶楼的名字，还是上次那家，还是二楼包厢。时间是明天下午两点。</p>
+    <p class="story-para">我回了个“嗯”，把手机扔在床上。窗外天黑了，工地的灯亮起来，把整个房间照得忽明忽暗。我躺在床上，盯着上铺的床板。木板上的字迹在昏暗的光线下更模糊了，像某种古老的咒语。</p>
+    <p class="story-para">第二天我提前到了茶楼。还是那个包厢，还是靠窗的位置。我点了壶最便宜的绿茶，等着。两点整，门开了，进来两个人。朱沐辰妈妈，还有一个男人，上次见过，是他爸爸。</p>
+    <p class="story-para">他们坐下，表情很严肃。服务员进来倒茶，倒完退出去，轻轻带上门。包厢里很安静，只有空调的嗡嗡声。</p>
+    <p class="story-para">“黄先生，”朱爸爸先开口，语气比上次更硬，“我们长话短说。请你离我儿子远点。”</p>
+    <p class="story-para">我没说话，端起茶杯，茶很烫，烫得嘴唇发麻。</p>
+    <p class="story-para">“我们知道你又去找他了。”朱妈妈说，声音有点抖，不知道是生气还是紧张，“还去工地找你，给你送东西。黄先生，我们上次说得不够清楚吗？”</p>
+    <p class="story-para">“我没找他。”我说，“是他来找我。”</p>
+    <p class="story-para">“那他为什么去找你？”朱爸爸身体前倾，盯着我，“你要是不给他希望，他会去找你吗？他才十四岁，懂什么？你是成年人，该知道分寸！”</p>
+    <p class="story-para">“我知道。”</p>
+    <p class="story-para">“你知道？”朱妈妈突然提高声音，“你知道就不会让他一次次去找你！你知道就不会让他成绩下滑！你知道就不会让他跟家里闹！”</p>
+    <p class="story-para">我看向她：“他成绩下滑了？”</p>
+    <p class="story-para">“上次月考，掉到二十名开外！”她眼圈红了，“班主任找我们谈话，说他最近上课老走神，作业也敷衍。我们问他怎么了，他不说。后来我们查他手机，看见他给你发的短信！”</p>
+    <p class="story-para">“我们没有——”</p>
+    <p class="story-para">“没有？”朱爸爸打断我，从包里掏出一叠纸，摔在桌上。是短信记录的打印件，密密麻麻的字。我拿起来看，都是朱沐辰发的，时间从两周前开始。</p>
+    <p class="story-para">“黄铭哲，你在哪儿？”</p>
+    <p class="story-para">“今天路过你们工地，看见你了。”</p>
+    <p class="story-para">“水果好吃吗？”</p>
+    <p class="story-para">“下周我奶奶复查，还是那个医院。”</p>
+    <p class="story-para">“你为什么不回我短信？”</p>
+    <p class="story-para">最后一条是昨天发的：“我爸妈知道了。对不起。”</p>
+    <p class="story-para">我把纸放回桌上。纸张很轻，但落在玻璃桌面上发出很响的声音。</p>
+    <p class="story-para">“看见了吗？”朱爸爸手指敲着桌子，“都是他主动找你！你就不能明确拒绝吗？你就不能跟他说清楚，让他死心吗？”</p>
+    <p class="story-para">“我说了。”</p>
+    <p class="story-para">“说了没用！”朱妈妈声音更大了，“他要听你的，就不会这样了！黄铭哲，我们求你了，放过他吧。他马上就要中考了，这个节骨眼上出问题，一辈子就毁了！”</p>
+    <p class="story-para">她哭了，眼泪掉下来，砸在桌面上。朱爸爸搂住她的肩，眼睛盯着我，像要在我身上烧出个洞。</p>
+    <p class="story-para">“我们也不想闹成这样。”朱爸爸说，语气稍微缓和，但更冷，“但你逼我们。我们去找你公司，是最后的手段。如果你再继续，我们就报警。你也不想留案底吧？”</p>
+    <p class="story-para">我端起茶杯，又放下。茶已经凉了，浮着一层油膜。</p>
+    <p class="story-para">“我明白了。”我说。</p>
+    <p class="story-para">“光明白不够。”朱爸爸从包里又掏出一张纸，推到我面前，“这是保证书，你签了。保证以后不再联系朱沐辰，不再出现在他面前，不再以任何方式干扰他的生活。”</p>
+    <p class="story-para">纸上打印着几行字，下面有签名处。我看了一遍，很简单，也很决绝。</p>
+    <p class="story-para">“签了，这事就了了。”朱爸爸递过笔，“我们也不会再找你公司麻烦。”</p>
+    <p class="story-para">我看着那支笔，黑色的，很普通的中性笔。我接过来，笔身冰凉。在签名处停了几秒，然后写下自己的名字。字迹有点抖，但还能看。</p>
+    <p class="story-para">朱爸爸拿回纸，仔细看了看，折好放回包里。“谢谢配合。”他说，但语气里没有感谢的意思。</p>
+    <p class="story-para">朱妈妈还在哭，声音很小，压抑的啜泣。朱爸爸扶她站起来，对我说：“那就这样。我们走了，你好自为之。”</p>
+    <p class="story-para">他们离开，包厢里只剩下我一个人。茶杯里的茶叶完全舒展开，沉在杯底，像一团纠缠的水草。我坐了很久，直到服务员进来添水，小心翼翼地问：“先生，还需要点什么吗？”</p>
+    <p class="story-para">“不用。”我站起来，“买单。”</p>
+    <p class="story-para">走出茶楼，阳光很刺眼。我眯起眼睛，站了一会儿，然后朝公交站走。手机震了，是项目经理：“谈完了？”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“那就好。明天准时上工。”</p>
+    <p class="story-para">“知道了。”</p>
+    <p class="story-para">我挂了电话，把手机塞回口袋。公交站人很多，我站在人群里，等车。车来了，我挤上去，没座位，站在过道里。车厢很闷，有汗味和廉价香水的味道。我抓着扶手，随着车的晃动摇晃。</p>
+    <p class="story-para">手机又震了。是朱沐辰。我看着屏幕上跳动的名字，没接。震动停了，又响。又停，又响。第三次时，我按了接听。</p>
+    <p class="story-para">“黄铭哲……”他的声音，带着哭腔，“我爸妈是不是去找你了？”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“他们说什么了？他们是不是骂你了？对不起，真的对不起，我不知道他们会……”</p>
+    <p class="story-para">“没事。”我说。</p>
+    <p class="story-para">“怎么会没事！”他声音大起来，几乎在喊，“他们去你公司了是不是？你会不会失业？是不是因为我？”</p>
+    <p class="story-para">“不会。”</p>
+    <p class="story-para">“你骗我！”他哭了，哭得很厉害，喘不上气的那种，“我都听到了……他们打电话，说要让你丢工作……都怪我，都怪我……”</p>
+    <p class="story-para">“朱沐辰。”我叫他名字。</p>
+    <p class="story-para">他停住了，抽泣声还在，但小了些。</p>
+    <p class="story-para">“听我说。”我看着窗外掠过的街景，“好好上学，听你爸妈的话。”</p>
+    <p class="story-para">“我不要！”他喊，“我不要听他们的话！他们根本不懂！他们只在乎成绩，只在乎面子，他们根本不在乎我——”</p>
+    <p class="story-para">“他们在乎。”我打断他，“只是方式不一样。”</p>
+    <p class="story-para">“那你呢？”他问，声音很轻，轻得像要碎掉，“你也不在乎我吗？”</p>
+    <p class="story-para">我没回答。车到站了，有人下车，有人上车。车厢里更挤了，我被挤到角落，后背贴着冰凉的铁皮。</p>
+    <p class="story-para">“黄铭哲，”他叫我的名字，每个字都带着颤抖，“你说啊，你在乎吗？”</p>
+    <p class="story-para">“我在乎。”我说了实话，“所以才让你好好长大。”</p>
+    <p class="story-para">电话那头安静了，只有呼吸声，很重，很乱。过了很久，他说：“可是我长大了，你就不要我了，是吗？”</p>
+    <p class="story-para">“不是不要。”我喉咙发紧，“是不能要。”</p>
+    <p class="story-para">“为什么不能？”他又哭了，这次是小声的，压抑的哭，“我很快就能长大了，真的，我马上就十五岁了，我——”</p>
+    <p class="story-para">“朱沐辰。”我又叫他的名字。</p>
+    <p class="story-para">他停住。</p>
+    <p class="story-para">“别这样。”我说，“别让我为难。”</p>
+    <p class="story-para">电话那头传来吸气的声音，很用力，像在憋着不哭出来。然后他说：“我知道了。”声音很平，平得让人心慌。</p>
+    <p class="story-para">“我要下车了。”我说。</p>
+    <p class="story-para">“等一下！”他急急地说，然后又停住，呼吸声很重，“我能……我能再见你一面吗？最后一面。”</p>
+    <p class="story-para">“不行。”</p>
+    <p class="story-para">“为什么？”</p>
+    <p class="story-para">“你爸妈不会同意。”</p>
+    <p class="story-para">“我不告诉他们，我偷偷——”</p>
+    <p class="story-para">“不行。”我说得很坚决，“别再偷偷做什么了。听话。”</p>
+    <p class="story-para">又是沉默。长久的沉默，久到我以为电话已经挂了。然后他说：“好。我听你的。”</p>
+    <p class="story-para">“那，再见。”我说。</p>
+    <p class="story-para">“……再见。”</p>
+    <p class="story-para">我挂了电话，把手机塞回口袋。手心全是汗，在裤子上擦了擦。车又到站了，我挤下车。站在路边，阳光晒得人发晕。我点了根烟，抽了一口，呛得咳嗽起来。烟很劣质，辣嗓子。</p>
+    <p class="story-para">我继续往前走，漫无目的地走。路过便利店，进去买了瓶水。冰柜里摆着各种饮料，我拿了瓶最便宜的矿泉水。结账时，老板娘看了我一眼：“小黄，脸色这么差，中暑了？”</p>
+    <p class="story-para">“有点。”</p>
+    <p class="story-para">“多喝水，这天气邪门。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">我拧开瓶盖，灌了一大口。水很凉，顺着喉咙往下，但心里那股火还是烧着，烧得人难受。</p>
+    <p class="story-para">回到宿舍，老刘在泡面，看见我，招呼：“吃饭没？给你也泡一盒？”</p>
+    <p class="story-para">“不用，吃过了。”</p>
+    <p class="story-para">我爬上床，躺下。天花板上有块水渍，形状像地图，边缘泛黄。我盯着看，看久了，那块水渍好像在动，在蔓延，越来越大。</p>
+    <p class="story-para">手机又震了。这次是短信，朱沐辰发的，只有三个字：“对不起。”</p>
+    <p class="story-para">我没回。盯着那三个字，直到屏幕暗下去。然后我把手机调成静音，塞到枕头底下。</p>
+    <p class="story-para">老刘吸溜着泡面，声音很大。另外两个工友在讨论今晚去哪喝酒。宿舍里很吵，但我什么也听不见。耳朵里只有自己的心跳，很重，很快，像要跳出来。</p>
+    <p class="story-para">窗外，工地的灯又亮起来了。光从窗帘缝漏进来，在地板上切出一道细长的亮线。我看着那道亮线，想起第一次见他时，他家客厅窗户透进来的光，也是这么细长，这么微弱。</p>
+    <p class="story-para">但现在那道门关上了。不是风关的，是人关的。关得很用力，砰的一声，震得耳朵嗡嗡响。</p>
+    <p class="story-para">我把脸埋进枕头里，布料很粗糙，有汗味和灰尘的味道。我深吸一口气，然后慢慢吐出来。一下，两下，三下。</p>
+    <p class="story-para">老刘吃完了面，把碗扔进垃圾桶，发出哐当一声。然后他爬上床，床板吱呀作响。灯关了，宿舍陷入黑暗。只有窗外工地的灯还亮着，透过窗帘，在墙上投下模糊的光影。</p>
+    <p class="story-para">我在黑暗里睁着眼睛，直到眼睛发酸，发涩。然后闭上，但睡不着。脑子里全是今天的事，茶楼里的对话，那份保证书，电话里他的哭声，还有那句“对不起”。</p>
+    <p class="story-para">对不起。该说对不起的是我。</p>
+    <p class="story-para">但我没说。我说不出口。有些话一旦说出口，就再也收不回来了。就像有些人，一旦放手，就再也找不回来了。</p>
+    <p class="story-para">窗外的机器还在响，咚咚咚，一声一声，敲在心上。我数着那声音，一，二，三……数到一百，两百，三百。数乱了，从头再来。</p>
+    <p class="story-para">不知过了多久，终于睡着了。没有梦，只有一片漆黑，和远处机器持续不断的声音。那声音像心跳，像计时，像某种倒数的钟，嘀嗒，嘀嗒，走向一个早已注定的结局。</p>
+  </section>
+    <section class="chapter" id="c14">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 14</div>
+        <h2 class="ch-zh">理性的放手</h2>
+        <div class="ch-rule"></div>
+      </div>
+    <p class="story-para">朱沐辰约我在公园见面，是两天后的下午。短信发来时我正在工地核对材料清单，手机震了一下，屏幕亮起那串熟悉的号码。只有一行字：“明天下午四点，老地方。最后一次，我保证。”</p>
+    <p class="story-para">我看着那行字，看了很久。手指悬在键盘上方，想回“不行”，想回“别来了”，想回“算了吧”。但最后只回了个“好”。</p>
+    <p class="story-para">老地方是城南那个小公园，我们以前去过一次。那会儿他奶奶刚出院，我带他去散心。公园很小，只有一个湖，几把长椅，还有片稀疏的树林。那天是周末，人很多，我们绕着湖走了一圈，没怎么说话。后来在长椅上坐了会儿，他买了根冰棍，分了我一半。冰棍很甜，化得快，糖水滴在手上，黏黏的。</p>
+    <p class="story-para">第二天下午三点半，我跟工头说家里有事，提前走了。坐公交过去，路上堵车，到公园时已经四点十分。天有点阴，像是要下雨，公园里人不多，只有几个老人坐在长椅上聊天，还有带孩子来玩的年轻父母。</p>
+    <p class="story-para">我看见他了。他坐在湖边的长椅上，穿着那件浅蓝色的校服外套，书包放在身边。他没玩手机，也没看书，只是坐着，看着湖面。湖面很静，倒映着灰蒙蒙的天，偶尔有鱼跃起，荡开一圈涟漪。</p>
+    <p class="story-para">我走过去，在他旁边坐下。长椅是木质的，漆掉了很多，露出底下发黑的木头。他听见声音，转过头看我，眼睛很红，像是哭过，但脸上很干净。</p>
+    <p class="story-para">“你来了。”他说。</p>
+    <p class="story-para">“堵车。”</p>
+    <p class="story-para">“嗯。”他转回头，继续看着湖面，“我以为你不来了。”</p>
+    <p class="story-para">我没说话。湖对岸有个小孩在放风筝，风筝飞不高，摇摇晃晃的，小孩跑得跌跌撞撞，家长在后面追。风筝线缠住了树枝，小孩急得直跳脚。</p>
+    <p class="story-para">“我跟我爸妈吵了一架。”他突然说，声音很平静，“昨天晚上。”</p>
+    <p class="story-para">“为什么吵？”</p>
+    <p class="story-para">“他们不让我出门，说要给我转学，转到更远的寄宿学校，一个月才能回家一次。”他顿了顿，“我说我不去，他们说由不得我。”</p>
+    <p class="story-para">风吹过来，带着湖水的腥味。他缩了缩肩膀，拉上外套拉链，拉到顶，下巴埋进领口里。</p>
+    <p class="story-para">“后来呢？”我问。</p>
+    <p class="story-para">“后来我奶奶出来了。”他说，声音低下去，“她说，小辰，听你爸妈的吧，他们为你好。我说我不要谁为我好，我只要我自己觉得好。”</p>
+    <p class="story-para">他说这话时没看我，眼睛盯着湖面，手指抠着长椅上的木刺。木刺扎进指甲缝里，他也没停，一下一下地抠。</p>
+    <p class="story-para">“你奶奶怎么说？”我问。</p>
+    <p class="story-para">“她哭了。”他说，声音有点哑，“她说她年纪大了，管不动我了。她说她看着我爸妈闹，看着我闹，心里难受。她说……”他停住，深吸一口气，“她说小黄那孩子是好，但你们不合适，早点断了对谁都好。”</p>
+    <p class="story-para">长椅的木刺被他抠断了，一小截掉在地上。他盯着那截木刺看了一会儿，然后用脚踩住，碾进土里。</p>
+    <p class="story-para">“那你呢？”我问，“你怎么想？”</p>
+    <p class="story-para">他没立刻回答。湖对岸的风筝终于解开了，又飞起来，飞得高了些，但还是很晃。小孩高兴得拍手，笑声传过来，脆生生的。</p>
+    <p class="story-para">“我不知道。”他终于说，声音很轻，“我觉得他们说的都对，可我就是难受。”</p>
+    <p class="story-para">他转过头看我，眼睛很红，但没眼泪。“黄铭哲，你告诉我，我们错了吗？”</p>
+    <p class="story-para">我看着他的眼睛，那双眼睛里有很多东西：困惑，委屈，不甘，还有一点点，最后一点点希望。希望我说“没错”，希望我说“是他们不理解”，希望我说“我们再试试”。</p>
+    <p class="story-para">但我不能。</p>
+    <p class="story-para">“我们没错。”我说，他眼睛亮了一下，但很快暗下去，因为我接着说，“但也没用。”</p>
+    <p class="story-para">他肩膀垮下来，整个人像被抽掉了力气。他低下头，手指又去抠另一处木刺，这次抠得更用力，指甲边缘泛白。</p>
+    <p class="story-para">“你记得我们第一次见面吗？”他突然问。</p>
+    <p class="story-para">“记得。”</p>
+    <p class="story-para">“那天我家水管爆了，我吓坏了，不知道怎么办。你来了，修好了，还给我牛奶。”他说，声音很轻，像在自言自语，“那时候我就想，这个人真好。”</p>
+    <p class="story-para">“我不好。”</p>
+    <p class="story-para">“你好。”他固执地说，“你比他们都好。你不问我爸妈为什么不在，不问我为什么一个人在家，不问我成绩好不好。你只是修水管，给我牛奶，然后走了。”</p>
+    <p class="story-para">风大了些，湖面起了波纹。天更阴了，云层压得很低。远处传来雷声，闷闷的，像在很远的地方滚动。</p>
+    <p class="story-para">“后来你帮我赶走那些人，送我去医院，教我写作业，给我煮面。”他继续说，语速很慢，每个字都说得很清楚，“这两年我总想，要是你没走就好了。可我又想，你要是没走，现在是不是更难受？”</p>
+    <p class="story-para">他抬起头看我，眼睛里终于有了泪光，但没掉下来。“所以我不怪你走。真的，我不怪你。”</p>
+    <p class="story-para">我心里像被什么东西狠狠攥住了，疼得喘不过气。我想说对不起，想说很多很多对不起，但说不出口。对不起太轻了，轻得像这风，吹过去就散了，什么都留不下。</p>
+    <p class="story-para">“朱沐辰。”我叫他的名字，很认真地看着他，“听我说。”</p>
+    <p class="story-para">他点点头，眼泪终于掉下来，一滴，两滴，砸在手上，很快被风吹干。</p>
+    <p class="story-para">“我们不该再见面了。”我说，每个字都说得很慢，很重，“不是不想，是不能。对你不好，对我也不好。”</p>
+    <p class="story-para">他没反驳，只是流泪，很安静地流，肩膀微微发抖。风吹乱了他的头发，几缕发丝贴在额头上，湿漉漉的，不知道是汗还是泪。</p>
+    <p class="story-para">“你还小，路还长。”我继续说，声音有点哑，“好好上学，考个好高中，好大学。以后会有很多人对你好，比你爸妈对你好，比我对你好。”</p>
+    <p class="story-para">“我不要别人。”他小声说，带着哭腔，“我只要你。”</p>
+    <p class="story-para">“别说傻话。”</p>
+    <p class="story-para">“不是傻话。”他抬起头，眼泪流得更凶了，但眼神很坚定，“我知道我还小，我知道我什么都不懂。可是黄铭哲，我喜欢你，是真的喜欢。”</p>
+    <p class="story-para">他说得很直白，很勇敢，像用尽了所有力气。说完就低下头，不敢看我，手指死死抠着长椅，抠出深深的印子。</p>
+    <p class="story-para">我看着他，看了很久。然后伸出手，很轻地，摸了摸他的头。头发很软，有点湿。他没躲，也没动，只是低着头，肩膀抖得更厉害了。</p>
+    <p class="story-para">“我也喜欢你。”我说了实话，“但不是那种喜欢。”</p>
+    <p class="story-para">他猛地抬起头，眼睛睁得很大，眼泪还在流，但眼神里有什么东西碎了，彻底碎了。他看着我，嘴唇动了动，想说什么，但发不出声音。</p>
+    <p class="story-para">“我把你当弟弟。”我说，手还放在他头上，“当亲人。就像……就像你奶奶对你那样。”</p>
+    <p class="story-para">他盯着我，看了很久，然后慢慢地，点了点头。一下，两下，点得很慢，很用力。“我知道了。”他说，声音哑得几乎听不见。</p>
+    <p class="story-para">我把手收回来。手心还有他头发的触感，凉凉的，软软的。我把手握成拳，指甲掐进掌心，很疼，但比不上心里的疼。</p>
+    <p class="story-para">“以后，”我说，顿了顿，“好好的。”</p>
+    <p class="story-para">“你也是。”他说，擦了擦眼泪，但擦不干，新的又流出来，“你要好好的，找个好工作，找个……找个对你好的人。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“别抽烟了，对身体不好。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“按时吃饭，别总吃泡面。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“冬天多穿点，你总穿那么少。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">他说一句，我应一句。像以前，他问我宿舍的事，我一问一答。但这次不一样，这次是告别，是最后的话别。</p>
+    <p class="story-para">雨开始下了，很细的雨丝，飘在脸上凉丝丝的。湖面上漾开无数个小圈，一个接一个，连成一片。对岸放风筝的小孩被家长拉着跑了，风筝还挂在树上，被风吹得乱晃。</p>
+    <p class="story-para">“下雨了。”我说。</p>
+    <p class="story-para">“嗯。”他站起来，背起书包，“我该走了。”</p>
+    <p class="story-para">“我送你。”</p>
+    <p class="story-para">“不用。”他摇头，“我自己走。”</p>
+    <p class="story-para">他没立刻走，站在那儿，看着我。雨丝飘在他脸上，和眼泪混在一起，分不清哪些是雨，哪些是泪。他看了我很久，然后突然上前一步，很用力地抱了我一下。</p>
+    <p class="story-para">抱得很紧，很用力，手臂勒得我肋骨发疼。但很快，他就松开了，退后两步，拉开距离。他的脸很红，不知道是哭红的还是别的。</p>
+    <p class="story-para">“再见，黄铭哲。”他说，声音很轻，但很清晰。</p>
+    <p class="story-para">“再见。”我说。</p>
+    <p class="story-para">他转身走了，步子很快，几乎是跑。浅蓝色的校服外套在灰蒙蒙的雨幕里很显眼，像一点微弱的蓝，在灰暗的背景里移动，越来越小，最后消失在公园出口。</p>
+    <p class="story-para">我坐在长椅上，没动。雨下大了，从细丝变成雨点，砸在湖面上噼啪作响。长椅很快就湿了，水渗进裤子里，凉得刺骨。但我还是坐着，看着湖面，看着雨点砸出的无数个圈，一个套一个，乱了，散了，又出现新的。</p>
+    <p class="story-para">对岸树上的风筝终于被风吹掉了，飘下来，落在湖面上，浮了一会儿，然后慢慢沉下去。红色的风筝，在灰暗的湖面上很刺眼，但很快就被雨打得看不见了。</p>
+    <p class="story-para">我在长椅上坐了很久，直到衣服全湿透了，才站起来。腿有点麻，我站了一会儿，等麻劲过去，然后慢慢往外走。公园里已经没人了，只有雨声，很大，打在树叶上，打在水泥路上，打在湖面上，混成一片巨大的噪音。</p>
+    <p class="story-para">走到公园门口，我回头看了一眼。长椅空着，湖面灰蒙蒙的，雨幕像帘子，把一切都隔得很远，很模糊。那片蓝已经看不见了，彻底看不见了。</p>
+    <p class="story-para">我转身，走进雨里。雨很大，很快就把头发打湿了，水顺着脸颊往下流，流进脖子里，流进衣服里。很凉，但心里更凉。</p>
+    <p class="story-para">走到公交站，等车的人不多，都躲在站台的棚子下。我也站进去，衣服往下滴水，在地上积了一小摊。车来了，我上车，投币，找了个靠窗的位置坐下。</p>
+    <p class="story-para">车窗上全是水汽，外面什么都看不清。我用袖子擦了擦，能看见湿漉漉的街道，和匆匆的行人。每个人都在跑，都在躲雨，只有我坐着，看着，像在看一场与我无关的电影。</p>
+    <p class="story-para">车开了。经过公园，经过湖，经过那片树林。一切都很快，一晃而过。然后就是熟悉的街道，熟悉的建筑，熟悉的城市。</p>
+    <p class="story-para">但这座城市，从今天起，不一样了。少了点什么，多了点什么。少了那片浅蓝色的身影，多了心里那个永远填不上的洞。</p>
+    <p class="story-para">回到宿舍，老刘看见我湿透的样子，吓了一跳：“你掉水里了？”</p>
+    <p class="story-para">“淋雨了。”</p>
+    <p class="story-para">“赶紧换衣服，别感冒了。”</p>
+    <p class="story-para">我换了衣服，用毛巾擦了擦头发。然后躺在床上，盯着天花板。老刘在打游戏，键盘敲得噼里啪啦响。另外两个工友还没回来。</p>
+    <p class="story-para">手机响了，是项目经理，问我明天能不能早点去工地。我说能。挂了电话，我把手机扔在一边，闭上眼睛。</p>
+    <p class="story-para">雨还在下，敲在窗户上，滴滴答答。声音很规律，像钟表，像心跳，像某种倒数的声音。一下，又一下，走向那个早已注定的终点。</p>
+    <p class="story-para">我在雨声里睡着了。做了个梦，梦见那个公园，那片湖，那把长椅。他坐在长椅上，穿着浅蓝色的校服，朝我笑，笑得很开心。我想走过去，但怎么也走不到，长椅越来越远，他也越来越远，最后消失在一片白光里。</p>
+    <p class="story-para">醒来时，雨停了。窗外天黑了，工地的灯亮着，把房间照得半明半暗。我坐起来，头很疼，像要裂开。</p>
+    <p class="story-para">老刘递过来一杯水：“你发烧了，额头烫得很。”</p>
+    <p class="story-para">“没事。”</p>
+    <p class="story-para">“什么没事，都烧成这样了。”老刘嘟囔着，“明天请假吧，休息一天。”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">我接过水，喝了一口，水是温的，顺着喉咙往下，稍微舒服了些。我躺回去，盯着天花板上的水渍，看它如何蔓延，如何扩散，如何变成一片模糊的、无法辨认的形状。</p>
+    <p class="story-para">就像有些东西，一旦碎了，就再也拼不回去了。就像有些人，一旦走了，就再也回不来了。</p>
+    <p class="story-para">就像那片浅蓝，消失在雨幕里，永远，永远。</p>
+    <p class="story-para">尾声：风过葵枯</p>
+    <p class="story-para">离开那天是周一。我起得很早，天还没亮透，窗外是那种沉甸甸的深蓝色。老刘还在睡，鼾声很响，一起一伏。我轻手轻脚地收拾东西——其实也没什么好收拾的，来的时候就一个行李箱、一个编织袋，走的时候还是一样。</p>
+    <p class="story-para">我把衣服一件件叠好，放进箱子。工装裤的膝盖处磨得发白，T恤领口有些松了，袜子破了洞，但还能穿。叠到那件补过袖口的外套时，我停了一下。针脚很密，线拉得很紧，是朱沐辰补的。我摸了摸那块补丁，布料比其他地方柔软些，洗过很多次了。最后还是叠好，放进去。</p>
+    <p class="story-para">工具箱最沉，扳手、钳子、电笔，一样样擦干净，摆整齐。我检查了每样工具，确定没有遗漏，然后合上箱盖。咔哒一声，锁扣扣上。</p>
+    <p class="story-para">天渐渐亮了，灰白的光从窗帘缝漏进来。我坐在床沿，点了根烟。烟盒里还剩最后三根，我抽得很慢，看烟灰一点点变长，弯曲，掉在地上。地上有层薄灰，烟灰落上去，很快混在一起，分不清了。</p>
+    <p class="story-para">手机在口袋里震了一下。我拿出来看，是项目经理发来的工资结算单，附了句话：“小黄，钱打你卡上了。以后有机会再合作。”</p>
+    <p class="story-para">我回了句“谢谢”，然后打开银行APP。余额多了五千三，是这个月的工钱。加上之前剩下的，够我撑一阵子。</p>
+    <p class="story-para">烟抽完了，我把烟蒂按灭在易拉罐里。罐子已经满了，烟蒂堆成小山，有几根没完全熄灭，飘起细细的青烟。我起身，把罐子扔进垃圾桶，塑料桶底发出沉闷的响声。</p>
+    <p class="story-para">老刘翻了个身，鼾声停了。他迷迷糊糊睁开眼，看见我，嘟囔了句：“这么早？”</p>
+    <p class="story-para">“嗯，赶车。”</p>
+    <p class="story-para">“去哪啊？”</p>
+    <p class="story-para">“还没定，先出去转转。”</p>
+    <p class="story-para">他哦了一声，又闭上眼睛。几秒后，鼾声再次响起。</p>
+    <p class="story-para">我拎起行李，箱子轮子坏了，只能提着。编织袋搭在肩上，工具箱在另一只手里。走出宿舍时，楼道里很静，只有我的脚步声，一下，一下，在空荡的走廊里回响。</p>
+    <p class="story-para">下到一楼，门卫大爷正在刷牙，满嘴泡沫，看见我，含糊地问：“走啦？”</p>
+    <p class="story-para">“走了。”</p>
+    <p class="story-para">“还回来不？”</p>
+    <p class="story-para">“不回了。”</p>
+    <p class="story-para">他点点头，继续刷牙。我推开玻璃门，清晨的风灌进来，带着凉意和隐约的桂花香。已经是十月了。</p>
+    <p class="story-para">我走到路边等车。天还没大亮，街灯还亮着，昏黄的光在晨雾里晕开。偶尔有晨跑的人经过，脚步声很轻，很快消失在拐角。清洁工在扫街，扫帚划过地面，沙沙的响。</p>
+    <p class="story-para">车来了，是辆破旧的出租车。司机摇下车窗：“去哪？”</p>
+    <p class="story-para">“火车站。”</p>
+    <p class="story-para">他下车帮我放行李，箱子很沉，他抬的时候龇了龇牙。“什么东西这么重？”</p>
+    <p class="story-para">“工具。”</p>
+    <p class="story-para">“哦，干活的。”他坐回驾驶座，发动车子，“这么早去火车站，赶远路？”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">车开动了。城市在晨光里慢慢苏醒，早点摊支起来了，蒸笼冒着白气。公交车进站，下来几个人，又上去几个人。学生背着书包，哈欠连天。一切都和昨天一样，和前天一样，和过去的每一天一样。</p>
+    <p class="story-para">只有我不一样。我要走了。</p>
+    <p class="story-para">火车站还是老样子，人群拥挤，气味混杂。我买了最近一班车的票，去北边一个小城，听工友说过那里活儿多。离发车还有两小时，我找了个角落坐下，行李箱放在脚边。</p>
+    <p class="story-para">手机又震了。是朱沐辰，他发来一张照片——那件外套，洗得干干净净，叠得整整齐齐，放在他书桌上。旁边是那个魔方，已经拼好了，六面颜色完整。</p>
+    <p class="story-para">下面跟着一行字：“外套洗好了，魔方我也拼好了。你还要吗？”</p>
+    <p class="story-para">我盯着那张照片看了很久。外套的补丁在照片里看不太清，但我知道它在那里。魔方很新，贴纸没有翘边，应该是他后来又买了一个。书桌很整洁，书摆得整整齐齐，台灯是暖黄色的光。</p>
+    <p class="story-para">我打字，删掉，再打，再删。最后回：“你留着吧。”</p>
+    <p class="story-para">他很快回：“好。”</p>
+    <p class="story-para">然后又是一条：“你要走了吗？”</p>
+    <p class="story-para">我看着这行字，手指在屏幕上方悬停。车站广播在报班次，某某列车开始检票，请旅客到几号候车室。人群骚动起来，拖行李箱的声音，小孩的哭声，大人的催促声，混成一片嘈杂的背景音。</p>
+    <p class="story-para">我回：“嗯。”</p>
+    <p class="story-para">“去哪？”</p>
+    <p class="story-para">“还没定。”</p>
+    <p class="story-para">“什么时候走？”</p>
+    <p class="story-para">“今天。”</p>
+    <p class="story-para">那边沉默了。我盯着屏幕，等。过了大概三分钟，他回：“一路平安。”</p>
+    <p class="story-para">“你也是。”</p>
+    <p class="story-para">“我会好好长大。”</p>
+    <p class="story-para">“我知道。”</p>
+    <p class="story-para">“你也要好好的。”</p>
+    <p class="story-para">“好。”</p>
+    <p class="story-para">对话到此为止。我没再回，他也没再发。我把手机放回口袋，手心全是汗。候车室很热，空气里有泡面和人体的味道。我站起来，去洗手间洗了把脸。水很凉，泼在脸上让人清醒。镜子里的人脸色苍白，眼睛里有血丝，下巴上胡茬青青的一片。</p>
+    <p class="story-para">我回到座位，离发车还有四十分钟。周围的人在聊天，在吃东西，在玩手机。我坐着，看大屏幕上滚动的列车信息，一趟一趟，开往各个方向。</p>
+    <p class="story-para">检票了。我拎起行李，排队。队伍很长，慢慢往前挪。轮到我的时候，检票员撕下票根，递还给我：“3车厢，靠窗。”</p>
+    <p class="story-para">“谢谢。”</p>
+    <p class="story-para">我跟着人群往前走，穿过长长的通道，来到站台。火车已经停在那里，绿色的车身，窗户反着光。我找到车厢，放好行李，在靠窗的位置坐下。</p>
+    <p class="story-para">对面坐着个老太太，抱着个布包，闭目养神。旁边是个年轻男人，戴着耳机，手指在膝盖上敲着节奏。我把背包放在腿上，看向窗外。站台上人来人往，送别的，告别的，拥抱的，挥手的。有个小女孩抱着妈妈的腿哭，不肯让她走。妈妈蹲下来，轻声哄着，最后把小女孩抱起来，亲了亲她的脸。</p>
+    <p class="story-para">我想起第一次见朱沐辰时，他站在门口，眼睛在昏暗中很亮。想起他递过来的毛巾，温热的，叠得很整齐。想起他做的西红柿炒鸡蛋，盐放少了，但很认真地摆在盘子里。想起他教我玩魔方，手覆在我手上，很凉，很小。想起他在巷子里哭，说“你能不能别不要我”。想起他在雨里跑走，浅蓝色的背影越来越小，消失在雨幕里。</p>
+    <p class="story-para">一幕一幕，像老电影，在脑子里一帧帧闪过。黑白，无声，只有画面。</p>
+    <p class="story-para">火车鸣笛，缓缓启动。站台开始后退，柱子，长椅，人群，建筑。城市也在后退，高楼，街道，桥梁，一切熟悉的景物都变成模糊的影子，然后消失。</p>
+    <p class="story-para">我靠在车窗上，玻璃很凉。手机又震了一下，我拿出来看，是朱沐辰最后一条短信：“外套我留着，魔方我也留着。谢谢你。”</p>
+    <p class="story-para">我没回。把短信删了，把他的号码从通讯录里移除。然后关机，塞进背包最里层。</p>
+    <p class="story-para">火车加速，窗外变成田野，树林，偶尔掠过的村庄。天空很开阔，云很低，一团一团的，像棉絮。老太太醒了，从布包里拿出个苹果，用袖子擦了擦，小口小口地吃。年轻男人还在听歌，脚跟着节奏轻轻点地。</p>
+    <p class="story-para">我从背包侧袋里摸出烟盒，想起火车上不能抽烟，又放回去。手碰到个硬硬的东西，掏出来看，是那个铁皮文具盒，飞船图案已经磨损了，边角有点锈。我什么时候放进去的？不记得了。</p>
+    <p class="story-para">我打开文具盒，里面是空的，只有一张叠得很小的纸条。我展开，是两年前我留给他的那张：“好好照顾自己，好好长大。”字迹有点晕开了，纸张也变软了，边缘毛躁。他一直留着。</p>
+    <p class="story-para">我把纸条重新叠好，放回文具盒，盖上盖子。铁皮扣上时发出轻微的咔哒声。</p>
+    <p class="story-para">火车继续往前开，穿过隧道，光线忽明忽暗。车厢里有人在打牌，有人在聊天，孩子在过道里跑来跑去。我闭上眼睛，听着车轮碾压铁轨的声音，哐当，哐当，有节奏的，像心跳。</p>
+    <p class="story-para">不知过了多久，乘务员推着小车经过：“盒饭，矿泉水——”</p>
+    <p class="story-para">我买了一份盒饭，打开，是青椒肉丝和米饭。肉很少，青椒很多，油很大。我慢慢吃着，一口一口，很仔细地嚼。老太太看我吃饭，从布包里又拿出个苹果，递给我：“小伙子，吃个苹果。”</p>
+    <p class="story-para">“不用了，谢谢。”</p>
+    <p class="story-para">“拿着吧，我带得多。”她硬塞给我，苹果很红，表皮光滑。</p>
+    <p class="story-para">我接过，说了声谢谢。她笑了，脸上的皱纹舒展开：“一个人出门啊？”</p>
+    <p class="story-para">“嗯。”</p>
+    <p class="story-para">“去哪儿？”</p>
+    <p class="story-para">“还没定，先到站再说。”</p>
+    <p class="story-para">“年轻好啊，到处走走。”她说着，又咬了口自己的苹果，“我年轻时候也到处跑，后来老了，跑不动了。”</p>
+    <p class="story-para">我没说话，继续吃饭。饭有点硬，青椒很辣，辣得人眼睛发酸。我吃得很慢，把每一粒米饭都吃完。</p>
+    <p class="story-para">吃完饭，我把饭盒收拾好，苹果放进背包。老太太又睡了，头靠着车窗，随着火车的晃动轻轻摇摆。年轻男人也睡了，耳机还戴着，音乐声漏出来一点，是首老歌。</p>
+    <p class="story-para">我拿出那个文具盒，握在手里。铁皮冰凉，但很快被手心焐热。我摩挲着上面的飞船图案，边缘已经磨得光滑，颜色也淡了。我想起他递给我文具盒时的样子，眼睛亮亮的，说“旧的坏了”。那时他多高？到我胸口？现在呢，应该到我肩膀了吧。</p>
+    <p class="story-para">两年，不长不短。足够一个孩子长高十几厘米，足够他从小学到初中，足够他学会自己补衣服，学会在大人面前藏起情绪。也足够我从一个工地流浪到另一个工地，足够我学会在疼痛里继续干活，学会在深夜独自消化所有不甘和遗憾。</p>
+    <p class="story-para">火车又穿过一个隧道，很长，车厢里黑了好几分钟。只有安全指示牌发着微弱的绿光。在黑暗里，我握紧那个文具盒，铁皮的棱角硌着手心，有点疼。</p>
+    <p class="story-para">出隧道时，光猛地涌进来，刺得人睁不开眼。我眯起眼睛，看向窗外。田野，树林，河流，一切都在后退，飞快地后退。像时间，像记忆，像那些再也回不去的日子。</p>
+    <p class="story-para">我把文具盒放回背包，拉上拉链。然后靠在椅背上，闭上眼睛。</p>
+    <p class="story-para">这一次，是真的结束了。</p>
+    <p class="story-para">没有告别，没有仪式，甚至没有一句再见。就像风吹过向日葵，留下短暂的摇曳，然后各自归于平静。风继续流浪，向日葵继续生长，在各自的轨道上，不再相交。</p>
+    <p class="story-para">火车继续向前，驶向陌生的城市，驶向未知的明天。窗外的景色不断变换，从田野到丘陵，从白天到黄昏。天空染上橘红色，云被镶了金边，很美，但很快就暗下去，变成深蓝，然后是漆黑。</p>
+    <p class="story-para">夜色里，只有车厢内的灯光，和窗外偶尔掠过的几点灯火。那些灯火很微弱，在无边的黑暗里，像孤独的星星，一闪，就过去了。</p>
+    <p class="story-para">我睡了一会儿，醒来时天已经全黑了。老太太下车了，换了个中年男人坐在对面，正就着手机灯光看报纸。年轻男人还在睡，姿势都没变。</p>
+    <p class="story-para">我看了眼手机，晚上九点。开机，有几条垃圾短信，我删了。然后打开通讯录，往下翻，翻到那个空出来的位置——原来存着“朱沐辰”的地方，现在空了，只有一个空白。</p>
+    <p class="story-para">我把手机放回去，从背包里拿出那个苹果，用纸巾擦了擦，咬了一口。很脆，很甜，汁水很多。我慢慢吃着，把整个苹果吃完，连核都啃得很干净，只剩一个小小的柄。</p>
+    <p class="story-para">火车到站是凌晨三点。小城的车站很小，很旧，灯也不够亮。我拖着行李下车，冷风扑面而来，带着北方特有的干冷。站台上人不多，都缩着脖子，快步往外走。</p>
+    <p class="story-para">我跟着人群出站，在车站门口的小摊买了瓶水。摊主是个老大爷，裹着军大衣，睡眼惺忪。我拧开水喝了一口，水很冰，冰得牙齿发酸。</p>
+    <p class="story-para">“住店吗？”有人凑过来问，是个中年妇女，手里拿着旅馆的牌子。</p>
+    <p class="story-para">“多少钱？”</p>
+    <p class="story-para">“五十，有热水，能洗澡。”</p>
+    <p class="story-para">“带我去吧。”</p>
+    <p class="story-para">她领着我穿过一条小巷，巷子很窄，两边是低矮的平房。路灯坏了几盏，有的地方很暗，只能借着月光看清路。旅馆在一栋三层小楼里，楼梯很陡，墙面斑驳。房间很小，一张床，一个桌子，一把椅子。但有热水，我洗了个澡，水很烫，冲在身上很舒服。</p>
+    <p class="story-para">洗完澡，我躺在床上。床很硬，被子有股霉味。但我很累，很快就睡着了。没有梦，睡得很沉。</p>
+    <p class="story-para">第二天早上，我被楼下早市的喧嚣吵醒。推开窗，下面是条老街，两边摆满了摊子，卖菜的，卖早点的，卖杂货的。人很多，声音很杂，空气里有油炸味和蔬菜的泥土味。</p>
+    <p class="story-para">我下楼吃了碗面，很辣，很咸，但很暖和。吃完面，我在街上走了一圈，找到几个招工的小广告，记下电话。然后去办了张本地手机卡，把旧卡取出来，看了很久，最后折断，扔进垃圾桶。</p>
+    <p class="story-para">新卡插进去，开机，通讯录是空的。我存了几个号码：项目经理的，工友老刘的，还有几个可能用得上的包工头。然后关机，把手机放回口袋。</p>
+    <p class="story-para">街上的阳光很好，照在身上暖洋洋的。我走着，没有目的，只是走。路过一家文具店，橱窗里摆着各种文具，其中一个架子上放着铁皮文具盒，有飞船图案的，有汽车图案的，有动物图案的。我站在橱窗前看了一会儿，然后继续往前走。</p>
+    <p class="story-para">风很大，吹起地上的尘土和塑料袋。我拉了拉衣领，手插进口袋，摸到那个硬硬的东西——是文具盒。我拿出来，在阳光下看。飞船图案在光下反着光，有点刺眼。</p>
+    <p class="story-para">我走到一个垃圾桶旁，站住。垃圾桶是绿色的，很脏，边上沾着污渍。我握着文具盒，握了很久，手心都出汗了。最后，我松开手，文具盒掉进垃圾桶里，发出沉闷的响声。</p>
+    <p class="story-para">然后我转身，继续往前走。风从背后吹来，推着我向前。阳光很亮，照得街道白晃晃的。我眯起眼睛，看着前方——路还很长，看不到尽头。</p>
+    <p class="story-para">但总得往前走。一步一步，不管身后留下什么，不管前方有什么。</p>
+    <p class="story-para">风继续吹，向日葵继续长。在各自的轨道上，在各自的命运里。</p>
+    <p class="story-para">如此而已。</p>
+    <p class="story-para">（全文完）</p>
+    <p class="story-para">㘀	㠀	言	谀	阀	頀</p>
+    <p class="story-para">舀</p>
+    <p class="story-para">萀</p>
+    <p class="story-para">谀</p>
+    <p class="story-para">踀</p>
+    <p class="story-para">退</p>
+    <p class="story-para">鈀</p>
+    <p class="story-para">〄J〄J〄J 　 阀 頀 䈀!䐀!!蘀"蠀"#渀#瀀#&amp;㐀&amp;㘀&amp;䀀&amp;䈀&amp;&amp;昀'栀''踀(退()㨀)㰀)搀)昀))＀*鸀**㐀+㘀+瀀+爀+萀+蘀++㐀,㘀,一,倀,琀,瘀,,帀-怀-.昀.栀.鐀.阀./䠀/䨀/縀/耀/谀/踀/1帀1怀1渀1瀀13 3㐀3㘀3䠀3䨀33＀〄J4䈀5䐀5堀5娀5搀5昀56㐀6娀6尀6爀6琀67怀8戀88琀9瘀9:鰀:鸀::刀;吀;栀;樀;&lt;㨀&lt;㰀&lt;渀&lt;瀀&lt;萀&lt;䘀㲄 㲆=瘀&gt;砀&gt;言&gt;谀&gt;?琀@瘀@蘀@蠀@A鰀A鸀AB㐀B㘀BC琀C瘀CC怀D戀D瘀D砀D頀D騀DD稀E簀E騀E鰀EE＀䠀䗌E䨀F䰀FF稀G簀GH鸀HH鐀I阀IJ㨀J㰀J䘀J䠀J吀J嘀JL鸀LM　MN瘀N砀NP㠀Q＀䠀儸 儺 冔 冖R䰀R一R嘀R堀RR䰀S一S渀S瀀S砀S稀S谀S踀SS瀀T爀T琀TU㐀U㰀U㸀UU瘀V砀VV砀W稀W退W鈀W頀W騀WW言X谀XY吀Z嘀ZZ＀䌀嫰[㐀[㘀[鰀[鸀[\㐀\䀀\䈀\䨀\䰀\鰀\鸀\\䈀]䐀]堀]娀]^㘀^㠀^瘀^砀^ __瘀`砀`騀`鰀`a倀b刀b瀀b爀b舀b萀bc㨀c㰀c䘀c＀䠀捆 捈 掌 掎 掘 掚c䈀d䐀d縀d耀de䠀e䨀ee䀀f䈀f尀f帀f舀f萀f鐀f阀ff娀g尀g栀g樀g谀g踀gg一h倀hh氀i渀ij㘀j㠀j䠀j䨀j蘀j蠀jl㐀l堀l娀l樀l＀䠀汪 汬m㨀n㰀nn刀o吀o爀o琀o簀o縀o谀o踀op䠀p䨀p蠀p言pq堀q娀q谀q踀q鸀qr昀r栀r瀀r爀rs氀t渀tt䀀u䈀u搀u＀䠀畤 畦 疘 疚u尀v帀vw稀w簀wx㐀x䨀x䰀xy㸀y䀀yy踀z退zz戀{搀{{谀|踀||栀}樀}~　~~昀~栀~䠀菈䔀輌䠀騾瘀 砀 〄J〄J〄J䠀ﾮ〄J䘀㶘䠀䭀䜀嚰〄J䘀差䠀楐䠀潬䘀瘸䠀翨䠀褶䠀铰䠀黶〄J漀(洓㠀	谀	頀</p>
+    <p class="story-para">萀</p>
+    <p class="story-para">踀</p>
+    <p class="story-para">鈀</p>
+    <p class="story-para">鈘</p>
+    <p class="story-para">㐀 　 頀 䐀!!蠀"#瀀#&amp;㘀&amp;䈀&amp;&amp;栀''退()㰀)昀)*㘀+爀+蘀++㘀,倀,瘀,,怀-怗-.栀.阀./䨀/耀/踀/1怀1瀀12 3㘀3䨀34䐀5娀5昀55㐀6尀6琀67戀88瘀9:鸀::吀;樀;&lt;㰀&lt;瀀&lt;蘀&lt;=砀&gt;谀&gt;?瘀@蠀@A鸀AB㘀B㘙BC瘀CC戀D砀D騀DD簀E鰀EE䰀FF簀GH阀IJ㰀J䠀J嘀JN砀NP㨀Q阀QR一R堀RR一S瀀S稀S踀SS琀TU㐀U㸀UU砀VV稀W鈀WW谀XY嘀Z[㘀[鸀[\㐀\䈀\䰀\鸀\\䐀]娀]^㠀^砀^_砀`鰀`a刀b爀b萀bc㰀c䠀c踀c騀c騙cc䐀d耀de䨀ee䈀f帀f萀f阀ff尀g樀g踀gg倀hh渀ij㠀j䨀j蠀jk㐀l娀l氀lm㰀nn吀o琀o縀o踀op䨀p言p訙pq娀q踀qr栀r爀rs渀tt䈀u昀u騀uu帀v帘vw簀ww㐀x䰀xy䀀yy退zz搀{{踀||樀}~栀~砀 芰‮刯 週</p>
+  </section>
+
+<!-- ================= STORY FOUR ENDING ================= -->
+<section class="ending">
+  <div class="glyph">✵</div>
+  <div class="big">放开，也是一种拥抱</div>
+  <div class="en">To let go, is also an embrace</div>
+  <p>后来的风还是会吹过来，吹过秋天，吹过那些没有说出口的话。而有些遇见，落在心里，就已经是一场漫长的拥抱。</p>
+</section>
+
+<footer>
+  <div class="small">— 献给那些把温柔轻轻放进你手心的人 —</div>
+</footer>
+<script>
+(function(){
+  var prog=document.getElementById('progress');
+  function upd(){
+    var h=document.documentElement;
+    var p=h.scrollHeight-h.clientHeight;
+    prog.style.width=(p>0?(h.scrollTop/p*100):0)+'%';
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd,{passive:true});
+  upd();
+  // dialogue emphasis
+  var paras=document.querySelectorAll('.chapter > .story-para');
+  for(var i=0;i<paras.length;i++){
+    var t=paras[i].textContent.trim();
+    if(/^[\u201c\u2018\u300a\u2019\u201d\u00ab\u2039]/.test(t)) paras[i].classList.add('dialogue');
+  }
+  // falling petals
+  var pv=document.getElementById('petals');
+  for(var i=0;i<18;i++){
+    var s=document.createElement('span');
+    s.className='petal';
+    s.style.left=(Math.random()*100)+'%';
+    s.style.animationDuration=(6+Math.random()*8)+'s';
+    s.style.animationDelay=(Math.random()*10)+'s';
+    s.style.animationIterationCount='infinite';
+    s.style.transform='scale('+(0.6+Math.random()*0.9)+')';
+    pv.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>
