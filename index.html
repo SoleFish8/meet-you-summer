@@ -5,22 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>我们的故事 · 小说集</title>
 <link rel="preload" href="./_shared/fonts/CrimsonPro-Regular.ttf" as="font" type="font/ttf" crossorigin="">
+<link rel="preload" href="./_shared/fonts/CrimsonPro-Bold.ttf" as="font" type="font/ttf" crossorigin="">
 <link rel="preload" href="./_shared/fonts/InstrumentSerif-Italic.ttf" as="font" type="font/ttf" crossorigin="">
 <style>
 :root{
   --bg:#faf6ee;
   --ink:#3a332b;
   --muted:#8a8172;
+  --faint:#b6ad9c;
   --rule:#e7dcc6;
-  --accent:#d97a4e;
-  --accent2:#7d8fb0;
   --paper:#fffdf8;
+  --accent:#d97a4e;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 @font-face{
   font-family:'CrimsonPro';
   src:url('./_shared/fonts/CrimsonPro-Regular.ttf') format('truetype');
   font-weight:400;font-style:normal;
+}
+@font-face{
+  font-family:'CrimsonPro';
+  src:url('./_shared/fonts/CrimsonPro-Bold.ttf') format('truetype');
+  font-weight:700;font-style:normal;
 }
 @font-face{
   font-family:'CrimsonPro';
@@ -36,93 +42,193 @@ html{scroll-behavior:smooth;}
 body{
   background:var(--bg);
   color:var(--ink);
-  font-family:"InstrumentSerif","Noto Serif CJK SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif;
+  font-family:"CrimsonPro","Noto Serif CJK SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif;
   font-size:17px;
   line-height:1.9;
-  min-height:100vh;
   overflow-x:hidden;
 }
+::selection{background:rgba(217,122,78,0.22);}
 body::before{
-  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
   background:
-    radial-gradient(1200px 600px at 82% -5%, rgba(217,122,78,0.10), transparent 60%),
-    radial-gradient(1000px 700px at -10% 35%, rgba(125,143,176,0.10), transparent 60%),
-    radial-gradient(900px 700px at 50% 110%, rgba(243,217,196,0.35), transparent 60%);
+    radial-gradient(1100px 620px at 85% -6%, rgba(217,122,78,0.12), transparent 60%),
+    radial-gradient(900px 700px at -12% 38%, rgba(95,143,158,0.10), transparent 60%),
+    radial-gradient(1000px 800px at 50% 112%, rgba(243,217,196,0.40), transparent 70%);
 }
-.home{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
-  padding:4rem 1.6rem;text-align:center;}
-.home-kicker{font-family:"CrimsonPro",serif;font-style:italic;letter-spacing:0.3em;font-size:0.9rem;
-  color:var(--accent);margin-bottom:1.6rem;text-transform:lowercase;}
-.home-title{font-size:clamp(2.4rem,7vw,4rem);font-weight:700;letter-spacing:0.16em;line-height:1.2;}
-.home-sub{margin-top:1.1rem;color:var(--muted);font-size:1.05rem;letter-spacing:0.08em;}
-.home-rule{width:64px;height:2px;margin:2rem auto;background:linear-gradient(90deg,var(--accent),var(--accent2));}
-.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.6rem;max-width:860px;width:100%;margin-top:1rem;}
-.card{display:block;text-decoration:none;color:inherit;background:var(--paper);
-  border:1px solid var(--rule);border-radius:16px;padding:2.6rem 2.2rem;text-align:center;
-  transition:transform .25s ease, box-shadow .25s ease;}
-.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(58,51,43,0.10);}
-.card .num{font-family:"CrimsonPro",serif;font-style:italic;color:var(--accent2);letter-spacing:0.2em;
-  font-size:0.8rem;margin-bottom:1.2rem;}
-.card .t{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;letter-spacing:0.12em;}
-.card .s{margin-top:0.9rem;color:var(--muted);font-size:0.95rem;line-height:1.8;}
-.card .go{margin-top:1.6rem;display:inline-block;font-size:0.85rem;letter-spacing:0.14em;color:var(--accent);
-  border-bottom:1px solid var(--accent);padding-bottom:2px;}
-.card.c2 .num{color:var(--accent2);}
-.card.c2 .go{color:var(--accent2);border-color:var(--accent2);}
-.card.c3 .num{color:#e8b45a;}
-.card.c3 .go{color:#e8b45a;border-color:#e8b45a;}
-.card.c4 .num{color:#c98a6b;}
-.card.c4 .go{color:#c98a6b;border-color:#c98a6b;}
-.card.c5 .num{color:#f0b35a;}
-.card.c5 .go{color:#f0b35a;border-color:#f0b35a;}
-.home-foot{margin-top:3.5rem;color:var(--muted);font-size:0.82rem;letter-spacing:0.2em;}
-@media (max-width:600px){
-  .cards{grid-template-columns:1fr;}
-  .card{padding:2rem 1.6rem;}
+.particles{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;}
+.p{position:absolute;bottom:-4vh;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, rgba(255,255,255,0.9), var(--c) 72%);
+  opacity:0;animation:rise linear infinite;}
+@keyframes rise{
+  0%{transform:translateY(0) translateX(0) scale(1);opacity:0;}
+  6%{opacity:var(--o,.5);}
+  90%{opacity:var(--o,.5);}
+  100%{transform:translateY(-110vh) translateX(var(--dx,20px)) scale(.55);opacity:0;}
+}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:6rem 1.6rem 4.5rem;}
+.hero > *{animation:enter .9s ease both;}
+.hero-kicker{animation-delay:.05s;font-family:"InstrumentSerif",serif;font-style:italic;
+  letter-spacing:.34em;font-size:.95rem;color:var(--accent);text-transform:lowercase;}
+.hero-title{animation-delay:.15s;font-size:clamp(2.6rem,8vw,4.4rem);font-weight:700;
+  letter-spacing:.18em;line-height:1.15;margin-top:1.4rem;}
+.hero-sub{animation-delay:.25s;margin-top:1.2rem;color:var(--muted);
+  font-size:clamp(1rem,2.6vw,1.15rem);letter-spacing:.1em;}
+.hero-rule{animation-delay:.35s;width:72px;height:2px;margin:2rem auto;
+  background:linear-gradient(90deg,var(--accent),#5f8f9e);}
+.cover-frame{animation-delay:.45s;margin-top:2.4rem;width:min(760px,92vw);border-radius:20px;
+  overflow:hidden;border:1px solid var(--rule);
+  box-shadow:0 30px 70px rgba(58,51,43,0.16);}
+.cover-frame img{display:block;width:100%;height:auto;}
+.scroll-hint{position:absolute;bottom:2.1rem;left:50%;transform:translateX(-50%);
+  color:var(--faint);font-size:.8rem;letter-spacing:.26em;text-decoration:none;
+  animation:hint 2.4s ease-in-out infinite;}
+@keyframes hint{0%,100%{opacity:.5;transform:translate(-50%,0);}50%{opacity:1;transform:translate(-50%,7px);}}
+@keyframes enter{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
+
+/* ---------- Stories ---------- */
+.stories{max-width:920px;margin:0 auto;padding:0 1.6rem 5rem;}
+.stories-head{text-align:center;margin-bottom:2.8rem;}
+.stories-kicker{font-family:"InstrumentSerif",serif;font-style:italic;color:var(--accent);
+  letter-spacing:.3em;font-size:.85rem;text-transform:lowercase;}
+.stories-title{font-size:clamp(1.7rem,4vw,2.2rem);font-weight:700;letter-spacing:.14em;margin-top:.6rem;}
+
+.card{position:relative;display:block;text-decoration:none;color:inherit;
+  background:var(--paper);border:1px solid var(--rule);border-radius:18px;
+  padding:2rem 1.9rem 1.7rem;overflow:hidden;
+  transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--c),transparent 72%);}
+.card:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(58,51,43,0.10);
+  border-color:rgba(58,51,43,0.14);}
+.card-num{font-family:"InstrumentSerif",serif;font-style:italic;color:var(--c);
+  font-size:1.02rem;letter-spacing:.16em;}
+.card-t{font-size:1.5rem;font-weight:700;letter-spacing:.1em;margin-top:.55rem;}
+.card-s{margin-top:.7rem;color:var(--muted);font-size:.95rem;line-height:1.8;}
+.card-go{margin-top:1.35rem;display:inline-flex;align-items:center;gap:.45rem;
+  color:var(--c);font-size:.88rem;letter-spacing:.14em;}
+.card-go .arr{transition:transform .25s ease;}
+.card:hover .card-go .arr{transform:translateX(5px);}
+
+.card.featured{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:2.2rem;
+  background:linear-gradient(120deg,#fff7ec,var(--paper) 55%);
+  padding:2.5rem 2.4rem;margin-bottom:1.6rem;}
+.card.featured .card-num{font-size:3.4rem;line-height:1;padding-right:2.2rem;
+  border-right:1px solid var(--rule);}
+.card.featured .card-t{font-size:clamp(1.7rem,4vw,2.2rem);}
+.card.featured .card-go{font-size:.95rem;white-space:nowrap;}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;}
+
+/* ---------- Footer ---------- */
+.foot{text-align:center;padding:2.6rem 1.6rem 3.6rem;color:var(--muted);
+  font-size:.85rem;letter-spacing:.22em;border-top:1px solid var(--rule);}
+
+/* ---------- Reveal ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s ease;}
+.reveal.in{opacity:1;transform:none;}
+
+@media (max-width:720px){
+  .hero{padding-top:5rem;}
+  .card.featured{grid-template-columns:1fr;gap:1.1rem;padding:2rem 1.7rem;}
+  .card.featured .card-num{font-size:2.4rem;padding-right:0;border-right:none;}
+  .grid{grid-template-columns:1fr;}
+  .card{padding:1.8rem 1.6rem 1.5rem;}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition:none!important;}
+  .reveal{opacity:1;transform:none;}
 }
 </style>
 </head>
 <body>
-<section class="home">
-  <div class="home-kicker">Five Stories, One Summer</div>
-  <h1 class="home-title">我们的故事</h1>
-  <div class="home-sub">五个夏天，五段温柔而明亮的相遇</div>
-  <div class="home-rule"></div>
+<div class="particles" aria-hidden="true"></div>
 
-  <div class="cards">
-    <a class="card" href="story1.html">
-      <div class="num">Story One</div>
-      <div class="t">很高兴认识你</div>
-      <div class="s">一个夏天，一颗橘子糖，和两个彼此温暖的少年。盛夏的午后，蝉鸣盖过整座城市。</div>
-      <div class="go">开始阅读</div>
-    </a>
-    <a class="card c2" href="story2.html">
-      <div class="num">Story Two</div>
-      <div class="t">三生有幸</div>
-      <div class="s">一颗玻璃弹珠，和一个自带阳光的少年。遇见一个人，是三生有幸。</div>
-      <div class="go">开始阅读</div>
-    </a>
-    <a class="card c3" href="story3.html">
-      <div class="num">Story Three</div>
-      <div class="t">未说完的晚安</div>
-      <div class="s">半块带着橘子香气的橡皮，和一个心脏像破风筝的少年。晚安，是一句永远说不完的约定。</div>
-      <div class="go">开始阅读</div>
-    </a>
-    <a class="card c4" href="story4.html">
-      <div class="num">Story Four</div>
-      <div class="t">风拥枯葵</div>
-      <div class="s">遇见他的那天，我正在修一个漏水的水龙头。一段从一扇只开了一条缝的门开始的，温柔而克制的故事。</div>
-      <div class="go">开始阅读</div>
-    </a>
-    <a class="card c5" href="story5.html">
-      <div class="num">Story Five</div>
-      <div class="t">元日启蛰</div>
-      <div class="s">除夕夜，对门新搬来的小孩敲开了我的门。一宵守岁，一场初雪，和一个年年都要兑现的约定。</div>
-      <div class="go">开始阅读</div>
-    </a>
+<header class="hero">
+  <p class="hero-kicker">Five Stories, One Summer</p>
+  <h1 class="hero-title">我们的故事</h1>
+  <p class="hero-sub">四季流转，五段温柔而明亮的相遇</p>
+  <div class="hero-rule"></div>
+  <div class="cover-frame">
+    <img src="./assets/cover_16x9.jpg" alt="黄昏老街，一簇光，两双手，满城花">
+  </div>
+  <a class="scroll-hint" href="#stories">查看故事</a>
+</header>
+
+<main class="stories" id="stories">
+  <div class="stories-head reveal">
+    <p class="stories-kicker">The Collection</p>
+    <h2 class="stories-title">故事目录</h2>
   </div>
 
-  <div class="home-foot">— 献给那些把温柔轻轻放进你手心的人 —</div>
-</section>
+  <a class="card featured reveal" href="story1.html" style="--c:#d97a4e">
+    <div class="card-num">01</div>
+    <div class="card-body">
+      <div class="card-t">很高兴认识你</div>
+      <div class="card-s">一个夏天，一颗橘子糖，和两个彼此温暖的少年。盛夏的午后，蝉鸣盖过整座城市。</div>
+    </div>
+    <div class="card-go">开始阅读 <span class="arr">→</span></div>
+  </a>
+
+  <div class="grid">
+    <a class="card reveal" href="story2.html" style="--c:#5f8f9e">
+      <div class="card-num">02</div>
+      <div class="card-t">三生有幸</div>
+      <div class="card-s">一颗玻璃弹珠，和一个自带阳光的少年。遇见一个人，是三生有幸。</div>
+      <div class="card-go">开始阅读 <span class="arr">→</span></div>
+    </a>
+    <a class="card reveal" href="story3.html" style="--c:#e8b45a">
+      <div class="card-num">03</div>
+      <div class="card-t">未说完的晚安</div>
+      <div class="card-s">半块带着橘子香气的橡皮，和一个心脏像破风筝的少年。</div>
+      <div class="card-go">开始阅读 <span class="arr">→</span></div>
+    </a>
+    <a class="card reveal" href="story4.html" style="--c:#a9b08a">
+      <div class="card-num">04</div>
+      <div class="card-t">风拥枯葵</div>
+      <div class="card-s">遇见他的那天，我正在修一个漏水的水龙头。</div>
+      <div class="card-go">开始阅读 <span class="arr">→</span></div>
+    </a>
+    <a class="card reveal" href="story5.html" style="--c:#f0b35a">
+      <div class="card-num">05</div>
+      <div class="card-t">元日启蛰</div>
+      <div class="card-s">除夕夜，对门新搬来的小孩敲开了我的门。</div>
+      <div class="card-go">开始阅读 <span class="arr">→</span></div>
+    </a>
+  </div>
+</main>
+
+<footer class="foot">— 献给那些把温柔轻轻放进你手心的人 —</footer>
+
+<script>
+(function(){
+  var colors=['#d97a4e','#5f8f9e','#e8b45a','#a9b08a','#f0b35a'];
+  var wrap=document.querySelector('.particles');
+  for(var i=0;i<16;i++){
+    var s=document.createElement('span');
+    s.className='p';
+    var size=4+Math.random()*7;
+    s.style.width=size+'px';s.style.height=size+'px';
+    s.style.left=(Math.random()*100)+'%';
+    s.style.setProperty('--c',colors[i%colors.length]);
+    s.style.setProperty('--o',(0.25+Math.random()*0.4).toFixed(2));
+    s.style.setProperty('--dx',(Math.random()*120-60)+'px');
+    s.style.animationDuration=(14+Math.random()*16)+'s';
+    s.style.animationDelay=(Math.random()*16)+'s';
+    wrap.appendChild(s);
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  }else{
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+  }
+})();
+</script>
 </body>
 </html>
