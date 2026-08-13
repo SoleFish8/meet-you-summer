@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>元日启蛰</title>
+<link rel="preload" href="./_shared/fonts/CrimsonPro-Regular.ttf" as="font" type="font/ttf" crossorigin="">
+<link rel="preload" href="./_shared/fonts/InstrumentSerif-Italic.ttf" as="font" type="font/ttf" crossorigin="">
+<style>
+:root{
+  --bg:#0e1a2e;
+  --bg2:#16263f;
+  --bg3:#090f1c;
+  --ink:#eef3fb;
+  --muted:#bfcbe0;
+  --faint:#6d7d99;
+  --rule:#263754;
+  --accent:#f0b35a;
+  --accent2:#a9c4f0;
+  --accent-soft:rgba(240,179,90,0.13);
+  --accent2-soft:rgba(169,196,240,0.13);
+  --paper:#12203a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+@font-face{
+  font-family:'CrimsonPro';
+  src:url('./_shared/fonts/CrimsonPro-Regular.ttf') format('truetype');
+  font-weight:400;font-style:normal;
+}
+@font-face{
+  font-family:'CrimsonPro';
+  src:url('./_shared/fonts/CrimsonPro-Italic.ttf') format('truetype');
+  font-weight:400;font-style:italic;
+}
+@font-face{
+  font-family:'CrimsonPro';
+  src:url('./_shared/fonts/CrimsonPro-Bold.ttf') format('truetype');
+  font-weight:700;font-style:normal;
+}
+@font-face{
+  font-family:'InstrumentSerif';
+  src:url('./_shared/fonts/InstrumentSerif-Regular.ttf') format('truetype');
+  font-weight:400;font-style:normal;
+}
+@font-face{
+  font-family:'InstrumentSerif';
+  src:url('./_shared/fonts/InstrumentSerif-Italic.ttf') format('truetype');
+  font-weight:400;font-style:italic;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"CrimsonPro","Noto Serif CJK SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif;
+  font-size:18px;
+  line-height:2.15;
+  letter-spacing:0.02em;
+  overflow-x:hidden;
+}
+::selection{background:rgba(240,179,90,0.3);color:#fff;}
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:var(--bg3);}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#2c4061,#1a2740);border-radius:6px;border:2px solid var(--bg3);}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#39507a,#263754);}
+.progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  box-shadow:0 0 14px rgba(240,179,90,0.55);}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(1100px 620px at 85% -6%, rgba(169,196,240,0.12), transparent 60%),
+    radial-gradient(900px 700px at -12% 38%, rgba(240,179,90,0.08), transparent 60%),
+    radial-gradient(1000px 800px at 50% 112%, rgba(9,15,28,0.9), transparent 70%);
+}
+
+/* ---------- Top nav ---------- */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;
+  align-items:center;padding:0.9rem 1.6rem;background:rgba(14,26,46,0.82);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);}
+.topnav a{color:var(--muted);text-decoration:none;font-size:0.85rem;letter-spacing:0.08em;transition:color .2s;}
+.topnav a:hover{color:var(--accent);}
+.topnav .brand{font-family:"CrimsonPro",serif;font-style:italic;color:var(--accent);letter-spacing:0.06em;}
+
+/* ---------- Hero (winter night, no illustration) ---------- */
+.s5-hero{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:7rem 1.6rem 4rem;overflow:hidden;
+  background:
+    radial-gradient(760px 480px at 74% 30%, rgba(240,179,90,0.14), transparent 62%),
+    linear-gradient(180deg,var(--bg3) 0%,var(--bg) 55%,var(--bg2) 100%);}
+.s5-hero .wrap{max-width:780px;position:relative;z-index:3;}
+.s5-kicker{font-family:"CrimsonPro",serif;font-style:italic;letter-spacing:0.32em;font-size:0.9rem;
+  color:var(--accent);margin-bottom:1.7rem;text-transform:lowercase;}
+.s5-title{font-size:clamp(2.8rem,8vw,5rem);font-weight:700;letter-spacing:0.16em;line-height:1.15;color:var(--ink);
+  text-shadow:0 0 40px rgba(240,179,90,0.25);}
+.s5-sub{margin-top:1.3rem;font-size:clamp(1rem,2.6vw,1.3rem);color:var(--muted);letter-spacing:0.1em;}
+.s5-rule{width:64px;height:2px;margin:1.9rem auto;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+.s5-desc{margin:0 auto;max-width:38rem;font-size:0.98rem;color:var(--muted);line-height:2;}
+.s5-desc b{color:var(--ink);font-weight:600;}
+
+/* moon glow + drifting snow to evoke a winter night */
+.moon{position:absolute;top:13%;right:13%;width:92px;height:92px;border-radius:50%;z-index:2;
+  background:radial-gradient(circle at 40% 36%, #fbf6e8, #eaf1fb 50%, #c9d8f0 78%, rgba(201,216,240,0) 100%);
+  box-shadow:0 0 70px 22px rgba(201,216,240,0.28),0 0 160px 60px rgba(169,196,240,0.10);
+  opacity:0.9;animation:breath 6s ease-in-out infinite;}
+@keyframes breath{0%,100%{opacity:0.75;transform:scale(1);}50%{opacity:1;transform:scale(1.05);}}
+.snows{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+.snow{position:absolute;top:-6%;width:6px;height:6px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, #ffffff, rgba(220,236,255,0.7));
+  box-shadow:0 0 6px rgba(255,255,255,0.5);
+  opacity:0;animation:snowfall linear infinite;}
+@keyframes snowfall{0%{transform:translateY(0) translateX(0);opacity:0;}
+  8%{opacity:0.9;}
+  100%{transform:translateY(92vh) translateX(-5vw);opacity:0;}}
+
+/* ---------- Layout ---------- */
+.wrap{max-width:42rem;margin:0 auto;padding:0 1.6rem;}
+
+/* ---------- TOC ---------- */
+.toc{padding:1rem 0 3.5rem;}
+.toc-card{background:linear-gradient(180deg,var(--paper),rgba(18,32,58,0.55));border:1px solid var(--rule);border-radius:16px;
+  padding:3rem 2.8rem;box-shadow:0 18px 48px rgba(0,0,0,0.4);}
+.toc-title{text-align:center;font-size:1.2rem;font-weight:700;letter-spacing:0.32em;color:var(--ink);}
+.toc-title::before{content:"❄";display:block;font-family:"InstrumentSerif",serif;font-size:1rem;color:var(--accent);
+  letter-spacing:0;margin-bottom:1.1rem;opacity:0.9;text-shadow:0 0 18px rgba(240,179,90,0.5);}
+.toc-rule{width:48px;height:1px;margin:1.2rem auto 2.2rem;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.toc-list{list-style:none;max-width:30rem;margin:0 auto;columns:1;}
+.toc-list li{margin-bottom:0.7rem;text-align:center;}
+.toc-list a{color:var(--muted);text-decoration:none;font-size:0.98rem;letter-spacing:0.06em;transition:color .2s;}
+.toc-list a:hover{color:var(--accent);}
+
+/* ---------- Chapter ---------- */
+.chapter{padding:5.8rem 1.6rem 1.5rem;max-width:42rem;margin:0 auto;}
+.chapter-head{text-align:center;margin-bottom:3.8rem;position:relative;}
+.chapter-head::after{content:"";position:absolute;bottom:-1.2rem;left:50%;transform:translateX(-50%);
+  width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--muted),transparent);opacity:0.5;}
+.ch-compact{font-family:"InstrumentSerif",serif;letter-spacing:0.38em;font-size:0.82rem;color:var(--accent);
+  text-transform:lowercase;margin-bottom:1.2rem;}
+.ch-zh{font-size:clamp(1.6rem,4.4vw,2.2rem);font-weight:600;letter-spacing:0.18em;color:var(--ink);}
+.ch-rule{width:56px;height:1px;margin:1.8rem auto 0;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+
+.story-para{margin-bottom:1.8rem;text-align:justify;color:var(--muted);line-height:2.2;}
+.story-para:first-of-type .drop{font-family:"InstrumentSerif",serif;font-size:4.2rem;line-height:0.8;float:left;
+  padding:0.6rem 0.7rem 0.2rem 0;color:var(--accent);font-weight:700;}
+mark.key{background:none;color:var(--accent);font-weight:600;}
+.dialogue{color:#eef3fb;position:relative;padding-left:1.05em;}
+.dialogue::before{content:"";position:absolute;left:0;top:0.4em;bottom:0.4em;width:2px;
+  background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:2px;opacity:0.45;}
+.story-para.em{text-align:center;color:var(--muted);padding:1.8rem 0 1rem;
+  margin:2rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  background:var(--accent-soft);}
+.story-para.em .quote{font-family:"InstrumentSerif",serif;font-style:italic;color:var(--accent2);
+  font-size:1.1rem;letter-spacing:0.08em;line-height:1.8;}
+
+.orn{text-align:center;margin:4.5rem 0 1.5rem;color:var(--accent);font-family:"InstrumentSerif",serif;
+  font-size:1.2rem;letter-spacing:0.8em;opacity:0.7;}
+.orn::before{content:"";display:inline-block;width:2.5rem;height:1px;background:var(--accent);opacity:0.5;
+  margin:0 1rem 0.3rem 0;vertical-align:middle;}
+.orn::after{content:"";display:inline-block;width:2.5rem;height:1px;background:var(--accent);opacity:0.5;
+  margin:0 0 0.3rem 1rem;vertical-align:middle;}
+
+/* ---------- Ending ---------- */
+.ending{padding:7rem 1.6rem 5rem;text-align:center;position:relative;max-width:42rem;margin:0 auto;}
+.ending::before{content:"";display:block;width:2rem;height:1px;margin:0 auto 3rem;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.ending .glyph{font-size:2.6rem;color:var(--accent);line-height:1;text-shadow:0 0 32px rgba(240,179,90,0.55);
+  animation:pulseGlyph 3s ease-in-out infinite;}
+@keyframes pulseGlyph{0%,100%{opacity:0.7;transform:scale(1);}50%{opacity:1;transform:scale(1.15);}}
+.ending .big{font-size:clamp(2rem,5.5vw,2.8rem);font-weight:700;letter-spacing:0.2em;margin-top:2rem;color:var(--ink);}
+.ending .en{font-family:"InstrumentSerif",serif;font-style:italic;font-size:clamp(1.2rem,3.4vw,1.7rem);
+  color:var(--accent2);margin-top:1.4rem;letter-spacing:0.06em;}
+.ending p{margin:2rem auto 0;max-width:32rem;color:var(--muted);font-size:1rem;line-height:2.1;}
+
+/* ---------- Footer ---------- */
+footer{padding:2.5rem 1.6rem 5rem;text-align:center;color:var(--faint);font-size:0.85rem;}
+footer .small{letter-spacing:0.2em;}
+
+/* ---------- Responsive ---------- */
+@media (max-width:600px){
+  body{font-size:16px;line-height:2;}
+  .wrap{padding:0 1.25rem;}
+  .s5-hero{min-height:74vh;padding:6rem 1.4rem 3rem;}
+  .moon{width:64px;height:64px;top:12%;right:10%;}
+  .chapter{padding:4.5rem 1.25rem 0.5rem;}
+  .chapter-head{margin-bottom:3rem;}
+  .story-para{margin-bottom:1.5rem;line-height:2.1;}
+  .story-para:first-of-type .drop{font-size:3.4rem;}
+  .orn{margin:3.2rem 0 1rem;}
+  .ending{padding:5rem 0 3.5rem;}
+  .toc-card{padding:2rem 1.4rem;}
+}
+@media (max-width:400px){
+  .s5-title{font-size:clamp(2.2rem,11vw,3rem);}
+  .ch-zh{font-size:1.35rem;}
+  .ending .big{font-size:1.7rem;}
+  .ending .en{font-size:1.15rem;}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topnav"><span class="brand">元日启蛰</span><a href="index.html">返回首页</a></nav>
+
+<!-- ================= STORY FIVE HERO ================= -->
+<header class="s5-hero">
+  <div class="snows" id="snows"></div>
+  <div class="moon"></div>
+  <div class="wrap">
+    <div class="s5-kicker">The First Snow of the New Year</div>
+    <h1 class="s5-title">元日启蛰</h1>
+    <div class="s5-sub">一宵守岁，一捧初雪，和一个从此每年都要兑现的约定</div>
+    <div class="s5-rule"></div>
+    <p class="s5-desc">除夕夜，对门新搬来的小孩敲开了我的门。暖气坏了，父母出差，他攥着皱巴巴的橘子糖站在昏暗的楼道里，眼睛像刚从暗处钻出来的、受了惊的小动物。那一夜之后，雪开始落下——而有些约定，要在往后每一个冬天里，慢慢兑现。</p>
+  </div>
+</header>
+
+<!-- ================= STORY FIVE TOC ================= -->
+<section class="toc">
+  <div class="wrap">
+    <div class="toc-card">
+      <div class="toc-title">目录</div>
+      <div class="toc-rule"></div>
+      <ol class="toc-list">
+        <li><a href="#c1">元日晨·叩门声</a></li>
+        <li><a href="#c2">元日晨·初雪</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STORY FIVE BODY / CHAPTER 1 ================= -->
+<section class="chapter" id="c1">
+  <div class="chapter-head">
+    <div class="ch-compact">Chapter 1</div>
+    <h2 class="ch-zh">元日晨·叩门声</h2>
+    <div class="ch-rule"></div>
+  </div>
+  <p class="story-para"><span class="drop">铅</span>笔尖在纸上摩擦的声音，是这间屋子里唯一的声响。</p>
+  <p class="story-para">不，其实还有暖气片偶尔的咔嗒声，远处隐约传来的电视声，以及——我停下手，笔尖悬在素描本上方三毫米处——楼道里那种细碎的、压抑的、像小动物被困住的声音。</p>
+  <p class="story-para">我皱了皱眉，把铅笔放下。</p>
+  <p class="story-para">窗外是十二月三十一日下午四点的天色，灰白里透着点将暗未暗的蓝。我画的是对面楼顶那截枯枝，在风里微微颤着，线条已经勾勒了七七八八，就差最后一点明暗。外婆回老家前说：“溪啊，就三天，自己行不行？”我说行，当然行。她说冰箱里饺子馄饨都有，热热就能吃。我说好。</p>
+  <p class="story-para">我站起身。膝盖因为坐太久发出轻轻的“咔”。</p>
+  <p class="story-para">那声音还在。</p>
+  <p class="story-para">不是幻觉。像是……抽泣？很小，很小，压在喉咙深处的那种。偶尔漏出来一点点，又马上被吞回去。</p>
+  <p class="story-para">我走到门前，手放在把手上，停顿了三秒。从猫眼看出去。</p>
+  <p class="story-para">是对门那个新搬来的小孩。</p>
+  <p class="story-para">我见过两次。一次是他们搬家那天，他抱着一箱书摇摇晃晃走进电梯，头发很软，在电梯灯光下泛着浅棕色。一次是前天，他在楼道里踢一个空易拉罐，咚，咚，咚，每一声都轻得像怕吵醒什么。然后他看见我开门，就立刻停下来，把易拉罐藏到身后，眼睛睁得圆圆的。</p>
+  <p class="story-para">现在他站在门外，穿着厚厚的、印着小熊的珊瑚绒睡衣，脚上是毛茸茸的拖鞋，一只脚的大拇趾从破洞里探出来一点。他脸上有泪痕，新的叠着旧的，在手电筒似的楼道声控灯下亮晶晶的。手里紧紧攥着一张纸，攥得指节发白。</p>
+  <p class="story-para">他抬起手，又放下。然后又抬起。</p>
+  <p class="story-para">我拉开了门。</p>
+  <p class="story-para">他吓得往后退了半步，拖鞋在地上拖出短促的摩擦声。楼道的灯“啪”一下灭了，他整个人就沉进昏暗里，只有那双眼睛还亮着，像刚从什么暗处钻出来的、受了惊的小动物。</p>
+  <p class="story-para">“那个，”他开口，声音带着哭过之后的哑，又努力想装得正常点，“哥哥……我家的暖气，好像坏了。”</p>
+  <p class="story-para">灯又亮了。他眨眨眼，睫毛上还挂着湿气。</p>
+  <p class="story-para">“很冷。”他补充，然后像是想起什么似的，把那张皱巴巴的纸条往我这边递了递，又没真递过来，只是保持着那个姿势，“我爸妈……出差了。紧急的。说后天回来。他们留了纸条。”</p>
+  <p class="story-para">我看着他。他大概到我胸口高，头发乱糟糟地翘着几根。睡衣领口歪了，露出一小截锁骨，上面有颗很小的、咖啡色的痣。</p>
+  <p class="story-para">“进来吧。”我说。</p>
+  <p class="story-para">他愣了下，然后飞快地点头，点头的时候眼泪又掉下来一颗，他立刻用手背抹掉，动作大得有点夸张。拖鞋踩在玄关地砖上，发出啪嗒啪嗒的声音，然后在我递过去备用拖鞋时停住。他低头看了看自己拖鞋上的破洞，耳朵尖泛出一点红。</p>
+  <p class="story-para">“穿这个。”我把拖鞋放在他脚边。</p>
+  <p class="story-para">是外婆的旧拖鞋，深蓝色，绒面有些磨损。他换上了，脚在里面显得很小，像偷穿大人鞋子的小孩。我把他的小熊拖鞋放到暖气片旁边——暖气片其实不热，我开了空调，遥控器按下制热键时发出“嘀”的一声，然后机器开始嗡嗡地运转起来，像一头冬眠刚醒的兽在低喘。</p>
+  <p class="story-para">“坐。”我指了指沙发。</p>
+  <p class="story-para">他坐下，坐得很直，背绷着，手放在膝盖上，那张纸条还攥在右手心里。我把牛奶倒进杯子，放进微波炉。嗡嗡的声音填满了厨房，然后是“叮”的一声。我拿出来，试了试温度，递给他。</p>
+  <p class="story-para">“小心烫。”</p>
+  <p class="story-para">他双手接过去，指尖碰了碰杯壁，又缩回去一点，然后慢慢、慢慢地凑近嘴唇。喝了一小口，白色的奶沫沾在上唇。他伸出舌头舔掉，然后看了我一眼，像是怕被说。</p>
+  <p class="story-para">我没说话，去把画架和素描本收起来。铅笔放回笔筒，发出轻微的碰撞声。窗外已经完全暗下来了，远处的楼开始亮起零星的灯，黄的，白的，隔着雾气晕开成一团一团的光斑。</p>
+  <p class="story-para">“哥哥在画画？”他忽然问，声音轻得几乎被空调风声盖过。</p>
+  <p class="story-para">“嗯。”</p>
+  <p class="story-para">“画什么？”</p>
+  <p class="story-para">“枯枝。”</p>
+  <p class="story-para">“为什么画枯枝？”</p>
+  <p class="story-para">我转身看他。他已经放松了一点，背靠着沙发，双腿缩起来，脚丫在拖鞋里蜷着。牛奶杯抱在胸前，热气蒸得他鼻尖有点红。</p>
+  <p class="story-para">“因为好看。”我说。</p>
+  <p class="story-para">“枯枝也好看吗？”</p>
+  <p class="story-para">“嗯。”</p>
+  <p class="story-para">他想了想，点点头，好像接受了这个解释。又喝了一口牛奶，这次喝得大口了些，喉咙小幅度地滚动。然后他看向窗外，眼睛跟着远处某栋楼某扇窗里的灯光移动。</p>
+  <p class="story-para">“天气预报说，明天有雪。”他说，声音还是轻，但多了点别的什么，像是期待，又像是不敢期待太多，“我从广州来。没见过真的雪。”</p>
+  <p class="story-para">我没接话。他把牛奶杯放在茶几上，杯底和玻璃桌面碰出“嗒”的一声。然后他从睡衣口袋里摸出什么东西，攥在手心，伸到我面前，慢慢、慢慢地张开手指。</p>
+  <p class="story-para">是一颗糖。橘子味的硬糖，包装纸皱巴巴的，大概是揣在口袋里很久了。</p>
+  <p class="story-para">“吃吗？”他问。</p>
+  <p class="story-para">我摇头。他收回手，又把糖攥回去，然后视线又飘向窗外，飘向我的画架。空调的温度上来了，屋子里开始有暖烘烘的、带着灰尘被烘烤过的味道。他打了个小小的呵欠，眼泪又出来了，这次大概只是困的。</p>
+  <p class="story-para">“如果下雪，”我开口，声音在安静的屋子里显得有点突兀，“我明天叫你。”</p>
+  <p class="story-para">他猛地转头看我，眼睛睁得圆圆的，里面那些怯生生的光忽然亮起来，亮得惊人。</p>
+  <p class="story-para">“真的？”</p>
+  <p class="story-para">“嗯。”</p>
+  <p class="story-para">“早上吗？很早就下吗？如果没下呢？如果下了但是我还没醒呢？如果——”</p>
+  <p class="story-para">“下了就叫你。”我说。</p>
+  <p class="story-para">他嘴巴抿起来，抿成一个很用力的弧度，像是在努力压住要翘起来的嘴角。然后他重重点头，头发跟着晃。他又拿起牛奶杯，这次是双手捧着，小口小口地喝，眼睛弯起来一点。</p>
+  <p class="story-para">电视开了。跨年晚会，吵闹的音乐，鲜艳的舞台，主持人的声音高昂得有点假。我们一起坐在沙发上，他挨着我，但中间隔着大概二十公分的距离。他腿短，脚够不着地，就在空中轻轻晃着，拖鞋挂在脚尖，要掉不掉的。</p>
+  <p class="story-para">“这个歌手跑调了。”他忽然说。</p>
+  <p class="story-para">“嗯。”</p>
+  <p class="story-para">“去年也跑了。”</p>
+  <p class="story-para">“你看过去年的？”</p>
+  <p class="story-para">“和爸妈一起看的。”他说，然后声音低下去，“他们那时候还在吵架，说要不要来北京。”</p>
+  <p class="story-para">我没问结果。他也没再说。电视里开始演小品，观众的笑声像罐头笑声一样规律。他看得很认真，眼睛盯着屏幕，但每隔几分钟就会悄悄往窗外瞥一眼，很迅速的一瞥，然后收回视线，假装没看。</p>
+  <p class="story-para">十一点四十。</p>
+  <p class="story-para">他又打了个呵欠，这次眼泪真的出来了，他用袖子擦掉。身子往沙发里缩了缩，像是想把自己埋进去。我把遥控器递给他。</p>
+  <p class="story-para">“换台吗？”</p>
+  <p class="story-para">他摇头，然后忽然说：“哥哥，你爸妈呢？”</p>
+  <p class="story-para">“在外地。”</p>
+  <p class="story-para">“也出差？”</p>
+  <p class="story-para">“嗯。”</p>
+  <p class="story-para">“经常？”</p>
+  <p class="story-para">“经常。”</p>
+  <p class="story-para">他点点头，好像从这个“经常”里得到了某种奇怪的安慰。他又把手伸进口袋，这次摸出了那颗橘子糖，还有另一颗，一模一样的。他把皱巴巴的那颗递给我。</p>
+  <p class="story-para">“新年礼物。”他说，表情很郑重。</p>
+  <p class="story-para">我接过来。糖纸真的皱得厉害，边角都磨毛了，上面印的橘子图案笑得有点蠢。我剥开，糖是半透明的橙黄色，放进嘴里，酸味先炸开，然后是甜。</p>
+  <p class="story-para">“甜吗？”他问，自己也剥开那颗，塞进嘴里，左脸颊鼓起来一小块。</p>
+  <p class="story-para">“甜。”</p>
+  <p class="story-para">零点倒计时开始了。电视里人声鼎沸，主持人用激动到破音的声音喊着数字。他也跟着小声数：“十、九、八……”</p>
+  <p class="story-para">数到“三”的时候，他又看了一眼窗外。</p>
+  <p class="story-para">数到“一”的时候，外面炸开欢呼声，不知道哪家在放音乐。烟花是禁止的，但远处还是有隐约的光亮起来，又暗下去。</p>
+  <p class="story-para">“新年快乐！”他转向我，大声说，嘴里还有糖，声音含混不清的。</p>
+  <p class="story-para">“新年快乐。”我说。</p>
+  <p class="story-para">窗外依旧没有雪。夜色浓得像化不开的墨，远处的灯光一点一点熄灭。城市在入睡。</p>
+  <p class="story-para">他又打了个呵欠，这次眼泪真的止不住了，困的。身子一点点歪过来，歪过来，最后靠在我肩膀上。头发蹭到我脖子，有点痒，带着小孩特有的、洗发水的甜香味。</p>
+  <p class="story-para">我没动。</p>
+  <p class="story-para">他的呼吸慢慢、慢慢变得绵长。手里的糖纸掉在地毯上，发出轻到几乎听不见的声音。我弯腰捡起来，放在茶几上，和他那张皱巴巴的父母的纸条并排。</p>
+  <p class="story-para">纸上字迹很潦草，大概写得很匆忙：“微微，爸妈临时出差，三天后回。冰箱有吃的，热了再吃。陌生人敲门别开。钱在抽屉里。对不起。”</p>
+  <p class="story-para">“对不起”三个字写得特别重，墨水都晕开了。</p>
+  <p class="story-para">空调还在嗡嗡响。电视里还在播节目，但声音我已经听不清了。肩膀上很重，是小孩沉沉睡去的重量。我慢慢、慢慢地抬起没被他压着的那只手，关掉电视。</p>
+  <p class="story-para">寂静一下子涌进来，填满整个房间。</p>
+  <p class="story-para">我侧过头，能看到他睡着的脸。睫毛很长，在眼睑下投出一小片阴影。眉头微微蹙着，像在做什么不太愉快的梦。但嘴巴是微微张开的，一点热气呼出来，带着橘子糖的甜味。</p>
+  <p class="story-para">我坐了大概十分钟。或者二十分钟。直到脖子开始发酸，才极其缓慢地、一点一点地抽身，把他放平在沙发上。他哼了一声，但没醒，只是蜷缩起来，像在母体里的姿势。我去卧室拿了毯子，给他盖上。</p>
+  <p class="story-para">盖的时候，他忽然动了动，手从毯子下面伸出来，在空中无意识地抓了抓。我顿了下，把那只手塞回去。指尖碰到他的手心，很软，很暖，还有一点黏——大概是糖化在手里了。</p>
+  <p class="story-para">我坐在旁边的地板上，背靠着沙发。窗外最后几盏灯也熄了。远处传来隐约的钟声，大概是哪个教堂的，在寂静的夜里传得很远、很远。</p>
+  <p class="story-para">我从口袋里摸出那颗橘子糖的糖纸，在手里慢慢展开，又折起。糖纸发出细碎的、塑料摩擦的声响。</p>
+  <p class="story-para">嘴里还有橘子的甜味，酸已经散尽了，只剩甜，黏在舌根。</p>
+  <p class="story-para">我看向窗外。夜色沉沉，没有雪。</p>
+  <p class="story-para">但明天也许会有。</p>
+  <p class="story-para">我想着，把糖纸折成很小、很小的一块，握在手心里。温度从掌心传来，糖纸慢慢变得和皮肤一样暖。</p>
+  <p class="story-para">睡着的孩子在沙发上翻了个身，发出含糊的、梦呓般的声音。</p>
+  <p class="story-para">我没听清他说什么。</p>
+  <p class="story-para">但我猜，大概是关于雪。</p>
+</section>
+
+<div class="orn">❄ ❄</div>
+
+<!-- ================= STORY FIVE BODY / CHAPTER 2 ================= -->
+<section class="chapter" id="c2">
+  <div class="chapter-head">
+    <div class="ch-compact">Chapter 2</div>
+    <h2 class="ch-zh">元日晨·初雪</h2>
+    <div class="ch-rule"></div>
+  </div>
+  <p class="story-para"><span class="drop">天</span>光从窗帘缝隙漏进来时，我醒了。</p>
+  <p class="story-para">不是自然醒。是那种被寂静惊醒的感觉——太静了，静得耳朵里嗡嗡响。窗外没有鸟叫，没有风声，连远处马路上惯常的车流声都消失了。世界像被按了静音键。</p>
+  <p class="story-para">我坐起身。毯子从肩膀上滑下去，落在地板上，没发出声音。</p>
+  <p class="story-para">脚踩在地上是冰的。我赤脚走到窗前，抓住窗帘边缘，停顿了一秒——像拆礼物前那种无意识的停顿——然后拉开。</p>
+  <p class="story-para">雪在下。</p>
+  <p class="story-para">很小，很细。不像羽毛，像谁在天上筛面粉，筛得极匀，极慢。雪花不是一片一片的，是粉末状的，在灰白的天光里斜斜地飘，碰到玻璃就化了，留下一点点湿痕。</p>
+  <p class="story-para">我看了大概一分钟。或者两分钟。然后转身。</p>
+  <p class="story-para">叶微在沙发上睡着，整个人缩在毯子里，只露出头顶一小撮翘起来的头发，随着呼吸轻轻起伏。茶几上，昨晚的牛奶杯还在，杯底剩一点奶渍，已经干了，结成白色的圈。他的糖纸和父母的纸条并排放在那里，像某种奇怪的展览。</p>
+  <p class="story-para">我没叫他。</p>
+  <p class="story-para">先去厨房，豆浆机是外婆走前设好时的，保温灯亮着。我倒了杯豆浆，热气升起来，扑在脸上，湿湿热热的。又煎了鸡蛋，两个，平底锅嗞啦响的时候，我回头看了眼客厅。</p>
+  <p class="story-para">他没醒。</p>
+  <p class="story-para">蛋煎得有点老，边缘焦黄，我用铲子铲起来，放在盘子里。又切了两片面包，没烤，软塌塌的。摆上桌的时候，觉得有点寒酸，又从冰箱里找出半罐草莓酱，用勺子挖了一小碟。</p>
+  <p class="story-para">一切就绪。我洗了手，手上还沾着水，在裤子上擦了擦。</p>
+  <p class="story-para">走到沙发前，蹲下。他睡得正沉，脸颊压出毯子的纹路，红红的一道。嘴微微张着，能看到一点点门牙。我伸手，很轻地碰了碰他的肩膀。</p>
+  <p class="story-para">“叶微。”</p>
+  <p class="story-para">他哼了一声，没醒。</p>
+  <p class="story-para">我又碰了碰。“叶微。下雪了。”</p>
+  <p class="story-para">他眼睛猛地睁开。不是慢慢睁开，是猛地，像被什么弹开。瞳孔还有点散，茫然地眨了眨，然后聚焦在我脸上。</p>
+  <p class="story-para">“雪……”他重复，声音是睡意泡软的，黏糊糊的。</p>
+  <p class="story-para">“嗯。雪。”</p>
+  <p class="story-para">他掀开毯子坐起来，动作太快，差点从沙发上滚下来。我伸手扶住，他胳膊很细，隔着睡衣能摸到骨头。他站稳，光脚踩在地板上，啪嗒啪嗒跑到窗前，整个人贴在玻璃上，鼻子压得扁扁的。</p>
+  <p class="story-para">“真的……”他小声说，呼吸在玻璃上晕开一团白雾。</p>
+  <p class="story-para">雪下大了。从粉末变成了碎片，一片一片，旋转着落。远处的屋顶已经开始发白，像撒了层糖霜。枯枝上积了薄薄的一层，风一吹，就簌簌地掉下来一点。</p>
+  <p class="story-para">“可以出去看吗？”他转头，眼睛亮得惊人。</p>
+  <p class="story-para">“穿鞋。”</p>
+  <p class="story-para">他跑回去穿拖鞋，一只脚穿反了，又慌慌张张换过来。我打开阳台门，冷空气涌进来，像一盆冰水泼在脸上。他跟着出来，只穿着睡衣，打了个哆嗦，但没退回去，反而往前凑，手扒在栏杆上，探出半个身子。</p>
+  <p class="story-para">“小心。”</p>
+  <p class="story-para">“没事！”他说，声音里有压不住的兴奋，“哥哥你看！那片！那片最大！”</p>
+  <p class="story-para">他指着一片摇摇晃晃落下的雪花，视线追着它，一直落到楼下灌木丛里，消失不见。然后又抬头，去找下一片。脖子仰着，喉结小小的，一滚一滚。</p>
+  <p class="story-para">雪落在他头发上，睫毛上，化成细细的水珠。他伸出舌头，想接一片，没接到，自己笑起来，笑声短促，被冷风切碎。</p>
+  <p class="story-para">“像画一样。”他说，说完自己愣了一下，转头看我，“比画还好看。”</p>
+  <p class="story-para">我没说话。他头发上那点雪化了，湿漉漉地贴在额头上。我伸手，用袖子替他擦掉。他僵了一下，没躲，眼睛还看着我，然后很慢、很慢地弯起来。</p>
+  <p class="story-para">“我想去那儿！”他指着楼下的小空地，那里已经积了薄薄一层白。</p>
+  <p class="story-para">“吃完早饭。”</p>
+  <p class="story-para">“现在！”</p>
+  <p class="story-para">“吃完早饭。”</p>
+  <p class="story-para">他嘴撅起来，但只撅了一秒，就自己收回去了。“那快点吃！”</p>
+  <p class="story-para">转身跑回屋里，拖鞋在地板上啪嗒啪嗒响。我跟进去，关上门，把冷空气关在外面。他已经在桌边坐好，手放在膝盖上，坐得笔直，像等开饭的小学生。但腿在桌子底下晃，拖鞋跟敲着地板，笃，笃，笃。</p>
+  <p class="story-para">“吃吧。”我说。</p>
+  <p class="story-para">他拿起面包，咬了一大口，嚼得很快，脸颊鼓起来。眼睛还瞟着窗外，雪还在下，不紧不慢的。我坐下，喝豆浆。豆浆有点烫，他喝的时候被烫到，嘶了一声，但没停，小口小口地吹着喝。</p>
+  <p class="story-para">“哥哥。”他忽然说，嘴里还有面包。</p>
+  <p class="story-para">“嗯。”</p>
+  <p class="story-para">“你每年都看雪吗？”</p>
+  <p class="story-para">“嗯。”</p>
+  <p class="story-para">“一个人看？”</p>
+  <p class="story-para">“嗯。”</p>
+  <p class="story-para">他放下面包，拿起勺子挖草莓酱，挖了很大一勺，抹在面包上，抹得歪歪扭扭的。“我以前在电视上看过，觉得就是白色的雨。但真的不一样。”他想了想，像是在找词，“很……安静。”</p>
+  <p class="story-para">是。很安静。雪把声音都吃掉了。</p>
+  <p class="story-para">他吃完面包，又几口把豆浆喝完，杯子放下的时候发出“咚”的一声。“我吃饱了！”</p>
+  <p class="story-para">其实蛋只吃了一半。我没说，起身收拾盘子。他跳下椅子，又跑到窗边。雪下得更密了，连成一片一片的，远处的楼都模糊了。</p>
+  <p class="story-para">“可以下去了吗？”他问，声音里有种小心翼翼的、怕被拒绝的期待。</p>
+  <p class="story-para">“穿外套。”</p>
+  <p class="story-para">他欢呼一声，跑去玄关。外套是红色的羽绒服，很厚，穿上去像个球。他自己拉拉链，拉到一半卡住了，我过去帮他拉好。他又围上围巾，蓝色的，在脖子上绕了两圈，遮住半张脸，只剩眼睛露在外面，眨啊眨的。</p>
+  <p class="story-para">“手套呢？”</p>
+  <p class="story-para">“忘了！”他跑回去，从沙发上抓起手套，毛线织的，大拇指有个洞。</p>
+  <p class="story-para">开门。冷空气再次涌进来。他先冲出去，跑到楼梯口，又停下，回头看我，等我。我跟上，脚步声在楼道里回荡。下楼梯的时候，他扶着栏杆，一步两阶，羽绒服摩擦发出沙沙的响。</p>
+  <p class="story-para">一楼。单元门打开，雪和风一起扑进来。</p>
+  <p class="story-para">他站在门口，停了大概三秒，然后慢慢走出去，走到空地中央。雪落在他红色的外套上，很显眼，一点一点的白。他抬起头，张开嘴，伸出舌头。</p>
+  <p class="story-para">一片雪花落在他舌尖上。</p>
+  <p class="story-para">他愣住了，然后眼睛弯成月牙。“凉凉的！”他喊，声音在雪里传不远，闷闷的。</p>
+  <p class="story-para">我也走出去。雪落在头发上，脸上，脖子上，化开，凉意渗进去。他开始在空地上转圈，手臂张开，像要抱住整个天空。转得太快，脚下打滑，差点摔倒，我伸手抓住他胳膊。</p>
+  <p class="story-para">他站稳，喘着气，呼出的白雾一团一团。“哥哥也来！”</p>
+  <p class="story-para">“不了。”</p>
+  <p class="story-para">“来嘛！”他抓住我的手，他的手很小，隔着毛线手套，软软的。“一起转！”</p>
+  <p class="story-para">我被他拉着，也转起来。雪在眼前旋转，天空，楼房，枯树，都糊成一片灰白。转了几圈，头晕，我停下来。他没停，还在转，笑着，笑声被雪裹着，变得很轻，很远。</p>
+  <p class="story-para">然后他真的滑倒了。</p>
+  <p class="story-para">不是慢慢滑倒，是脚下一滑，整个人往后仰。我下意识去拉，抓住他羽绒服的帽子，但他太重，我也被带着往前倾。两个人一起跌在雪地里。</p>
+  <p class="story-para">雪很软。摔下去不疼，只是冷意从衣服缝里钻进来。他躺在我旁边，喘着气，然后开始笑，先是小声，然后越来越大，笑得全身都在抖。</p>
+  <p class="story-para">我也躺下。天空是铅灰色的，雪从那么高的地方落下来，落进眼睛里，凉丝丝的。我闭上眼睛，听到他还在笑，笑声渐渐小下去，变成喘气。</p>
+  <p class="story-para">安静了一会儿。</p>
+  <p class="story-para">“哥哥。”他小声说。</p>
+  <p class="story-para">“嗯。”</p>
+  <p class="story-para">“你是不是……也一个人很久了？”</p>
+  <p class="story-para">我没回答。雪落在脸上，化了，像眼泪，但没温度。我听到他翻了个身，侧对着我。睁开眼，看见他就在很近的地方，眼睛看着我，睫毛上沾着雪。</p>
+  <p class="story-para">“我爸妈经常吵架。”他说，声音很平静，像在说别人的事，“吵完就出差。一个往东，一个往西。我有时候想，他们是不是约好了，要离对方越远越好。”</p>
+  <p class="story-para">一片雪花落在他鼻尖上。他没擦，就让它化在那里。</p>
+  <p class="story-para">“但我不喜欢一个人。”他继续说，“家里太大，声音会有回声。电视开很大声，还是觉得安静。所以我喜欢去楼下，看别人遛狗，买菜，吵架。热闹。”</p>
+  <p class="story-para">他伸出手，手套已经湿了，指尖冻得发红。他碰了碰我放在雪地上的手，很轻地碰了一下，然后缩回去。</p>
+  <p class="story-para">“哥哥家里也很安静。”他说，“但不一样。哥哥的安静……是暖的。”</p>
+  <p class="story-para">我坐起来。雪沾了一身，拍不掉，化在衣服上，留下深色的水渍。他也坐起来，学我的样子拍雪，但拍得乱七八糟，头发上、肩膀上还粘着。</p>
+  <p class="story-para">“冷吗？”我问。</p>
+  <p class="story-para">“不冷。”他说，但嘴唇有点发紫。</p>
+  <p class="story-para">“回去吧。”</p>
+  <p class="story-para">他点点头，站起来，跺跺脚。我跟在他后面往回走。上楼的时候，他没再一步两阶，而是一阶一阶慢慢上，手扶着栏杆，走得很稳。</p>
+  <p class="story-para">进屋。暖气扑面而来。他脱掉外套，羽绒服湿了一大片，我把它搭在椅子上。又给他倒了杯热水，他捧着，小口小口喝。脸慢慢红回来，嘴唇也从紫变回红。</p>
+  <p class="story-para">我们坐在地毯上，背靠着沙发。我扯过昨晚的毯子，盖在两人腿上。他靠过来，肩膀抵着我的肩膀，头慢慢、慢慢地滑下来，枕在我肩上。</p>
+  <p class="story-para">“哥哥。”他小声说，声音从肩膀那里传上来，闷闷的。</p>
+  <p class="story-para">“嗯。”</p>
+  <p class="story-para">“我以后，可不可以经常来找你玩？”</p>
+  <p class="story-para">我没说话。</p>
+  <p class="story-para">“我保证很乖。”他补充，声音更小了，“不吵你画画。不说话也行。就……就在旁边坐着。”</p>
+  <p class="story-para">我低头看他。他也正抬头看我，眼睛圆圆的，亮亮的，里面映着窗外的雪光，和一点小心翼翼的、怕被拒绝的期待。</p>
+  <p class="story-para">“嗯。”我说。</p>
+  <p class="story-para">他眼睛一下子弯起来，弯成很深的月牙。然后他重新把头靠回我肩上，很重地、满足地叹了口气。</p>
+  <p class="story-para">雪还在下。但小了些，从碎片变回粉末，斜斜地、懒懒地飘。窗玻璃上凝了层水汽，外面的世界模糊成一片温柔的白。</p>
+  <p class="story-para">他睡着了。呼吸变得绵长，均匀。我轻轻动了动，让他滑下来，枕在我腿上。他哼了一声，没醒，蹭了蹭，找了个舒服的姿势，继续睡。</p>
+  <p class="story-para">我拿起素描本。翻到昨天那页枯枝，旁边还有空白。铅笔在指尖转了转，落下。</p>
+  <p class="story-para">先画头发。软软的，翘着几根。再画眉毛，淡淡的。眼睛闭着，睫毛很长，在眼睑下投出阴影。鼻子，小小的。嘴巴，微微张着，睡得毫无防备。</p>
+  <p class="story-para">然后是手。他一只手蜷在胸前，另一只搭在毯子外。我画那只搭在外面的手，手指微微弯曲，掌心向上，像在接什么。</p>
+  <p class="story-para">画完了。我在右下角写日期：1月1日。顿了顿，又添了两个字：初雪。</p>
+  <p class="story-para">傍晚，敲门声响起。</p>
+  <p class="story-para">很轻，两下。停顿。又三下。</p>
+  <p class="story-para">叶微醒了，坐起来，揉着眼睛。我起身去开门。门外是一对中年男女，脸上带着疲惫和歉意。女人看见我，愣了一下，然后越过我的肩膀，看见从沙发上站起来的叶微。</p>
+  <p class="story-para">“微微！”</p>
+  <p class="story-para">叶微跑过来，站在我身后，手抓着我的衣角。女人蹲下，抱住他，抱得很紧。“对不起，妈妈回来晚了。对不起……”</p>
+  <p class="story-para">男人站在后面，对我点点头。“麻烦你了。我们是叶微的父母。”</p>
+  <p class="story-para">“没事。”我说。</p>
+  <p class="story-para">女人松开叶微，上下看他。“冷不冷？饿不饿？有没有给哥哥添麻烦？”</p>
+  <p class="story-para">叶微摇头，摇得很用力。“哥哥给我热牛奶，煎鸡蛋，还带我去看雪。”他转头看我，眼睛亮亮的，“雪特别好看。”</p>
+  <p class="story-para">女人站起来，对我笑，笑容里有疲惫，也有感激。“真是太谢谢你了。这孩子……我们临时有事，实在没办法。这是我们的联系方式，以后有什么需要帮忙的，尽管说。”</p>
+  <p class="story-para">她递过来一张名片。我接过，没看，放在鞋柜上。</p>
+  <p class="story-para">“那我们不打扰了。”男人说，手放在叶微肩上，“跟哥哥说再见。”</p>
+  <p class="story-para">叶微看着我。他父母转身往对门走，他慢慢跟过去，一步一回头。走到自家门口时，他忽然转身跑回来，跑到我面前，从口袋里掏出什么，塞进我手里。</p>
+  <p class="story-para">又是颗橘子糖。包装纸是新的，没皱。</p>
+  <p class="story-para">“新年快乐，哥哥。”他说，声音很小，只有我能听见。</p>
+  <p class="story-para">然后他跑回去，跑进家门。门关上前，他探出头，用口型说了四个字，说得很慢，很清晰。</p>
+  <p class="story-para">看·雪·约·定。</p>
+  <p class="story-para">门关上了。</p>
+  <p class="story-para">我站在门口，站了一会儿。楼道声控灯灭了，我跺跺脚，灯又亮起来。摊开手掌，那颗糖躺在掌心，糖纸在灯光下反着光。</p>
+  <p class="story-para">我走回屋，关上门。屋子里很静，暖气嗡嗡响。沙发上毯子还堆着，茶几上两个水杯，一个空了，一个还有半杯水。窗外的雪已经停了，天空是深蓝色，远处有零星的灯亮起来。</p>
+  <p class="story-para">我走到窗前。雪地里有两串脚印，大的和小的，从单元门延伸到空地中央，在那里绕了几圈，又延伸回来。新的雪还没落下，脚印还清晰。</p>
+  <p class="story-para">我低头看手里的糖。糖纸是橘黄色的，上面印着笑脸橘子。我剥开，糖放进嘴里。酸味炸开，然后是甜，顺着喉咙滑下去。</p>
+  <p class="story-para">手机震了一下。是外婆的消息：“溪，吃饭没？”</p>
+  <p class="story-para">我打字：“吃了。”</p>
+  <p class="story-para">“一个人冷不冷？”</p>
+  <p class="story-para">“不冷。”</p>
+  <p class="story-para">“那就好。外婆过两天就回。”</p>
+  <p class="story-para">“嗯。”</p>
+  <p class="story-para">窗外，远处有烟花亮起来，很小的一朵，在深蓝色天幕上炸开，金色，散开，消失。然后是又一朵，绿色。</p>
+  <p class="story-para">我靠着窗，糖在嘴里慢慢化开，化得只剩一点点硬芯。我咬碎，咔嚓一声，很轻。</p>
+  <p class="story-para">楼下有小孩在笑，声音被雪吸掉大半，只传来一点点碎片。然后是母亲喊回家的声音：“吃饭啦——”</p>
+  <p class="story-para">我拿起素描本，翻到新画的那一页。男孩睡着的侧脸，安静的，毫无防备的。我在旁边空白处，用铅笔很轻地写：</p>
+  <p class="story-para">新年快乐。</p>
+  <p class="story-para">写完，我看了很久。然后合上本子，走到厨房，把碗洗了。水很热，冲在手上，皮肤发红。洗干净，擦干，放进碗柜。</p>
+  <p class="story-para">客厅的灯我没关。就让它们亮着。</p>
+  <p class="story-para">我走回卧室，关上门。躺在床上，闭上眼睛。嘴里还有橘子糖的甜味，很淡，但一直在，黏在舌尖，不肯散。</p>
+  <p class="story-para">窗外又传来隐约的烟花声。很远，很远，像隔着一层厚棉花。</p>
+  <p class="story-para">我在黑暗里躺了一会儿，然后摸出手机，点开屏幕。光刺得眼睛眯起来。我找到叶微父母的名片，对着号码，一个字一个字输入。</p>
+  <p class="story-para">“以后下雪，可以叫他来看。”</p>
+  <p class="story-para">发送。</p>
+  <p class="story-para">等了几分钟。没有回复。大概在忙。</p>
+  <p class="story-para">我放下手机，翻了个身。枕头上有很淡的、不属于我的洗发水味道，甜丝丝的，像水果糖。</p>
+  <p class="story-para">我想，明天要去买点橘子糖。放在抽屉里，以备不时之需。</p>
+  <p class="story-para">然后我睡着了。</p>
+  <p class="story-para">梦里在下雪。很大的雪，把整个世界都盖住了，白茫茫一片。雪地里有两串脚印，一直延伸到很远的地方。我沿着脚印走，走啊走，走到尽头，看见一个红色的身影，在雪地里转圈，手臂张开，笑着。</p>
+  <p class="story-para">笑声很轻。</p>
+  <p class="story-para">像雪落下。</p>
+  <p class="story-para">（完）</p>
+</section>
+
+<!-- ================= STORY FIVE ENDING ================= -->
+<section class="ending">
+  <div class="glyph">❄</div>
+  <div class="big">启蛰之晨，人自成春</div>
+  <div class="en">At the dawn of awakening, we become spring</div>
+  <p>梦里在下雪，很大的雪，把整个世界都盖住。雪地里有两串脚印，大的和小的，一直并肩延伸到很远的地方。而我知道，从今往后的每一场初雪，都会有两串脚印，一起走过。</p>
+</section>
+
+<footer>
+  <div class="small">— 献给那些把温柔轻轻放进你手心的人 —</div>
+</footer>
+<script>
+(function(){
+  var prog=document.getElementById('progress');
+  function upd(){
+    var h=document.documentElement;
+    var p=h.scrollHeight-h.clientHeight;
+    prog.style.width=(p>0?(h.scrollTop/p*100):0)+'%';
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd,{passive:true});
+  upd();
+  // dialogue emphasis
+  var paras=document.querySelectorAll('.chapter > .story-para');
+  for(var i=0;i<paras.length;i++){
+    var t=paras[i].textContent.trim();
+    if(/^[\u201c\u2018\u300a\u2019\u201d\u00ab\u2039]/.test(t)) paras[i].classList.add('dialogue');
+  }
+  // falling snow
+  var sv=document.getElementById('snows');
+  for(var i=0;i<24;i++){
+    var s=document.createElement('span');
+    s.className='snow';
+    s.style.left=(Math.random()*100)+'%';
+    s.style.animationDuration=(7+Math.random()*9)+'s';
+    s.style.animationDelay=(Math.random()*12)+'s';
+    s.style.animationIterationCount='infinite';
+    s.style.transform='scale('+(0.5+Math.random()*1.1)+')';
+    sv.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>
