@@ -1,0 +1,2129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我弟弟好像不太一样</title>
+<link rel="preload" href="./_shared/fonts/CrimsonPro-Regular.ttf" as="font" type="font/ttf" crossorigin="">
+<link rel="preload" href="./_shared/fonts/InstrumentSerif-Italic.ttf" as="font" type="font/ttf" crossorigin="">
+<style>
+:root{
+  --bg:#faf5ec;
+  --bg2:#f5ede0;
+  --bg3:#e8dcc8;
+  --ink:#3d3226;
+  --muted:#8a7a65;
+  --faint:#b8a890;
+  --rule:#ddd0b8;
+  --accent:#c8903a;
+  --accent2:#d4a55a;
+  --accent-soft:rgba(200,144,58,0.10);
+  --accent2-soft:rgba(212,165,90,0.09);
+  --paper:#fffaf3;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+@font-face{
+  font-family:'CrimsonPro';
+  src:url('./_shared/fonts/CrimsonPro-Regular.ttf') format('truetype');
+  font-weight:400;font-style:normal;
+}
+@font-face{
+  font-family:'CrimsonPro';
+  src:url('./_shared/fonts/CrimsonPro-Italic.ttf') format('truetype');
+  font-weight:400;font-style:italic;
+}
+@font-face{
+  font-family:'CrimsonPro';
+  src:url('./_shared/fonts/CrimsonPro-Bold.ttf') format('truetype');
+  font-weight:700;font-style:normal;
+}
+@font-face{
+  font-family:'InstrumentSerif';
+  src:url('./_shared/fonts/InstrumentSerif-Regular.ttf') format('truetype');
+  font-weight:400;font-style:normal;
+}
+@font-face{
+  font-family:'InstrumentSerif';
+  src:url('./_shared/fonts/InstrumentSerif-Italic.ttf') format('truetype');
+  font-weight:400;font-style:italic;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"CrimsonPro","Noto Serif CJK SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif;
+  font-size:18px;
+  line-height:2.15;
+  letter-spacing:0.02em;
+  overflow-x:hidden;
+}
+::selection{background:rgba(200,144,58,0.28);color:#3d3226;}
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#c8a060,#a08050);border-radius:6px;border:2px solid var(--bg2);}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#d4b070,#b09060);}
+.progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  box-shadow:0 0 14px rgba(200,144,58,0.5);}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(1000px 560px at 82% -4%, rgba(212,165,90,0.14), transparent 60%),
+    radial-gradient(860px 640px at -10% 36%, rgba(200,144,58,0.09), transparent 60%),
+    radial-gradient(960px 720px at 48% 108%, rgba(245,237,224,0.85), transparent 70%);
+}
+
+/* ---------- Top nav ---------- */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;
+  align-items:center;padding:0.9rem 1.6rem;background:rgba(250,245,236,0.85);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);}
+.topnav a{color:var(--muted);text-decoration:none;font-size:0.85rem;letter-spacing:0.08em;transition:color .2s;}
+.topnav a:hover{color:var(--accent);}
+.topnav .brand{font-family:"CrimsonPro",serif;font-style:italic;color:var(--accent);letter-spacing:0.06em;}
+
+/* ---------- Hero ---------- */
+.s7-hero{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:7rem 1.6rem 4rem;overflow:hidden;
+  background:
+    radial-gradient(700px 440px at 72% 28%, rgba(212,165,90,0.18), transparent 60%),
+    linear-gradient(180deg,var(--bg3) 0%,var(--bg) 55%,var(--bg2) 100%);}
+.s7-hero .wrap{max-width:780px;position:relative;z-index:3;}
+.s7-kicker{font-family:"CrimsonPro",serif;font-style:italic;letter-spacing:0.32em;font-size:0.9rem;
+  color:var(--accent);margin-bottom:1.7rem;text-transform:lowercase;}
+.s7-title{font-size:clamp(2.8rem,8vw,5rem);font-weight:700;letter-spacing:0.14em;line-height:1.15;color:var(--ink);
+  text-shadow:0 0 36px rgba(212,165,90,0.2);}
+.s7-sub{margin-top:1.3rem;font-size:clamp(1rem,2.6vw,1.3rem);color:var(--muted);letter-spacing:0.1em;}
+.s7-rule{width:64px;height:2px;margin:1.9rem auto;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+.s7-desc{margin:0 auto;max-width:38rem;font-size:0.98rem;color:var(--muted);line-height:2;}
+.s7-desc b{color:var(--ink);font-weight:600;}
+
+/* warm light glow */
+.light{position:absolute;top:10%;right:14%;width:120px;height:120px;border-radius:50%;z-index:2;
+  background:radial-gradient(circle at 40% 36%, #fce8c0, #f0cf90 48%, #d4a55a 78%, rgba(212,165,90,0) 100%);
+  box-shadow:0 0 80px 28px rgba(212,165,90,0.28),0 0 180px 70px rgba(212,165,90,0.08);
+  opacity:0.8;animation:glow 6s ease-in-out infinite;}
+@keyframes glow{0%,100%{opacity:0.65;transform:scale(1);}50%{opacity:0.9;transform:scale(1.07);}}
+
+/* floating dust motes */
+.motes{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+.mote{position:absolute;top:-4%;width:3px;height:3px;border-radius:50%;
+  background:rgba(212,165,90,0.7);opacity:0;animation:drift linear infinite;}
+@keyframes drift{0%{transform:translateY(0) translateX(0);opacity:0;}
+  8%{opacity:0.7;}
+  100%{transform:translateY(92vh) translateX(-3vw);opacity:0;}}
+
+/* ---------- Layout ---------- */
+.wrap{max-width:42rem;margin:0 auto;padding:0 1.6rem;}
+
+/* ---------- TOC ---------- */
+.toc{padding:1rem 0 3.5rem;}
+.toc-card{background:linear-gradient(180deg,var(--paper),rgba(245,237,224,0.6));border:1px solid var(--rule);border-radius:16px;
+  padding:3rem 2.8rem;box-shadow:0 18px 48px rgba(61,50,38,0.12);}
+.toc-title{text-align:center;font-size:1.2rem;font-weight:700;letter-spacing:0.32em;color:var(--ink);}
+.toc-title::before{content:"﹡";display:block;font-family:"InstrumentSerif",serif;font-size:1rem;color:var(--accent);
+  letter-spacing:0;margin-bottom:1.1rem;opacity:0.85;text-shadow:0 0 16px rgba(200,144,58,0.4);}
+.toc-rule{width:48px;height:1px;margin:1.2rem auto 2.2rem;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.toc-list{list-style:none;max-width:30rem;margin:0 auto;}
+.toc-list li{margin-bottom:0.7rem;text-align:center;}
+.toc-list a{color:var(--muted);text-decoration:none;font-size:0.98rem;letter-spacing:0.06em;transition:color .2s;}
+.toc-list a:hover{color:var(--accent);}
+
+/* ---------- Chapter ---------- */
+.chapter{padding:5.8rem 1.6rem 1.5rem;max-width:42rem;margin:0 auto;}
+.chapter-head{text-align:center;margin-bottom:3.8rem;position:relative;}
+.chapter-head::after{content:"";position:absolute;bottom:-1.2rem;left:50%;transform:translateX(-50%);
+  width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--muted),transparent);opacity:0.5;}
+.ch-compact{font-family:"InstrumentSerif",serif;letter-spacing:0.38em;font-size:0.82rem;color:var(--accent);
+  text-transform:lowercase;margin-bottom:1.2rem;}
+.ch-zh{font-size:clamp(1.6rem,4.4vw,2.2rem);font-weight:600;letter-spacing:0.18em;color:var(--ink);}
+.ch-rule{width:56px;height:1px;margin:1.8rem auto 0;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+.extra-head .ch-compact{color:var(--accent2);}
+.extra-head .ch-zh{font-size:clamp(1.4rem,3.8vw,1.8rem);}
+
+.story-para{margin-bottom:1.8rem;text-align:justify;color:var(--ink);line-height:2.2;}
+.story-para:first-of-type .drop{font-family:"InstrumentSerif",serif;font-size:4.2rem;line-height:0.8;float:left;
+  padding:0.6rem 0.7rem 0.2rem 0;color:var(--accent);font-weight:700;}
+
+.orn{text-align:center;margin:4.5rem 0 1.5rem;color:var(--accent);font-family:"InstrumentSerif",serif;
+  font-size:1.2rem;letter-spacing:0.8em;opacity:0.7;}
+.orn::before{content:"";display:inline-block;width:2.5rem;height:1px;background:var(--accent);opacity:0.5;
+  margin:0 1rem 0.3rem 0;vertical-align:middle;}
+.orn::after{content:"";display:inline-block;width:2.5rem;height:1px;background:var(--accent);opacity:0.5;
+  margin:0 0 0.3rem 1rem;vertical-align:middle;}
+
+/* ---------- Ending ---------- */
+.ending{padding:7rem 1.6rem 5rem;text-align:center;position:relative;max-width:42rem;margin:0 auto;}
+.ending::before{content:"";display:block;width:2rem;height:1px;margin:0 auto 3rem;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.ending .glyph{font-size:2.6rem;color:var(--accent);line-height:1;text-shadow:0 0 28px rgba(200,144,58,0.45);
+  animation:glyphPulse 3s ease-in-out infinite;}
+@keyframes glyphPulse{0%,100%{opacity:0.7;transform:scale(1);}50%{opacity:1;transform:scale(1.12);}}
+.ending .big{font-size:clamp(2rem,5.5vw,2.8rem);font-weight:700;letter-spacing:0.2em;margin-top:2rem;color:var(--ink);}
+.ending .en{font-family:"InstrumentSerif",serif;font-style:italic;font-size:clamp(1.2rem,3.4vw,1.7rem);
+  color:var(--accent2);margin-top:1.4rem;letter-spacing:0.06em;}
+.ending p{margin:2rem auto 0;max-width:32rem;color:var(--muted);font-size:1rem;line-height:2.1;}
+
+/* ---------- Footer ---------- */
+footer{padding:2.5rem 1.6rem 5rem;text-align:center;color:var(--faint);font-size:0.85rem;}
+footer .small{letter-spacing:0.2em;}
+
+/* ---------- Responsive ---------- */
+@media (max-width:600px){
+  body{font-size:16px;line-height:2;}
+  .wrap{padding:0 1.25rem;}
+  .s7-hero{min-height:74vh;padding:6rem 1.4rem 3rem;}
+  .light{width:72px;height:72px;top:10%;right:10%;}
+  .chapter{padding:4.5rem 1.25rem 0.5rem;}
+  .chapter-head{margin-bottom:3rem;}
+  .story-para{margin-bottom:1.5rem;line-height:2.1;}
+  .story-para:first-of-type .drop{font-size:3.4rem;}
+  .orn{margin:3.2rem 0 1rem;}
+  .ending{padding:5rem 0 3.5rem;}
+  .toc-card{padding:2rem 1.4rem;}
+}
+@media (max-width:400px){
+  .s7-title{font-size:clamp(2.2rem,11vw,3rem);}
+  .ch-zh{font-size:1.35rem;}
+  .ending .big{font-size:1.7rem;}
+  .ending .en{font-size:1.15rem;}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="topnav"><span class="brand">我弟弟好像不太一样</span><a href="index.html">返回首页</a></nav>
+
+<!-- ================= STORY SEVEN HERO ================= -->
+<header class="s7-hero">
+  <div class="motes" id="motes"></div>
+  <div class="light"></div>
+  <div class="wrap">
+    <div class="s7-kicker">He Is Not Quite the Same</div>
+    <h1 class="s7-title">我弟弟好像不太一样</h1>
+    <div class="s7-sub">一间小屋，两碗热面，和一个安静得像株植物的少年</div>
+    <div class="s7-rule"></div>
+    <p class="s7-desc">我妈把林小雨送来那天，我头都大了。十月的第一个周六，门铃响到第三遍，我才从床上爬起来。那个穿着白色校服衬衫、背挺得笔直的"小豆芽"，就这样闯进了我的生活。半年，一百八十多天——我以为是他在依赖我，却不知道，有些温柔早已悄悄生根。</p>
+  </div>
+</header>
+
+<!-- ================= STORY SEVEN TOC ================= -->
+<section class="toc">
+  <div class="wrap">
+    <div class="toc-card">
+      <div class="toc-title">目录</div>
+      <div class="toc-rule"></div>
+      <ol class="toc-list">
+        <li><a href="#c1">第一章</a></li>
+        <li><a href="#c2">第二章</a></li>
+        <li><a href="#c3">第三章</a></li>
+        <li><a href="#c4">第四章</a></li>
+        <li><a href="#c5">第五章</a></li>
+        <li><a href="#c6">第六章</a></li>
+        <li><a href="#c7">第七章</a></li>
+        <li><a href="#c8">第八章</a></li>
+        <li><a href="#ex1">番外：三月末的某个傍晚</a></li>
+        <li><a href="#ex2">番外：鱼知道</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STORY SEVEN BODY ================= -->
+
+    <section class="chapter" id="c1">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 1</div>
+        <h2 class="ch-zh">第一章</h2>
+        <div class="ch-rule"></div>
+      </div>
+      <p class="story-para"><span class="drop">我</span>妈把林小雨送来那天，我头都大了。</p>
+      <p class="story-para">十月的第一个周六，门铃响到第三遍，我才从床上爬起来。前一晚打游戏到三点，脑袋像塞了团湿棉花，沉得发懵。眯着眼拉开门，就看见我妈，还有她身后那个银灰色的小行李箱——以及箱子旁边，那个穿着白色校服衬衫、背挺得笔直的&quot;小豆芽&quot;。</p>
+      <p class="story-para">&quot;小航，&quot;我妈笑得像推销保险的业务员，热络得有点刻意，&quot;这是你弟，小雨。叫哥哥。&quot;</p>
+      <p class="story-para">小豆芽抬起头。软趴趴的头发搭在额前，眼睛亮得惊人，那光亮让我这个刚起床、头发乱成鸟窝的人莫名心虚。他嘴唇动了动，声音轻得像蚊子振翅：&quot;哥。&quot;</p>
+      <p class="story-para">&quot;妈，这……&quot;我抓了抓炸毛的头发，话堵在喉咙里。</p>
+      <p class="story-para">&quot;你叔叔阿姨临时调去外地工作，要待半年。&quot;我妈把行李箱往屋里推，动作利落得像在安置快递包裹，&quot;小雨转去你们学校初中部，正好跟你一个校区。你照顾他一学期，等他爸妈那边安顿好就行。&quot;</p>
+      <p class="story-para">她说&quot;照顾一学期&quot;的语气，轻松得像让我下楼取个外卖。</p>
+      <p class="story-para">&quot;我？&quot;我指了指自己，又扫了眼那间不到三十平、脏衣服堆在椅背上的小单间，&quot;妈，我连自己都顾不好。&quot;</p>
+      <p class="story-para">&quot;所以才要锻炼。&quot;我妈已经自来熟地开始&quot;视察&quot;我的领地，皱着眉扫过满地狼藉，&quot;而且你这儿不是有两张床嘛。&quot;</p>
+      <p class="story-para">那是房东留下的上下铺，我睡下铺，上铺堆着杂书和没洗的球衣。</p>
+      <p class="story-para">林小雨站在门口没动。深蓝色书包被他紧紧抓着肩带，指甲修剪得干干净净。他盯着地板砖缝，好像那里面藏着什么宇宙级的秘密。</p>
+      <p class="story-para">&quot;小雨很乖的，不吵不闹。&quot;我妈终于把目光从我的脏衣服堆上移开，拍了拍他的肩，&quot;是吧小雨？&quot;</p>
+      <p class="story-para">他点点头，依旧没看我。</p>
+      <p class="story-para">我心里叹了口气，认命似的垮下肩膀。</p>
+      <p class="story-para">&quot;半年？&quot;我追问。</p>
+      <p class="story-para">&quot;最多一学期。&quot;我妈从包里掏出个信封塞我手里，&quot;生活费，两个人的，省着点花。&quot;</p>
+      <p class="story-para">又掏出个小信封：&quot;小雨的学费和杂费，记得按时交。&quot;</p>
+      <p class="story-para">最后她弯腰，用哄小孩的语气对林小雨说：&quot;小雨，听哥哥的话。有事给阿姨打电话，啊？&quot;</p>
+      <p class="story-para">林小雨这才又看了我一眼，轻声对我妈说：&quot;嗯，谢谢阿姨。&quot;</p>
+      <p class="story-para">我妈走了。</p>
+      <p class="story-para">门关上的瞬间，小单间里的空气突然变得黏稠。</p>
+      <p class="story-para">我站着，他站着，行李箱立在我俩中间，像个沉默的第三者。窗外收废品的喇叭声由远及近，又慢慢飘远，衬得屋里更静了。</p>
+      <p class="story-para">&quot;……进来吧。&quot;我挠挠后颈，那里有点发痒，&quot;地方小，你……随便坐。&quot;</p>
+      <p class="story-para">其实根本没地方坐——唯一的椅子上堆着我的外套、牛仔裤，还有本摊开的《五年高考三年模拟》。</p>
+      <p class="story-para">林小雨拖着行李箱挪进来，轮子在地板上滚出轻微的咕噜声。他把书包轻轻放在墙角，然后站在屋子中央，像棵被突然移栽到陌生花盆里的小苗，不知道根该往哪儿扎。</p>
+      <p class="story-para">&quot;上铺得收拾一下。&quot;我走到床边，开始把那些书和衣服往下扒拉，&quot;你先……坐我床上？&quot;</p>
+      <p class="story-para">他没坐，反而走过来，帮我捡起几本滑到地上的书，摞得整整齐齐放在床头柜上，动作轻得怕碰坏什么似的。</p>
+      <p class="story-para">&quot;谢谢。&quot;我说。</p>
+      <p class="story-para">&quot;不用谢。&quot;他声音依旧很轻。</p>
+      <p class="story-para">收拾上铺花了半小时。我搬大件，他理小东西。我发现他做事特别有条理：书按大小排好，本子归成一摞，笔全插进笔筒里。全程不说话，只安静地动手。</p>
+      <p class="story-para">收拾完，我俩都出了层薄汗。下午三点的阳光斜斜照进窗户，把空气中的浮尘映成了飘飞的金粉。</p>
+      <p class="story-para">&quot;那个……&quot;我清了清嗓子，打破沉默，&quot;你饿不饿？我去弄点吃的。&quot;</p>
+      <p class="story-para">他先点头，又赶紧摇头：&quot;不饿。哥你饿吗？&quot;</p>
+      <p class="story-para">&quot;我……&quot;肚子偏偏在这时叫了一声，响亮得让我脸红。</p>
+      <p class="story-para">他嘴角好像弯了一下，弧度浅得像错觉，快得抓不住。</p>
+      <p class="story-para">&quot;冰箱里应该还有面条和鸡蛋。&quot;我往那小得可怜的开放式厨房走，&quot;凑合吃点？&quot;</p>
+      <p class="story-para">厨房台面上摆着昨天没洗的锅，我有点尴尬，赶紧把它塞进水槽。林小雨跟了过来，站在厨房入口没进去，像只小动物，谨慎地观察新领地的边界。</p>
+      <p class="story-para">我打开冰箱：两个鸡蛋，一把蔫了的青菜，半包挂面。还行，够填肚子。</p>
+      <p class="story-para">&quot;吃面行吗？&quot;我问。</p>
+      <p class="story-para">&quot;行。&quot;他说。</p>
+      <p class="story-para">我开火烧水。水在锅里冒小泡的时候，我从……从冰箱里拿出鸡蛋时，我顿了顿手。平时自己吃，磕一个就够，今天却多拿了一个。</p>
+      <p class="story-para">&quot;你吃几个蛋？&quot;我回头问。</p>
+      <p class="story-para">&quot;一个就好。&quot;他说。</p>
+      <p class="story-para">&quot;那我也一个。&quot;我把多拿的蛋放回去，转念又觉得不对——我是哥哥，是不是该让着点？于是又把蛋拿了出来。</p>
+      <p class="story-para">水开了，我下面。蒸汽扑到脸上，暖融融的。</p>
+      <p class="story-para">打鸡蛋时出了点小状况。第一个蛋顺利滑进锅里，蛋清迅速凝固成蓬松的白色云朵。打第二个时，指甲划破了蛋黄，稀黄的蛋液流了一手。</p>
+      <p class="story-para">&quot;靠。&quot;我小声骂了句。</p>
+      <p class="story-para">身后传来很轻的笑声。回头时，林小雨抿着嘴，眼睛弯成了月牙。</p>
+      <p class="story-para">&quot;笑什么。&quot;我佯怒，心里却松了口气——他终于有点活人样了。</p>
+      <p class="story-para">&quot;没。&quot;他把笑意压下去，眼睛却还亮着。</p>
+      <p class="story-para">我把破了相的蛋捞出来放进一个碗，完整的那个放进另一个碗，这才发现忘了放青菜，又是一通手忙脚乱。</p>
+      <p class="story-para">最后端上桌的两碗面卖相惨淡。我的那碗，蛋是破的，青菜煮得发蔫；他的那碗，蛋是完整的，面条却有点坨。</p>
+      <p class="story-para">我把完整的那碗推给他。他看看我，又看看碗，没动筷子。</p>
+      <p class="story-para">&quot;怎么了？不爱吃？&quot;我问。</p>
+      <p class="story-para">他摇摇头，拿起筷子，小心地夹起一截面条，吹了吹才送进嘴里，咀嚼得很慢。</p>
+      <p class="story-para">我也吃了一口，盐放少了，淡得像嚼纸。&quot;要不加点酱油？&quot;我起身要去拿。</p>
+      <p class="story-para">&quot;不用。&quot;他说，又吃了一口，&quot;挺好的。&quot;</p>
+      <p class="story-para">我们面对面吃面，吸溜面条的声音、筷子碰碗的声音在屋里散开。夕阳又西斜了些，把屋里的光线染成暖融融的橙黄色。</p>
+      <p class="story-para">&quot;那个，&quot;我打破沉默，&quot;你初一几班？&quot;</p>
+      <p class="story-para">&quot;七班。&quot;他说。</p>
+      <p class="story-para">&quot;我在高一三班。初中部教学楼在我们后面那栋，隔一个操场。放学要是找不到路，可以来我们班找我，我们班在四楼楼梯口右手边第一间。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他点头。</p>
+      <p class="story-para">&quot;早上七点半早读，别迟到。食堂早饭还行，包子豆浆都有。午饭人多，最好错开十二点。小卖部在体育馆旁边，贵，少去。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;晚上作业多吗？&quot;</p>
+      <p class="story-para">&quot;还行。&quot;</p>
+      <p class="story-para">&quot;有不会的可以问我，虽然我成绩也就那样。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">一问一答像场拘谨的面试，我一时又不知道说什么好。</p>
+      <p class="story-para">他吃完最后一口面，连汤都喝光了，碗底干干净净。我这边还剩半碗，实在咽不下去。</p>
+      <p class="story-para">&quot;我洗碗。&quot;他站起来，伸手要拿我的碗。</p>
+      <p class="story-para">&quot;不用，我来——&quot;</p>
+      <p class="story-para">&quot;我会洗。&quot;他语气很坚持，亮亮的眼睛看着我，让我把后面的话咽了回去。</p>
+      <p class="story-para">他端着碗走向水槽，个子不够高，踮了踮脚才够到水龙头。开水龙头、挤洗洁精、用海绵细细擦拭，背影专注得很。</p>
+      <p class="story-para">我坐在椅子上看着他：瘦瘦的肩膀，微微弓着的背，白色校服衬衫的领子翻得整整齐齐。突然意识到，从今天起，这个小豆芽就要跟我一起生活了。半年，一百八十多天。</p>
+      <p class="story-para">&quot;那个，小雨。&quot;我叫他。</p>
+      <p class="story-para">他回头，手上还拿着滴水的碗。</p>
+      <p class="story-para">&quot;欢迎过来。&quot;我说。</p>
+      <p class="story-para">他愣了一下，然后很轻却很清楚地点了点头：&quot;嗯。&quot;</p>
+      <p class="story-para">窗外，天色正一点一点暗下去。</p>
+    </section>
+
+    <section class="chapter" id="c2">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 2</div>
+        <h2 class="ch-zh">第二章</h2>
+        <div class="ch-rule"></div>
+      </div>
+      <p class="story-para"><span class="drop">周</span>一的闹钟响到第三遍，我才一巴掌按掉。脑袋沉得像灌了铅，眼睛睁不开，闭着眼摸到手机一看，六点四十了——早读七点半，再睡五分钟吧。</p>
+      <p class="story-para">&quot;……哥。&quot;</p>
+      <p class="story-para">很轻的声音就在床边，我吓得一激灵，猛地睁眼。林小雨已经穿戴整齐，站在我床边，手里拿着书包。头发梳得顺顺的，校服衬衫的扣子扣到了最上面一颗，像个标准的好学生标本。</p>
+      <p class="story-para">&quot;该迟到了。&quot;他说。</p>
+      <p class="story-para">&quot;现在几点？&quot;</p>
+      <p class="story-para">&quot;六点四十二。&quot;</p>
+      <p class="story-para">我弹起来，动作太猛，头撞到上铺床板，咚的一声。&quot;靠——&quot;我捂着额头倒回床上。</p>
+      <p class="story-para">林小雨往后退了半步，眼睛睁大了些：&quot;……疼吗？&quot;</p>
+      <p class="story-para">&quot;没事没事。&quot;我摆手，挣扎着坐起来，&quot;你怎么起这么早？&quot;</p>
+      <p class="story-para">&quot;生物钟。&quot;他简短地说，又补充了句，&quot;以前学校七点早读。&quot;</p>
+      <p class="story-para">我眯眼看向窗户，天刚蒙蒙亮，灰蓝色的光透进来，他站在那片光里，干净得有些不真实。</p>
+      <p class="story-para">&quot;你……洗漱了？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;吃早饭了？&quot;</p>
+      <p class="story-para">&quot;还没。&quot;</p>
+      <p class="story-para">&quot;行，你等等，马上好。&quot;我跳下床，从我从椅子上捞起牛仔裤套上，又扯了件T恤。冲进卫生间前，回头瞥了一眼——他还站在原地，双手抓着书包带，安安静静地等。</p>
+      <p class="story-para">刷牙时我忍不住想，这孩子是不是太乖了点？乖得让人有点……不自在。</p>
+      <p class="story-para">洗了把冷水脸，脑子清醒了些。出来时，林小雨已经背上了昨晚收拾好的书包。而我的那个还瘫在椅子旁，拉链敞着，露出里面卷了边的练习册。</p>
+      <p class="story-para">&quot;那个，早饭去学校食堂吃。&quot;我一边往书包里塞东西一边催，&quot;快，走了。&quot;</p>
+      <p class="story-para">锁门，下楼。清晨的空气带着凉意，我打了个哆嗦。林小雨走在我身边，步子比我小，却迈得快，努力跟上我的速度。</p>
+      <p class="story-para">街上已经有不少学生了。三三两两的，有的骑着自行车嗖地掠过，车铃叮铃铃响个不停。早点摊冒着白烟，油条的香味飘过来，勾着人的鼻子。</p>
+      <p class="story-para">&quot;你以前的学校也这么早吗？&quot;我问。</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;习惯吗？&quot;</p>
+      <p class="story-para">&quot;习惯了。&quot;</p>
+      <p class="story-para">又是这种简短的回答。我想了想，换了个话题：&quot;你喜欢吃什么早饭？&quot;</p>
+      <p class="story-para">他沉默了几秒，小声说：&quot;……都行。&quot;</p>
+      <p class="story-para">&quot;没有特别喜欢的？&quot;</p>
+      <p class="story-para">&quot;包子。&quot;他终于多说了两个字，&quot;豆沙馅的。&quot;</p>
+      <p class="story-para">&quot;哦。&quot;我默默记下了。</p>
+      <p class="story-para">学校大门就在前面，穿着同款校服的学生像潮水般往里涌。高中部和初中部是两栋独立的楼，中间隔着个大操场。走到分岔路口，我停下脚步。</p>
+      <p class="story-para">&quot;那边，看见没？红色那栋就是你们初中部。&quot;我指给他看，&quot;初一七班在二楼，楼梯上去左转。记得吗？&quot;</p>
+      <p class="story-para">他点点头，眼睛望着那栋楼。</p>
+      <p class="story-para">&quot;放学……&quot;我顿了顿，有点犹豫，&quot;你是在教室等我，还是……？&quot;</p>
+      <p class="story-para">他转过头看我：&quot;我在哪等你？&quot;</p>
+      <p class="story-para">&quot;我们班门口？&quot;话出口又觉得不妥——让个初中生天天在高中班级门口等着，总有点怪怪的。&quot;要不……在学校门口的便利店？或者操场旁边的长椅？&quot;</p>
+      <p class="story-para">&quot;你们班门口吧。&quot;他说，&quot;方便。&quot;</p>
+      <p class="story-para">&quot;行。那四点半，我们班下课。要是老师拖堂，你就等会儿。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;那……&quot;我指了指高中部的方向，&quot;我走了？&quot;</p>
+      <p class="story-para">&quot;嗯。哥再见。&quot;</p>
+      <p class="story-para">他转身往初中部走。小小的背影在人群里一窜一窜，很快就看不见了。</p>
+      <p class="story-para">我站在原地看了两秒，才转身往自己的教室跑。</p>
+      <p class="story-para">早读是英语课。我困得眼皮直打架，课本上的字母都像在跳舞。同桌周明用胳膊肘捅了捅我：&quot;喂，昨天找你的那个初中小孩，谁啊？&quot;</p>
+      <p class="story-para">&quot;我弟。&quot;我含糊地应着。</p>
+      <p class="story-para">&quot;亲弟？没听你说过啊。&quot;</p>
+      <p class="story-para">&quot;堂弟。过来借住一学期。&quot;</p>
+      <p class="story-para">&quot;哦——&quot;周明拖长了音，又捅我一下，&quot;长得挺乖啊，像个小姑娘似的。&quot;</p>
+      <p class="story-para">&quot;滚。&quot;我骂了一句，却没多少底气——早上看他站在晨光里的样子，确实……挺秀气的。</p>
+      <p class="story-para">&quot;放学一起打球？&quot;周明问。</p>
+      <p class="story-para">&quot;今天不了，要接我弟。&quot;</p>
+      <p class="story-para">&quot;哟，这就当上保姆了？&quot;</p>
+      <p class="story-para">&quot;滚蛋。&quot;</p>
+      <p class="story-para">老师走进教室，嗡嗡的读书声立刻大了起来。我翻开课本，盯着那些像蚯蚓似的英文字母，脑子里却浮现出林小雨安静等在我床边的样子。</p>
+      <p class="story-para">不知道他第一天转学，能不能适应。</p>
+      <p class="story-para">上午四节课浑浑噩噩地过去。第三节数学课，我在课本空白处画小人，画着画着，竟画出个瘦瘦的侧影，头发软软的——赶紧涂掉了。</p>
+      <p class="story-para">第四节下课铃一响，学生们像出笼的鸟一样涌向食堂。我和周明随着人流往下走，楼梯挤得像沙丁鱼罐头。</p>
+      <p class="story-para">&quot;今天有红烧肉！&quot;周明兴奋地喊，&quot;跑快点，不然就没了——&quot;</p>
+      <p class="story-para">&quot;你先去吧。&quot;我说，&quot;我去趟初中部。&quot;</p>
+      <p class="story-para">&quot;啊？找你弟？&quot;</p>
+      <p class="story-para">&quot;嗯，看看他。&quot;</p>
+      <p class="story-para">&quot;那你快点啊，我帮你占座！&quot;</p>
+      <p class="story-para">我逆着人流往初中部走。路上碰到几个认识的同学，打招呼问：&quot;哎，高航，怎么往这边走？&quot;</p>
+      <p class="story-para">&quot;有点事。&quot;</p>
+      <p class="story-para">初中部的楼要安静些，初一初二还没下课，能听见教室里老师讲课的声音。我找到七班，后门开着条缝，便站在门口往里看。</p>
+      <p class="story-para">靠窗第四排，林小雨端坐着，背挺得笔直，正在认真记笔记。阳光从窗户照进来，落在他的头发和肩膀上，镀了层毛茸茸的金边。</p>
+      <p class="story-para">他同桌是个扎马尾的女生，正凑过去跟他说话。他侧过脸听着，然后点点头，小声回应了一句。女生笑了，他也抿了抿嘴，露出个浅浅的笑容。</p>
+      <p class="story-para">看起来……还行。</p>
+      <p class="story-para">我松了口气，转身准备走。</p>
+      <p class="story-para">&quot;高航？&quot;</p>
+      <p class="story-para">身后传来一个声音。我回头，是七班的班主任——那位戴眼镜的中年女老师，我认得她，教语文的李老师。</p>
+      <p class="story-para">&quot;李老师好。&quot;</p>
+      <p class="story-para">&quot;来找你弟弟？&quot;她笑着问道。</p>
+      <p class="story-para">&quot;嗯，路过顺便看看。&quot;</p>
+      <p class="story-para">&quot;小雨挺乖的，上课认真，就是性子有点内向。&quot;李老师说，&quot;你是他哥哥，多带带他。刚转学过来，怕他不适应新环境。&quot;</p>
+      <p class="story-para">&quot;好，谢谢老师。&quot;</p>
+      <p class="story-para">下课铃响了。教室里瞬间喧闹起来。林小雨收拾好书包起身，转头看见我，愣了一下。</p>
+      <p class="story-para">&quot;哥？&quot;</p>
+      <p class="story-para">&quot;路过。&quot;我说，&quot;一起去吃饭。&quot;</p>
+      <p class="story-para">我们并肩往食堂走。他步子小，依旧跟在我旁边，我下意识放慢了脚步。</p>
+      <p class="story-para">&quot;上午在学校怎么样？&quot;我问。</p>
+      <p class="story-para">&quot;还好。&quot;</p>
+      <p class="story-para">&quot;同学相处得如何？&quot;</p>
+      <p class="story-para">&quot;还行。&quot;</p>
+      <p class="story-para">&quot;老师呢？&quot;</p>
+      <p class="story-para">&quot;都挺好的。&quot;</p>
+      <p class="story-para">我挠了挠头，这对话实在没法继续下去了。</p>
+      <p class="story-para">食堂里人山人海。我伸长脖子找周明，看见他在靠窗的位置挥手。我们挤了过去。</p>
+      <p class="story-para">&quot;这是我弟，林小雨。&quot;我介绍道，&quot;这是我同学，周明。&quot;</p>
+      <p class="story-para">&quot;弟弟好！&quot;周明嗓门洪亮，引得旁边几桌人都看了过来。</p>
+      <p class="story-para">林小雨点点头，小声说：&quot;你好。&quot;</p>
+      <p class="story-para">&quot;坐坐坐，饭都打好了。&quot;周明把两个餐盘推过来。我的那份里，红烧肉堆得像小山；林小雨的那份肉少些，却多了一个鸡腿。</p>
+      <p class="story-para">&quot;看你弟瘦，给他加了个鸡腿。&quot;周明冲我挤了挤眼。</p>
+      <p class="story-para">&quot;谢了。&quot;我坐下。</p>
+      <p class="story-para">林小雨看着那个鸡腿，又看了看我。</p>
+      <p class="story-para">&quot;吃吧。&quot;我说。</p>
+      <p class="story-para">他拿起筷子，先夹了青菜，然后小口咬着鸡腿，吃得很仔细，骨头都啃得干干净净。</p>
+      <p class="story-para">周明是个话痨，边吃边讲他们班上午的趣事。我偶尔接两句，林小雨只是安静地听着，不插话，眼睛看看周明又看看我，像在看一场陌生的戏。</p>
+      <p class="story-para">&quot;哎，弟弟，你们初中部美女多不多？&quot;周明突然问道。</p>
+      <p class="story-para">林小雨的筷子顿了顿：&quot;……不知道。&quot;</p>
+      <p class="story-para">&quot;怎么可能不知道？你们班没有好看的女生吗？&quot;</p>
+      <p class="story-para">&quot;周明你别闹了。&quot;我用胳膊肘撞了他一下。</p>
+      <p class="story-para">&quot;问问嘛。&quot;周明笑着说，&quot;你看你弟长得这么秀气，肯定有小姑娘喜欢。&quot;</p>
+      <p class="story-para">林小雨的耳朵尖有点红，他没说话，低头扒着饭。</p>
+      <p class="story-para">吃完饭，周明先走了。我带着林小雨去小卖部买水。冰柜前，我拿了一瓶常喝的冰红茶，林小雨站在旁边，看着琳琅满目的饮料，没动。</p>
+      <p class="story-para">&quot;想喝什么？&quot;我问。</p>
+      <p class="story-para">&quot;都行。&quot;</p>
+      <p class="story-para">&quot;可乐？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">我拿了一瓶可乐递给他。他从口袋里掏出一张叠得方方正正的十块钱。</p>
+      <p class="story-para">&quot;我请。&quot;我说。</p>
+      <p class="story-para">&quot;不用……&quot;</p>
+      <p class="story-para">&quot;就当欢迎你转学过来。&quot;我把可乐塞进他手里，&quot;以后别跟我客气。&quot;</p>
+      <p class="story-para">他握着可乐，指尖摩挲着瓶身上的水珠，轻声说：&quot;谢谢哥。&quot;</p>
+      <p class="story-para">声音很小，但我听见了。</p>
+      <p class="story-para">下午放学，我做完值日、擦完黑板，已经快五点了。匆匆收拾好书包跑出教室，以为林小雨会在走廊等我，却空无一人。</p>
+      <p class="story-para">我走到楼梯口往下看，没人；又跑到窗边看楼下操场，还是没人。心里咯噔一下——不会是等不到我自己走了？还是出什么事了？</p>
+      <p class="story-para">我快步下楼，一边摸手机想给他打电话，才想起根本没存他的号码。</p>
+      <p class="story-para">操场上的人已经少了很多，夕阳把影子拉得很长。我跑到初中部楼下，七班教室锁着门；又跑到学校门口，便利店、长椅都找过了，还是没人。</p>
+      <p class="story-para">&quot;高航？找你弟呢？&quot;</p>
+      <p class="story-para">回头一看，是同班的陈婷，住在我家附近。</p>
+      <p class="story-para">&quot;嗯，你看见他了吗？&quot;</p>
+      <p class="story-para">&quot;刚才好像看见他在高中部那边，就在你们教室楼下。&quot;</p>
+      <p class="story-para">我又跑回去，绕过教学楼，后面有一小片绿化带，种着几棵桂花树。这个时节花已经谢了，叶子还是绿的。</p>
+      <p class="story-para">然后我看见了他。</p>
+      <p class="story-para">林小雨抱着书包，坐在最里面那棵桂花树下的台阶上，头一点一点的，在打瞌睡。</p>
+      <p class="story-para">我放轻脚步走过去。他闭着眼，睫毛在脸上投下小小的阴影，脸颊有被书包压出的红印，呼吸很轻，一起一伏。</p>
+      <p class="story-para">他等了我一个小时，就安安静静地坐在这里等。</p>
+      <p class="story-para">心里突然被什么东西撞了一下，酸酸软软的，像有只小手不轻不重地捏了捏心脏。</p>
+      <p class="story-para">&quot;小雨。&quot;我轻声叫他。</p>
+      <p class="story-para">他没醒。</p>
+      <p class="story-para">&quot;小雨。&quot;我蹲下来，拍了拍他的肩。</p>
+      <p class="story-para">他的睫毛颤了颤，睁开眼，眼神还有点迷茫。看见我，愣了几秒，然后迅速坐直，揉了揉眼睛。</p>
+      <p class="story-para">&quot;哥。&quot;&quot;等很久了？&quot;我问。</p>
+      <p class="story-para">&quot;没有。&quot;他说，声音带着刚睡醒的沙哑。</p>
+      <p class="story-para">&quot;怎么不给我打电话？&quot;</p>
+      <p class="story-para">&quot;……没你号码。&quot;</p>
+      <p class="story-para">是了。我们还没交换联系方式。</p>
+      <p class="story-para">我从书包里掏出笔，拉过他的手，在他掌心写下一串数字：&quot;我的号码。存好。&quot;</p>
+      <p class="story-para">他低头看手心，点点头。</p>
+      <p class="story-para">&quot;以后要是等不到我，就打电话。别傻等。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;走吧，回家。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">他站起来，拍了拍裤子上的灰。我跟在他后面，看着他小小的背影，和肩膀上被书包带勒出的浅浅痕迹。</p>
+      <p class="story-para">&quot;小雨。&quot;我叫他。</p>
+      <p class="story-para">他回头。</p>
+      <p class="story-para">&quot;明天……&quot;我说，&quot;明天我早点下课。你在教室等我就行，不用来这边。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;还有，&quot;我顿了顿，&quot;对不起，让你等这么久。&quot;</p>
+      <p class="story-para">他看着我，眼睛在夕阳下亮亮的。然后，很轻地摇了摇头。</p>
+      <p class="story-para">&quot;没关系的。&quot;</p>
+      <p class="story-para">回家路上，我们去菜市场买了点菜。我挑了两个西红柿、一把青菜和四个鸡蛋。林小雨跟在我旁边，看我砍价。</p>
+      <p class="story-para">&quot;便宜点嘛阿姨，我常来的。&quot;</p>
+      <p class="story-para">&quot;行行行，给你算便宜点。&quot;卖菜阿姨笑着，又看了一眼林小雨，&quot;这是你弟弟？长得真俊。&quot;</p>
+      <p class="story-para">&quot;嗯，我弟。&quot;我接过塑料袋，说这句话时，心里莫名泛起一丝满足。</p>
+      <p class="story-para">晚上做饭，还是面条。这回我学聪明了，先炒蛋再煮面。林小雨在旁边洗青菜，一片一片，洗得很仔细。</p>
+      <p class="story-para">&quot;明天想吃啥？&quot;我问。</p>
+      <p class="story-para">&quot;都行。&quot;</p>
+      <p class="story-para">&quot;说一个。&quot;</p>
+      <p class="story-para">&quot;……土豆丝？&quot;</p>
+      <p class="story-para">&quot;行。&quot;</p>
+      <p class="story-para">面煮好了。两碗，鸡蛋都是完整的，青菜绿油油的。我尝了一口，盐放得刚好。</p>
+      <p class="story-para">&quot;有进步吧？&quot;我有点得意。</p>
+      <p class="story-para">&quot;嗯。&quot;他吃了一口，又说，&quot;好吃。&quot;</p>
+      <p class="story-para">吃完饭，他主动洗碗。我坐在椅子上看他的背影，瘦，但背挺得很直。水声哗哗的，混着窗外渐起的虫鸣。</p>
+      <p class="story-para">&quot;哥。&quot;他突然开口。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;今天数学课，有道题不会。&quot;</p>
+      <p class="story-para">&quot;哪道？我看看。&quot;</p>
+      <p class="story-para">他擦干手，从书包里掏出练习册，翻到某一页指给我看。是一道几何题，画了个三角形求角度。</p>
+      <p class="story-para">我扫了一眼。高一的知识，对初一学生确实有点难。</p>
+      <p class="story-para">&quot;这个啊，要作辅助线。&quot;我拿过笔在草稿纸上画，&quot;你看，从这里连到这里，就构成一个等腰三角形……&quot;</p>
+      <p class="story-para">我讲得很慢，一步一步拆解。他凑得很近，我能闻到他头发上淡淡的洗发水味，和我用的是同一瓶。</p>
+      <p class="story-para">&quot;懂了吗？&quot;</p>
+      <p class="story-para">&quot;懂了。&quot;他点头，眼睛盯着解题步骤，亮亮的。</p>
+      <p class="story-para">&quot;真懂了？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他拿过笔，在草稿纸上自己画了一遍，步骤完全正确。</p>
+      <p class="story-para">&quot;可以啊。&quot;我拍拍他的肩。</p>
+      <p class="story-para">他没说话，但嘴角弯了弯。</p>
+      <p class="story-para">洗完澡，他睡上铺，我睡下铺。关了灯，房间里只有窗外的路灯光透进来，在天花板上投出模糊的光斑。</p>
+      <p class="story-para">&quot;哥。&quot;他又叫。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;你今天来找我，是因为不放心吗？&quot;</p>
+      <p class="story-para">我愣了一下。黑暗中，他的声音从上铺传来，轻轻的，像羽毛。</p>
+      <p class="story-para">&quot;嗯。&quot;我说，&quot;怕你不适应。&quot;</p>
+      <p class="story-para">&quot;我适应的。&quot;</p>
+      <p class="story-para">&quot;那就好。&quot;</p>
+      <p class="story-para">沉默了一会儿。</p>
+      <p class="story-para">&quot;哥。&quot;</p>
+      <p class="story-para">&quot;又怎么了？&quot;</p>
+      <p class="story-para">&quot;谢谢。&quot;</p>
+      <p class="story-para">我没说话，翻了个身面朝墙壁。</p>
+      <p class="story-para">过了很久，我以为他睡着了，上铺却传来极轻的声音，像梦呓：</p>
+      <p class="story-para">&quot;有哥在，挺好的。&quot;</p>
+      <p class="story-para">我闭着眼，感觉胸口那片酸酸软软的地方，又暖了一下。</p>
+      <p class="story-para">窗外，虫鸣声细细碎碎的，像在唱一首不成调的催眠曲。</p>
+    </section>
+
+    <section class="chapter" id="c3">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 3</div>
+        <h2 class="ch-zh">第三章</h2>
+        <div class="ch-rule"></div>
+      </div>
+      <p class="story-para"><span class="drop">天</span>气是突然冷下来的。</p>
+      <p class="story-para">前一天还能穿短袖，夜里起了风，早上出门时，鼻子呼出的气已经变成白雾。我翻出衣柜里那件薄外套，丢给上铺的林小雨。</p>
+      <p class="story-para">&quot;穿上，今天冷。&quot;</p>
+      <p class="story-para">他接住，看了看那件明显大一号的灰色外套，又看了看我身上同款但小一号的蓝色外套——那是我妈去年买的&quot;兄弟装&quot;，当时硬塞给我，说&quot;多好看&quot;，我一直嫌幼稚，塞在衣柜最底层。</p>
+      <p class="story-para">&quot;哥，你……&quot;他话没说完，打了个小喷嚏。</p>
+      <p class="story-para">&quot;赶紧穿。&quot;我已经背上书包，&quot;感冒了麻烦。&quot;</p>
+      <p class="story-para">他默默穿上。袖子太长，盖过手背，他往上卷了两圈，露出细瘦的手腕。衣摆也长，几乎到膝盖，整个人看起来像偷穿大人衣服的小孩，有点滑稽，但……怪可爱的。</p>
+      <p class="story-para">我们一起出门。楼道里的风灌进来，我缩了缩脖子。林小雨走在旁边，拉了拉外套领子，把下半张脸埋进去，只露出一双眼睛。</p>
+      <p class="story-para">&quot;合身吗？&quot;我问。</p>
+      <p class="story-para">他在领子里闷闷地&quot;嗯&quot;了一声。</p>
+      <p class="story-para">&quot;丑就直说。&quot;</p>
+      <p class="story-para">&quot;不丑。&quot;</p>
+      <p class="story-para">街上行人脚步匆匆，都裹紧了衣服。树叶黄了大半，风一吹，哗啦啦落下几片。林小雨走路时，一片叶子正好落在他头发上。我伸手想帮他拿掉。</p>
+      <p class="story-para">他条件反射地偏了下头，随即停住，望着我。</p>
+      <p class="story-para">&quot;叶子。&quot;我说着，手指轻轻拂过他发顶。那叶子已经枯了，一碰就碎成几瓣。</p>
+      <p class="story-para">&quot;……谢谢。&quot;他声音很轻，冷风里，耳朵尖有点红。</p>
+      <p class="story-para">到学校后分道扬镳。他往初中部走，那件过于宽大的外套裹着他，背影显得更小了。我看着他消失在人群里，才转身往高中部跑。</p>
+      <p class="story-para">早读时，周明凑过来：&quot;哎，你弟今天穿的是你那件吧？看着大了两号。&quot;</p>
+      <p class="story-para">&quot;天冷，临时给他穿的。&quot;我翻着英语书。</p>
+      <p class="story-para">&quot;还挺有当哥的样子嘛。&quot;周明笑，&quot;不过你弟是不是太安静了？昨天一起吃饭，一句话都没说。&quot;</p>
+      <p class="story-para">&quot;他本来就这样。&quot;</p>
+      <p class="story-para">&quot;怕生？&quot;</p>
+      <p class="story-para">&quot;可能吧。&quot;</p>
+      <p class="story-para">其实我也说不清。林小雨在我面前话也不多，但好像……也没那么少。至少，他会说&quot;哥，你煎的蛋要焦了&quot;，会在我讲题时应&quot;懂了&quot;，会在睡前道声&quot;谢谢&quot;。</p>
+      <p class="story-para">只是不爱主动开口。</p>
+      <p class="story-para">就像一棵安静生长的小植物，不声不响，但你浇了水，他会悄悄抽出新叶。</p>
+      <p class="story-para">下午最后一节是体育课。老师让跑两圈热身，我偷了懒，跑一圈就溜到篮球场边坐着。十月底的风很硬，吹得脸发疼。我裹紧外套，忽然想起早上给林小雨的那件，好像有点薄了。</p>
+      <p class="story-para">&quot;高航！过来打球！&quot;周明在场上喊。</p>
+      <p class="story-para">&quot;来了！&quot;我起身跑过去。</p>
+      <p class="story-para">打到一半，抢篮板时踩到别人的脚，脚踝一崴，整个人歪倒在地。</p>
+      <p class="story-para">&quot;卧槽！&quot;我疼得龇牙咧嘴。</p>
+      <p class="story-para">&quot;没事吧？&quot;几个同学围过来。</p>
+      <p class="story-para">&quot;脚……好像崴了。&quot;我试着动了动，钻心的疼直窜上来。</p>
+      <p class="story-para">周明把我扶到场边。体育老师跑来看了看，说没伤到骨头，但得冷敷，少走动。</p>
+      <p class="story-para">&quot;能走吗？&quot;周明问。</p>
+      <p class="story-para">&quot;试试。&quot;我单脚跳了两下，不行，疼得额头冒冷汗。</p>
+      <p class="story-para">&quot;我扶你回教室？&quot;</p>
+      <p class="story-para">&quot;不用，你帮我拿下书包，我自己慢慢挪。&quot;</p>
+      <p class="story-para">&quot;你这样得挪到什么时候？我送你回家。&quot;</p>
+      <p class="story-para">&quot;你不上晚自习了？&quot;</p>
+      <p class="story-para">&quot;请个假——&quot;</p>
+      <p class="story-para">&quot;哥？&quot;</p>
+      <p class="story-para">声音很轻，却就在耳边。</p>
+      <p class="story-para">我转头，林小雨不知什么时候站在了篮球场边。他背着书包，那件大外套裹着身子，双手抓着书包带，眼睛盯着我歪着的脚踝。</p>
+      <p class="story-para">&quot;你怎么来了？&quot;我问。</p>
+      <p class="story-para">&quot;放学了。&quot;他说，&quot;看你们在打球，就……过来看看。&quot;</p>
+      <p class="story-para">其实我告诉过他，放学在教室等我就行，不用来球场找我。但他还是来了。</p>
+      <p class="story-para">&quot;你脚怎么了？&quot;他蹲下来，想碰又不敢碰的样子。</p>
+      <p class="story-para">&quot;崴了一下，没事——&quot;</p>
+      <p class="story-para">话没说完，他已经站起来，把书包背好，走到我身边弯下腰，将我的一条胳膊架在他肩膀上。</p>
+      <p class="story-para">&quot;我扶你。&quot;他声音不大，却很稳。</p>
+      <p class="story-para">&quot;不用，你扶不动——&quot;</p>
+      <p class="story-para">他已经开始用力。小小的身体绷紧了，肩膀顶在我腋下。他其实很瘦，隔着外套，我能感觉到他肩骨的形状。</p>
+      <p class="story-para">&quot;走吧。&quot;他说。</p>
+      <p class="story-para">周明看看我，又看看他：&quot;你弟行吗？还是我来——&quot;</p>
+      <p class="story-para">&quot;我可以。&quot;林小雨打断他，语气是少有的坚持。</p>
+      <p class="story-para">我看着他的侧脸。他抿着嘴，眼睛盯着脚下的路，鼻尖在冷风里冻得有点红。</p>
+      <p class="story-para">&quot;行吧。&quot;我对周明说，&quot;你帮我拿书包，跟老师说一声。&quot;</p>
+      <p class="story-para">&quot;行，你小心点。&quot;</p>
+      <p class="story-para">于是，傍晚的操场上出现了这样一幅画面：一个高一男生一瘸一拐地走着，半边身子靠在一个初一男生身上。那个初一男生很瘦，个子只到他哥肩膀，背却挺得笔直，一步一步，走得很慢，很稳。</p>
+      <p class="story-para">每一步，我都能感觉到他在用力。小小的身体里，绷着一股劲儿。</p>
+      <p class="story-para">&quot;疼吗？&quot;他问，没看我，眼睛盯着脚下的路。</p>
+      <p class="story-para">&quot;还行。&quot;我说。其实每走一步，脚踝都像被针扎一样。</p>
+      <p class="story-para">&quot;慢点。&quot;他说。我也放慢了脚步。从操场到教学楼，平时五分钟的路程，我们走了将近十五分钟。路上有认识的同学打招呼：&quot;高航，脚怎么了？&quot;&quot;没事，崴了一下。&quot;&quot;哟，弟弟扶着呢？真懂事。&quot;林小雨没应声，只是把我的胳膊又往上架了架。</p>
+      <p class="story-para">上楼梯是最难的。我单脚跳着，他一手扶着我，一手抓着栏杆，一步一步往上挪。到二楼时，他已经开始喘气，额头渗出细密的汗珠。&quot;歇会儿吧。&quot;我说。&quot;不用。&quot;他摇摇头，继续往上走。</p>
+      <p class="story-para">四楼，教室门口。他扶我坐下，自己靠在墙上，胸口剧烈起伏，喘得很急。刘海被汗水打湿，贴在额头上。&quot;书包给我。&quot;他喘着气说。&quot;我自己——&quot;话没说完，他已经弯腰从地上捡起我的书包，挎在自己肩上。一个深蓝色，一个黑色，两个书包压在他瘦瘦的肩膀上。&quot;走吧，回家。&quot;他说。&quot;我自己背——&quot;&quot;我背得动。&quot;他说着，又架起了我的胳膊。</p>
+      <p class="story-para">回家的路更漫长。夕阳把我们的影子拉得很长，叠在一起。我半边身子靠着他，能闻到他头发上淡淡的汗味，和我早上用的洗发水是同一个牌子。&quot;小雨。&quot;我说。&quot;嗯？&quot;&quot;谢谢你。&quot;他没说话，只是更紧地抓住了我的胳膊。</p>
+      <p class="story-para">到家门口，我掏钥匙开门。他扶我坐到床上，然后蹲下来，看着我的脚踝——已经肿得像个馒头。&quot;要冰敷。&quot;他说着站起身，走向厨房。我听见冰箱门开关的声音，还有水龙头的流水声。他拿着一条湿毛巾出来，叠成方块，蹲下来轻轻敷在我脚踝上。冰凉的触感传来，很舒服。&quot;你怎么知道要冰敷？&quot;我问。&quot;以前打球崴过。&quot;他说，手上的动作很轻。&quot;你也打球？&quot;&quot;嗯，小学的时候。&quot;&quot;打得怎么样？&quot;&quot;还行。&quot;他说着抬起头看我，&quot;你饿吗？&quot;&quot;有点。&quot;&quot;我去做饭。&quot;他站起来往外走，又停住脚步回头问：&quot;你想吃什么？&quot;&quot;都行。&quot;&quot;面条可以吗？&quot;&quot;嗯。&quot;</p>
+      <p class="story-para">他走进厨房。我听见开水龙头的声音，洗菜的声音。过了一会儿，传来很轻、很小心的打鸡蛋声。我坐在床上，脚上敷着冰毛巾，看着厨房里那个小小的背影——他系着我的围裙，太长了，拖到地上；袖子卷了好几道，露出细瘦的小臂。他正拿着锅铲，在锅里轻轻翻动着什么。烟雾腾起来，笼着他，有那么一瞬间，我看不清他的脸。</p>
+      <p class="story-para">然后听见&quot;滋啦&quot;一声，是鸡蛋下锅的声音。紧接着，是青菜下锅的声响，再后来，是面条入锅的声音。一切都井井有条。</p>
+      <p class="story-para">大概二十分钟后，他端着两碗面出来。一碗放在床头柜上，另一碗自己端着，在椅子上坐下。我低头看碗里：鸡蛋煎得圆圆的，边缘焦黄，中间是金黄的溏心；青菜翠绿，面条白净；汤是清汤，飘着几点油花。&quot;你……什么时候学会做饭的？&quot;我看着他问。&quot;以前爸妈忙，自己学着做的。&quot;他说着低头吃了口面。我也尝了一口：鸡蛋很嫩，青菜刚好，面条不软不硬，盐味也不多不少。&quot;好吃。&quot;我说。他没说话，但耳朵尖悄悄红了。</p>
+      <p class="story-para">吃完饭，他收拾碗筷去洗碗。接着又拿了个盆，倒了热水端到我面前。&quot;泡泡脚吧。&quot;他说。&quot;我自己来——&quot;话没说完，他已经蹲下来伸手要帮我脱鞋。&quot;别！&quot;我赶紧拦住，&quot;我自己来。&quot;他站起身看着我，我弯腰脱下鞋袜，把脚放进热水里。有点烫，但很舒服。他拉过椅子在我对面坐下，就那样看着我泡脚。</p>
+      <p class="story-para">&quot;你作业写完了？&quot;我问。&quot;在学校就写完了。&quot;&quot;那你……&quot;&quot;我看着你。&quot;他说，又补充道，&quot;怕你摔倒。&quot;我笑了：&quot;我坐这儿怎么会摔？&quot;他没接话，只是看着盆里我的脚。水汽蒸腾上来，他的脸在雾气里显得有些模糊。</p>
+      <p class="story-para">&quot;小雨。&quot;我叫他。&quot;嗯？&quot;&quot;你今天……力气挺大的。&quot;&quot;还行。&quot;&quot;累吗？&quot;&quot;不累。&quot;明明是撒谎，上楼时他明明喘得那么厉害。</p>
+      <p class="story-para">泡了二十分钟，水凉了。我擦干脚，他端着盆去倒水。回来时，手里拿着一个小瓶子。&quot;红花油。&quot;他说，&quot;以前我妈买的，还没过期。&quot;&quot;你连这个都找到了？&quot;&quot;在药箱里。&quot;他坐下，拧开瓶盖，倒了些红花油在掌心，搓热后蹲下身，伸手要碰我的脚踝。</p>
+      <p class="story-para">&quot;我自己来——&quot;</p>
+      <p class="story-para">&quot;我会揉。&quot;他说着，指尖已轻轻按上我的皮肤。</p>
+      <p class="story-para">他的手小巧而冰凉，但红花油带着灼热的温度，搓在皮肤上火辣辣的。他揉得格外小心，一点一点绕着肿起的地方打圈。</p>
+      <p class="story-para">&quot;疼吗？&quot;他轻声问，语气里带着关切。</p>
+      <p class="story-para">&quot;有点。&quot;</p>
+      <p class="story-para">&quot;忍一下。&quot;他说，手上的动作更轻了。</p>
+      <p class="story-para">我低头看着他的头顶，小小的发旋藏在柔软的发丝里。他垂着眼，睫毛在眼睑上投下一小片阴影，神情专注得不像话。</p>
+      <p class="story-para">房间里静悄悄的，只有窗外远处传来的车声，和他揉药时细微的摩擦声。</p>
+      <p class="story-para">&quot;小雨。&quot;我又唤他。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;谢谢你。&quot;</p>
+      <p class="story-para">他没应声，只是继续揉着。大约十分钟后，他停下动作，用纸巾擦净手，仔细拧好红花油的瓶盖。</p>
+      <p class="story-para">&quot;明天别走路了。&quot;他说。</p>
+      <p class="story-para">&quot;那怎么上学？&quot;</p>
+      <p class="story-para">&quot;请假。&quot;</p>
+      <p class="story-para">&quot;不行，明天有测验——&quot;</p>
+      <p class="story-para">&quot;我帮你请假。&quot;他站起身，把红花油放回药箱，又走回来看着我，&quot;你躺着，别动。&quot;</p>
+      <p class="story-para">&quot;我还没洗澡——&quot;</p>
+      <p class="story-para">&quot;擦一下就好。&quot;他已经转身去了卫生间，拿了毛巾沾热水拧干，递给我。</p>
+      <p class="story-para">我接过毛巾，胡乱擦了擦脸和脖子。他站在一旁看着，等我擦完，又接过毛巾洗净挂好。</p>
+      <p class="story-para">&quot;睡觉吧。&quot;他说。</p>
+      <p class="story-para">&quot;还早——&quot;</p>
+      <p class="story-para">&quot;你需要休息。&quot;他的语气平静却不容置疑。</p>
+      <p class="story-para">我看着他，忽然笑了：&quot;你这样子，真像个小大人。&quot;</p>
+      <p class="story-para">他抿了抿嘴没接话，转身去关灯。</p>
+      <p class="story-para">&quot;等等，&quot;我说，&quot;你先上去睡。&quot;</p>
+      <p class="story-para">&quot;你脚不方便，我睡下面。&quot;</p>
+      <p class="story-para">&quot;不行——&quot;</p>
+      <p class="story-para">&quot;我可以睡下面。&quot;他已经抱来自己的枕头和被子，铺在我旁边的地上。</p>
+      <p class="story-para">&quot;小雨——&quot;</p>
+      <p class="story-para">&quot;哥。&quot;他打断我，黑暗中我只能看见他亮亮的眼睛，&quot;听我的，行吗？&quot;</p>
+      <p class="story-para">我没再说话。</p>
+      <p class="story-para">他躺下来盖好被子，我也躺下。脚踝依旧火辣辣地疼，但心里某个角落，却软得一塌糊涂。</p>
+      <p class="story-para">&quot;小雨。&quot;我对着黑暗轻声说。</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;晚安。&quot;</p>
+      <p class="story-para">&quot;……晚安。&quot;</p>
+      <p class="story-para">半夜我疼醒了，脚踝一跳一跳地疼。翻身时看见旁边地铺上，林小雨侧躺着面向我，已经睡着了。</p>
+      <p class="story-para">月光从窗户照进来，落在他脸上。他睡得很沉，呼吸均匀，嘴巴微微张着，一只手伸在被子外，手指蜷着像个小孩。</p>
+      <p class="story-para">我看了他一会儿，疼痛感似乎淡了些。</p>
+      <p class="story-para">这时听见他含糊地说梦话，只有一个字清晰可辨：&quot;哥……&quot;</p>
+      <p class="story-para">我的心，又软了一下。</p>
+      <p class="story-para">第二天早上，我被香味唤醒。</p>
+      <p class="story-para">睁开眼，林小雨已经穿好衣服站在小厨房里，正用勺子搅着锅里的粥。桌上摆着两碗粥、一碟切得细细的榨菜，还有两个剥好壳的白煮蛋。</p>
+      <p class="story-para">&quot;你……&quot;我撑着坐起来。</p>
+      <p class="story-para">&quot;醒了？&quot;他回头，&quot;粥好了，趁热吃。&quot;</p>
+      <p class="story-para">&quot;你做的？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">我单脚跳过去。白粥煮得很稠，米粒都开了花，米香浓郁。</p>
+      <p class="story-para">&quot;你几点起的？&quot;</p>
+      <p class="story-para">&quot;六点。&quot;他盛了一碗粥递给我。</p>
+      <p class="story-para">&quot;怎么不多睡会儿？&quot;</p>
+      <p class="story-para">&quot;睡不着。&quot;他坐下，低头喝起粥来，耳朵尖悄悄红了。</p>
+      <p class="story-para">&quot;好吃。&quot;我说。</p>
+      <p class="story-para">&quot;嗯。&quot;他依旧低着头，没看我。</p>
+      <p class="story-para">吃完饭，他收拾好桌子洗完碗，又蹲下来看我的脚踝。</p>
+      <p class="story-para">&quot;还肿着。&quot;他说。</p>
+      <p class="story-para">&quot;好多了，能走路了。&quot;我动了动脚趾。</p>
+      <p class="story-para">&quot;不行。&quot;他站起身，表情严肃，&quot;请假。&quot;</p>
+      <p class="story-para">&quot;我——&quot;</p>
+      <p class="story-para">&quot;我帮你请假。&quot;他拿起我的手机，&quot;你们班主任电话多少？&quot;</p>
+      <p class="story-para">我看着晨光里的他，背挺得笔直，眼神坚定地望着我。</p>
+      <p class="story-para">&quot;……行吧。&quot;我报出一串数字。</p>
+      <p class="story-para">他拨通电话走到窗边：&quot;喂，王老师吗？我是高航的弟弟林小雨。他脚崴了，今天想请一天假……嗯，还肿着……好，谢谢老师。&quot;</p>
+      <p class="story-para">挂了电话他把手机还给我，又拿起自己的手机打给班主任请假。</p>
+      <p class="story-para">&quot;你也要请假？&quot;我问。</p>
+      <p class="story-para">&quot;嗯，在家陪你。&quot;</p>
+      <p class="story-para">&quot;不用——&quot;</p>
+      <p class="story-para">&quot;你需要人照顾。&quot;他说，语气理所当然，好像这是再自然不过的事。义的事。</p>
+      <p class="story-para">于是那天，我们两个都没去上学。我坐在床上，脚搭在椅子上。他坐在书桌前写作业，房间里静悄悄的，只有笔尖划过纸张的沙沙声，和远处街道隐约传来的车声。</p>
+      <p class="story-para">中午，他又煮了面条。这次加了西红柿，酸酸甜甜的，格外好吃。</p>
+      <p class="story-para">下午，他写完作业，拿起一本故事书看。阳光透过窗户照进来，落在他的头发上，毛茸茸的，像撒了一层细绒。</p>
+      <p class="story-para">&quot;小雨。&quot;我叫他。</p>
+      <p class="story-para">&quot;嗯？&quot;他抬起头。</p>
+      <p class="story-para">&quot;你……&quot;我顿了顿，&quot;你其实挺会照顾人的。&quot;</p>
+      <p class="story-para">他愣了一下，随即低下头继续看书，耳朵却红了。</p>
+      <p class="story-para">&quot;以前，&quot;他小声说，&quot;我妈生病的时候，我照顾过她。&quot;</p>
+      <p class="story-para">&quot;你妈妈？&quot;</p>
+      <p class="story-para">&quot;嗯。她身体不好，经常感冒。我就学会了煮粥、煮面，还有揉药。&quot;</p>
+      <p class="story-para">我没说话。房间里又安静下来。</p>
+      <p class="story-para">过了好一会儿，他合上书，转头看向我。</p>
+      <p class="story-para">&quot;哥。&quot;</p>
+      <p class="story-para">&quot;怎么了？&quot;</p>
+      <p class="story-para">&quot;你以后……小心点。&quot;</p>
+      <p class="story-para">&quot;什么？&quot;</p>
+      <p class="story-para">&quot;打球的时候。&quot;他说着，眼睛望向我的脚踝，&quot;别受伤。&quot;</p>
+      <p class="story-para">我笑了：&quot;知道了。&quot;</p>
+      <p class="story-para">他也笑了，笑容很浅，却很真切。</p>
+      <p class="story-para">傍晚，夕阳把整个房间染成了橘黄色。他站起身走到窗边，望着外面。</p>
+      <p class="story-para">&quot;哥。&quot;</p>
+      <p class="story-para">&quot;又怎么了？&quot;</p>
+      <p class="story-para">&quot;今天天气真好。&quot;</p>
+      <p class="story-para">我看向窗外。天空是粉紫色的，云朵镶着金边。远处的楼顶上，有归巢的鸟儿飞过。</p>
+      <p class="story-para">&quot;是啊。&quot;我说。</p>
+      <p class="story-para">他转过身，背对着光，整个人像是镶了一圈毛茸茸的金边。</p>
+      <p class="story-para">&quot;哥。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;明天，我扶你去上学。&quot;</p>
+      <p class="story-para">&quot;好。&quot;</p>
+      <p class="story-para">&quot;我给你背书包。&quot;</p>
+      <p class="story-para">&quot;好。&quot;</p>
+      <p class="story-para">&quot;你别逞强。&quot;</p>
+      <p class="story-para">&quot;好。&quot;</p>
+      <p class="story-para">他笑了，我也笑了。</p>
+      <p class="story-para">脚踝还在隐隐作痛，但心里某个地方，却暖暖的，像被那碗热粥一直焐着。</p>
+    </section>
+
+    <section class="chapter" id="c4">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 4</div>
+        <h2 class="ch-zh">第四章</h2>
+        <div class="ch-rule"></div>
+      </div>
+      <p class="story-para"><span class="drop">脚</span>踝的淤青褪成黄褐色时，冬天真的来了。</p>
+      <p class="story-para">早上起床成了一场艰难的战争。闹钟响到第五遍，我才从被窝里伸出一只手，摸索着按掉。冷空气钻进袖子，我缩了缩脖子，把脸更深地埋进枕头。</p>
+      <p class="story-para">上铺传来窸窸窣窣的声音，林小雨已经坐起来穿毛衣了。他动作很轻，但我能听见毛衣摩擦的细微声响，还有他轻轻的吸气声——天冷，被窝外的空气像冰水一样刺骨。</p>
+      <p class="story-para">&quot;哥。&quot;他的声音带着刚睡醒的沙哑。</p>
+      <p class="story-para">&quot;嗯……&quot;我把头埋得更沉。</p>
+      <p class="story-para">&quot;六点四十了。&quot;</p>
+      <p class="story-para">&quot;再五分钟……&quot;</p>
+      <p class="story-para">&quot;要迟到了。&quot;</p>
+      <p class="story-para">我挣扎着睁开一只眼。房间里是灰蓝色的晨暗，窗玻璃上结了一层薄薄的水汽。上铺边缘，林小雨探出半个身子往下看，头发睡得翘起一撮，在昏暗的光里显得毛茸茸的。</p>
+      <p class="story-para">&quot;你起这么早干嘛……&quot;我翻了个身，面朝墙壁。</p>
+      <p class="story-para">&quot;生物钟。&quot;他说，接着是下床的轻响——脚踩在梯子上的声音，落地，走到窗边，拉开窗帘。</p>
+      <p class="story-para">天光一下子涌进来，刺得我眯起眼。</p>
+      <p class="story-para">&quot;哥，外面下霜了。&quot;他的声音里带着点新奇。</p>
+      <p class="story-para">我撑起身子看向窗外，楼下那排香樟树的叶子边缘，果然结着一层白茸茸的霜，在晨光里微微发亮。</p>
+      <p class="story-para">&quot;真冷。&quot;我又倒回床上。</p>
+      <p class="story-para">厨房传来烧水的声音，接着是冰箱门开关的轻响，锅碗碰撞的细碎声。他在做早饭。</p>
+      <p class="story-para">我躺着，听着那些声音：烧水壶的鸣笛，鸡蛋磕在碗沿的清脆声，筷子搅打蛋液的嗒嗒声……这些声音在安静的早晨里，像一首不成调却格外安稳的歌。</p>
+      <p class="story-para">等我终于爬起来，他已经把两碗面端上桌了。清汤里卧着荷包蛋，飘着几片青菜，撒了点葱花，热气袅袅上升，在冷空气里凝成白雾。</p>
+      <p class="story-para">&quot;快吃，要凉了。&quot;他说着，自己先坐下拿起筷子。</p>
+      <p class="story-para">我坐下喝了口汤，暖意从喉咙一路滑到胃里，整个人都舒展了些。</p>
+      <p class="story-para">&quot;今天考试？&quot;我问，嘴里塞着面条，声音含糊。</p>
+      <p class="story-para">&quot;嗯，数学单元测。&quot;</p>
+      <p class="story-para">&quot;复习了吗？&quot;</p>
+      <p class="story-para">&quot;看了。&quot;</p>
+      <p class="story-para">&quot;有不会的吗？&quot;</p>
+      <p class="story-para">&quot;最后一题有点难。&quot;他低头吃面，刘海垂下来遮住眼睛。</p>
+      <p class="story-para">&quot;哪一题？晚上我给你讲。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他抬头看我一眼，眼睛在热气后面亮闪闪的。</p>
+      <p class="story-para">吃完饭，他洗碗，我收拾书包。出门前，我翻出一条灰色的围巾——是我妈去年织的，之前一直嫌土没戴过。</p>
+      <p class="story-para">&quot;给。&quot;我扔给他。</p>
+      <p class="story-para">他接住，摸了摸围巾：&quot;你呢？&quot;</p>
+      <p class="story-para">&quot;我还有。&quot;其实我没有，但今天好像没那么冷。</p>
+      <p class="story-para">他看了看我空荡荡的脖子，没说话，把围巾一圈圈绕上去。围巾很长，绕了三圈，把他下半张脸都埋了进去，只露出一双眼睛。</p>
+      <p class="story-para">&quot;像个小粽子。&quot;我笑着说。</p>
+      <p class="story-para">他的眼睛弯了弯。</p>
+      <p class="story-para">路上，我们呼出的气在冷空气里凝成白雾。他走在我旁边，围巾遮着脸，手插在口袋里。我瞄了一眼，发现他校服外套的袖口有点短，露出了一小截手腕。</p>
+      <p class="story-para">&quot;袖子短了？&quot;我问。</p>
+      <p class="story-para">&quot;还好。&quot;</p>
+      <p class="story-para">&quot;明天带你去买件新的。&quot;</p>
+      <p class="story-para">&quot;不用，还能穿。&quot;</p>
+      <p class="story-para">&quot;都露手腕了。&quot;</p>
+      <p class="story-para">&quot;不冷。&quot;他说着，却把手往袖子里缩了缩。</p>
+      <p class="story-para">到了学校，我们分道扬镳。他往初中部走，围巾裹得严实，背影圆滚滚的。我看了两秒，转身往高中部跑去。</p>
+      <p class="story-para">上午的课上得昏昏欲睡。教室里暖气开得足，窗户蒙上一层水雾。我在课本空白处画小人，画着画着，竟画出一个裹着围巾的小粽子，只露出眼睛。</p>
+      <p class="story-para">赶紧涂掉。</p>
+      <p class="story-para">课间，周明凑过来，神秘兮兮地说：&quot;哎，高航，你看那边。&quot;</p>
+      <p class="story-para">我顺着他指的方向望去。窗外走廊上，几个女生聚在一起说笑，其中一个扎着高马尾，笑起来眼睛弯成月牙。</p>
+      <p class="story-para">&quot;隔壁班的林薇，认识吗？年级前二十，长得还好看。&quot;周明撞了撞我的肩膀，&quot;听说还没男朋友。&quot;</p>
+      <p class="story-para">&quot;关我屁事。&quot;我低头继续涂鸦。</p>
+      <p class="story-para">&quot;你不看看？多水灵。&quot;</p>
+      <p class="story-para">&quot;没兴趣。&quot;</p>
+      <p class="story-para">&quot;装什么装。&quot;周明笑了，&quot;哎，说真的，你觉得她怎么样？&quot;</p>
+      <p class="story-para">我又抬头看了一眼。林薇正好转过头，和旁边的女生说话，侧脸线条柔和，鼻子挺翘。的确好看。</p>
+      <p class="story-para">&quot;还行。&quot;我说。</p>
+      <p class="story-para">&quot;就还行？你要求真高。&quot;</p>
+      <p class="story-para">上课铃响了。老师走进来，开始讲抛物线。我在笔记本上写下公式，脑子里却闪过林薇笑起来的月牙眼，和另一双更亮、更安静的眼睛。</p>
+      <p class="story-para">摇摇头，集中精神听课。</p>
+      <p class="story-para">中午在食堂，又看见林薇。她排在隔壁窗口，侧着头和同伴说话，马尾随着动作轻轻摇晃。</p>
+      <p class="story-para">&quot;看，看。&quot;周明用胳膊肘捅我。</p>
+      <p class="story-para">&quot;看见了。&quot;我低头扒饭。</p>
+      <p class="story-para">&quot;你不觉得她扎马尾特别好看吗？&quot;周明压低声音，&quot;就那种青春活力的感觉。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;我夹了块红烧肉。</p>
+      <p class="story-para">&quot;你就不能多说几个字？&quot;</p>
+      <p class="story-para">&quot;食不言寝不语。&quot;</p>
+      <p class="story-para">&quot;装逼。&quot;</p>
+      <p class="story-para">我笑了笑，没接话。眼角余光瞥见林小雨安静吃饭的样子，他坐得笔直，筷子夹起一粒米送进嘴里，细嚼慢咽。</p>
+      <p class="story-para">周五，期中考试成绩下来了。</p>
+      <p class="story-para">数学，78分。红艳艳的数字写在试卷最上方，像在嘲笑我。</p>
+      <p class="story-para">我盯着那个数字看了很久。教室里闹哄哄的，有人欢呼，有人叹气。周明凑过来看：&quot;多少分？&quot;</p>
+      <p class="story-para">我把试卷翻了过去。</p>
+      <p class="story-para">&quot;啧，可惜了。&quot;周明说，&quot;选择题错太多了。&quot;</p>
+      <p class="story-para">我没说话。其实我知道为什么错——考试那天早上，林小雨有点低烧，我给他量了体温，37度8，不算高，却让人心里发紧。我让他请假休息，他不肯。最后还是我妥协了，给他冲了感冒冲剂，看着他喝完，又给他多加了件外套，这才一起出门。</p>
+      <p class="story-para">整个考试过程中，我满脑子都是他：会不会难受得撑不住？会不会在教室里打喷嚏？老师会不会发现他脸色不对？</p>
+      <p class="story-para">结果，我的选择题错了一半。</p>
+      <p class="story-para">放学铃响，我慢吞吞地收拾书包。周明拍了拍我的肩膀：&quot;打球去？&quot;</p>
+      <p class="story-para">&quot;不了，我得去接我弟。&quot;</p>
+      <p class="story-para">&quot;又去接？你弟都上初一了，自己回不了家吗？&quot;</p>
+      <p class="story-para">&quot;他感冒还没好利索。&quot;</p>
+      <p class="story-para">&quot;你可真行，跟养儿子似的操心。&quot;</p>
+      <p class="story-para">我没理他，背着书包径直往外走。</p>
+      <p class="story-para">走廊里，林小雨已经在等我了。他背着书包，站在我们班后门外的阴影里，还是像往常一样安静。看见我，他往前挪了两步。</p>
+      <p class="story-para">&quot;哥。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;我走过去，&quot;考得怎么样？&quot;</p>
+      <p class="story-para">&quot;还行。&quot;他说完，反过来问我，&quot;你呢？&quot;</p>
+      <p class="story-para">&quot;……也还行。&quot;我含糊地应着。</p>
+      <p class="story-para">他没再追问。我们一起下楼，走出教学楼。天阴沉沉的，像是随时要下雨。风刮过来，带着湿冷的潮气，扑在脸上。</p>
+      <p class="story-para">一路上，我没怎么说话。脑子里反复闪回那个78分，还有下午班主任找我谈话时的语气：&quot;高航，你这次退步有点明显，是不是最近心思没放在学习上？&quot;</p>
+      <p class="story-para">分心吗？</p>
+      <p class="story-para">可能是吧。</p>
+      <p class="story-para">回到家，我把书包往椅子上一扔，整个人瘫倒在床上。天花板上有块水渍，形状像一只展开翅膀的鸟。</p>
+      <p class="story-para">林小雨在厨房烧水。水开了，鸣笛声尖锐地响起来。接着是倒水的声音，撕包装袋的窸窣声。</p>
+      <p class="story-para">他端着一杯东西走过来，放在我的床头。</p>
+      <p class="story-para">&quot;感冒冲剂。&quot;他说。</p>
+      <p class="story-para">&quot;我没感冒。&quot;</p>
+      <p class="story-para">&quot;你脸色不好。&quot;他在床边坐下，眼神清亮地看着我。</p>
+      <p class="story-para">我转过头，和他对视。他的眼睛很干净，像两汪清透的泉水，能清清楚楚照出我此刻的颓丧。</p>
+      <p class="story-para">&quot;我考试没考好。&quot;最终，我还是说了出来。</p>
+      <p class="story-para">&quot;多少分？&quot;</p>
+      <p class="story-para">&quot;78。&quot;</p>
+      <p class="story-para">他沉默了几秒，轻声说：&quot;下次加油就好。&quot;</p>
+      <p class="story-para">&quot;加个屁的油。&quot;我翻了个身，面朝墙壁，&quot;错的全是不该错的弱智题。&quot;</p>
+      <p class="story-para">他没再说话。房间里安静下来，只有窗外风吹过的声音，还有远处隐隐传来的雷声。</p>
+      <p class="story-para">要下雨了。</p>
+      <p class="story-para">过了一会儿，我感觉床垫轻轻动了动。转头一看，林小雨把自己的椅子搬了过来，挨着我的床放下。然后他坐上去，拿出作业本，开始写作业。</p>
+      <p class="story-para">笔尖划过纸张，发出沙沙的声响。</p>
+      <p class="story-para">&quot;你干嘛？&quot;我问。</p>
+      <p class="story-para">&quot;写作业。&quot;他头也没抬地回答。</p>
+      <p class="story-para">&quot;我知道你在写作业。我是说，你干嘛非要在这儿写？&quot;</p>
+      <p class="story-para">&quot;这里光线好。&quot;他说，但其实台灯明明在书桌上，根本不在床边。</p>
+      <p class="story-para">我没再追问。翻回身，继续盯着天花板上那只&quot;水渍鸟&quot;。</p>
+      <p class="story-para">雷声越来越近，轰隆隆的，像是有巨人在天上滚着石头。紧接着，雨点砸了下来，噼里啪啦地打在窗玻璃上，声音越来越密，越来越响。</p>
+      <p class="story-para">房间里只剩下雨声，和他写字的沙沙声。</p>
+      <p class="story-para">我闭着眼，脑子里还是那个该死的78分：班主任的批评、周明的玩笑，还有爸妈打电话来问成绩时，我该怎么开口？</p>
+      <p class="story-para">烦死了。</p>
+      <p class="story-para">我睁开眼，看见林小雨的侧脸。他低着头，正专注地在草稿纸上演算。台灯的光落在他脸上，把睫毛的影子投在脸颊上，随着眨眼的动作轻轻晃动。</p>
+      <p class="story-para">他写得很认真，偶尔会停下笔，咬着笔头思考。然后眼睛一亮，又继续低头写起来。</p>
+      <p class="story-para">雨下得更大了。风从窗户缝里钻进来，带着湿冷的气息。我缩了缩脖子，把被子往上拉了拉。</p>
+      <p class="story-para">这时，我感觉他轻轻动了动。</p>
+      <p class="story-para">他的胳膊，碰到了我的胳膊。</p>
+      <p class="story-para">隔着两层睡衣的布料，传来一丝细微的、属于另一个人的温度。很轻，却很暖，像冬天里捧着一杯刚泡好的热水。</p>
+      <p class="story-para">我僵了一下，没动。</p>
+      <p class="story-para">他也没动，继续写作业，好像那只是不经意的触碰。</p>
+      <p class="story-para">但那股温度，却透过皮肤，顺着血管，一路蔓延到我的心脏。像一汪温水，慢慢渗进干裂的土地，把那些烦躁的褶皱一点点抚平了。</p>
+      <p class="story-para">窗外的雨声渐渐远了，雷声也隐去了。世界好像突然安静下来，只剩下笔尖划过纸张的沙沙声，和他平稳的呼吸声。</p>
+      <p class="story-para">我忽然觉得，那个78分，好像也没那么刺眼了。</p>
+      <p class="story-para">班主任的话、周明的玩笑、爸妈可能的询问——所有这些，在这个雨夜，在这个小小的房间里，在这个安静地挨着我写作业的男孩身边，都变得遥远又模糊。</p>
+      <p class="story-para">什么才是重要的？</p>
+      <p class="story-para">是这个雨夜。是这个房间。是这股触手可及的温度。</p>
+      <p class="story-para">我转过头，看着他的侧脸。他刚解完一道题，嘴角微微上扬，漾开一个小小的、满足的弧度。</p>
+      <p class="story-para">&quot;小雨。&quot;我轻声唤他。</p>
+      <p class="story-para">&quot;嗯？&quot;他转过头看我，眼睛在灯光下亮晶晶的。</p>
+      <p class="story-para">&quot;谢谢你。&quot;</p>
+      <p class="story-para">他愣了一下，耳朵慢慢红了。转回头继续看作业本，笔尖却停在纸页上，没动。</p>
+      <p class="story-para">过了几秒，他很小声地说：&quot;不用谢。&quot;</p>
+      <p class="story-para">雨还在下，但房间里很暖。</p>
+      <p class="story-para">后来他写完作业，收拾书包。我爬起来，去厨房热了两杯牛奶。微波炉叮的一声，在雨夜里格外清脆。</p>
+      <p class="story-para">我们坐在床上，捧着热牛奶喝。玻璃杯很烫，掌心却暖融融的。</p>
+      <p class="story-para">&quot;哥。&quot;他开口。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;下次考试，我给你补习。&quot;</p>
+      <p class="story-para">我笑了：&quot;你给我补？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他很认真，&quot;我数学还可以。&quot;</p>
+      <p class="story-para">&quot;行啊。&quot;我碰了碰他的杯子，&quot;那拜托你了，小林老师。&quot;</p>
+      <p class="story-para">他没笑，但眼睛弯了弯。</p>
+      <p class="story-para">喝完牛奶，他要去洗碗。我拦住他：&quot;今天我来。&quot;</p>
+      <p class="story-para">&quot;你脚——&quot;</p>
+      <p class="story-para">&quot;早好了。&quot;我单脚跳下床，接过杯子走进厨房。</p>
+      <p class="story-para">水很暖。洗洁精的泡沫在灯光下闪着七彩的光。我慢慢洗着杯子，听见身后传来他整理书包的声响，拉链的轻响，然后是他爬上床的声音。</p>
+      <p class="story-para">&quot;哥。&quot;他在上铺叫我。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;晚安。&quot;</p>
+      <p class="story-para">&quot;晚安。&quot;</p>
+      <p class="story-para">我关掉水龙头，用毛巾擦干手。走出厨房时，看见他已经躺下了，被子盖到下巴，只露出半张脸，和一双亮亮的眼睛。</p>
+      <p class="story-para">&quot;快睡。&quot;我说。</p>
+      <p class="story-para">&quot;嗯。&quot;他闭上眼睛。</p>
+      <p class="story-para">我关掉灯，在黑暗里躺下。雨小了，变成淅淅沥沥的细声，像有人在轻轻哼歌。</p>
+      <p class="story-para">&quot;哥。&quot;他又唤了一声。</p>
+      <p class="story-para">&quot;又怎么了？&quot;</p>
+      <p class="story-para">&quot;明天早上，你想吃什么？&quot;</p>
+      <p class="story-para">&quot;……都行。&quot;</p>
+      <p class="story-para">&quot;煮粥吧。天冷，喝粥暖和。&quot;</p>
+      <p class="story-para">&quot;好。&quot;</p>
+      <p class="story-para">&quot;加红枣。&quot;</p>
+      <p class="story-para">&quot;好。&quot;</p>
+      <p class="story-para">&quot;再加点桂圆。&quot;</p>
+      <p class="story-para">&quot;好。&quot;</p>
+      <p class="story-para">&quot;哥。&quot;</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;晚安。&quot;</p>
+      <p class="story-para">&quot;晚安。&quot;</p>
+      <p class="story-para">我闭上眼睛。脚踝已经不疼了。心里某个地方，被那股细微的温度，熨帖得平平整整。</p>
+      <p class="story-para">窗外，雨声渐渐停了。云层散开，漏出一点月光，照在地板上，像一汪水银。</p>
+    </section>
+
+    <section class="chapter" id="c5">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 5</div>
+        <h2 class="ch-zh">第五章</h2>
+        <div class="ch-rule"></div>
+      </div>
+      <p class="story-para"><span class="drop">十</span>二月是在一阵大风里到来的。窗外的香樟树几乎一夜之间秃了大半，残存的叶子在风里瑟瑟发抖，颜色从深绿褪成枯黄，又暗成焦褐。清晨醒来时，玻璃上凝着一层薄冰花，我用手指轻轻划开一道，冰花融成水痕，顺着玻璃蜿蜒而下。</p>
+      <p class="story-para">&quot;哥，热水好了。&quot;</p>
+      <p class="story-para">林小雨从厨房探出头，手里握着我的牙刷，牙膏已挤得规规矩矩，不多不少。</p>
+      <p class="story-para">&quot;谢谢。&quot;我接过来时，指尖碰到他的手——冰凉刺骨。</p>
+      <p class="story-para">&quot;你手怎么这么冷？&quot;我问。</p>
+      <p class="story-para">&quot;水有点凉。&quot;他说着，把手缩回袖子里。</p>
+      <p class="story-para">我看向他身上的毛衣——还是那件旧的，袖口更短了，手腕露出一大截。校服外套套在外面，拉链拉到最顶端，领子竖着，遮住半张脸。</p>
+      <p class="story-para">&quot;今天放学去买衣服。&quot;我含着牙刷含糊道。</p>
+      <p class="story-para">&quot;不用——&quot;</p>
+      <p class="story-para">&quot;必须去。&quot;我吐出泡沫，&quot;看你冻的。&quot;</p>
+      <p class="story-para">他没再反驳，转身去盛粥。锅里冒着热气，白米粥煮得稠稠的，上面漂着几颗红枣和桂圆，都是我前两天随口提过&quot;想吃&quot;的。</p>
+      <p class="story-para">吃饭时，我注意到他手指上有道小口子，结着薄痂。</p>
+      <p class="story-para">&quot;手怎么了？&quot;</p>
+      <p class="story-para">&quot;削苹果划的。&quot;他缩了缩手指。</p>
+      <p class="story-para">&quot;我看看。&quot;</p>
+      <p class="story-para">他犹豫片刻，把手伸过来。那道口子在食指侧面，不长，却有些深，边缘红肿，痂呈深褐色。</p>
+      <p class="story-para">&quot;昨天划的？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;怎么不说？&quot;</p>
+      <p class="story-para">&quot;小伤。&quot;他想收回手。</p>
+      <p class="story-para">我握住他的手腕——很细，腕骨突出，皮肤冰凉。</p>
+      <p class="story-para">&quot;创可贴呢？&quot;</p>
+      <p class="story-para">&quot;用完了。&quot;</p>
+      <p class="story-para">我起身翻找抽屉，最后在药箱底层摸出一片，虽已过期，也顾不了那么多，还是撕开贴在他手指上。</p>
+      <p class="story-para">&quot;下次小心点。&quot;我不自觉放轻了动作。</p>
+      <p class="story-para">&quot;嗯。&quot;他盯着手指上的白色小方块，指尖轻轻碰了碰。</p>
+      <p class="story-para">放学后，我没让周明他们等，径直去初中部楼下。林小雨已经在那儿了，背着书包站在光秃秃的桂花树下。风很大，吹得他头发乱飞，他用手压着，却总也压不住。</p>
+      <p class="story-para">&quot;等很久了？&quot;我跑过去问。</p>
+      <p class="story-para">&quot;没有。&quot;他说着，鼻尖冻得通红。</p>
+      <p class="story-para">&quot;走吧，去商场。&quot;</p>
+      <p class="story-para">商场里暖气很足，一进门眼镜就蒙了层白雾。我摘下擦拭，林小雨也取下他那副小小的黑框眼镜——上周刚配的，因为他说看不清黑板。</p>
+      <p class="story-para">眼镜店的人说他有轻度近视。我问什么时候开始的，他说不知道，可能有一阵子了。我又问怎么不早说，他低下头，小声说怕麻烦。</p>
+      <p class="story-para">&quot;这有什么麻烦的？&quot;我当时有点急，&quot;眼睛重要还是麻烦重要？&quot;</p>
+      <p class="story-para">他没说话，只是抿着嘴。最后我叹了口气，带他配了眼镜。他戴上眼镜的样子，显得更乖了，却也多了几分陌生，像突然长大了几岁。</p>
+      <p class="story-para">&quot;先去买毛衣。&quot;我说着，拉他往二楼走。</p>
+      <p class="story-para">男装区货架上挂满厚衣服，我挑了件灰色高领毛衣，摸起来软软的。</p>
+      <p class="story-para">&quot;试试。&quot;我递给他。</p>
+      <p class="story-para">他接过看了看标签，又放回去。</p>
+      <p class="story-para">&quot;怎么了？&quot;</p>
+      <p class="story-para">&quot;太贵了。&quot;他小声说。</p>
+      <p class="story-para">&quot;不贵。&quot;我重新拿起来，&quot;去试。&quot;</p>
+      <p class="story-para">他抱着毛衣进了试衣间。我在外面等，顺手翻看旁边的围巾——羊绒质地，手感很好，深蓝色，很适合他。</p>
+      <p class="story-para">试衣间门开了，他走出来，毛衣松松垮垮的有点大，高领遮住半张脸，眼镜片后的眼睛眨了眨，无措地看着我。</p>
+      <p class="story-para">&quot;转一圈。&quot;</p>
+      <p class="story-para">他慢吞吞转了个圈，毛衣下摆垂到大腿，袖子长出一截。</p>
+      <p class="story-para">&quot;大了。&quot;我说。</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;换个小号。&quot;</p>
+      <p class="story-para">他进去换了一件出来，这次合身了。灰色衬得他皮肤更白，高领裹着脖子，看起来暖和多了。</p>
+      <p class="story-para">&quot;就这件。&quot;我说。</p>
+      <p class="story-para">&quot;哥，你也买一件吧。&quot;</p>
+      <p class="story-para">&quot;我有。&quot;</p>
+      <p class="story-para">&quot;你的也旧了。&quot;他指着我身上那件起球的黑色毛衣。</p>
+      <p class="story-para">最后我买了两件——他的灰色，我的黑色，同款不同色。</p>
+      <p class="story-para">接着又买了那条深蓝色围巾给他，加绒手套给他，厚实的袜子买了两双，一人一双。</p>
+      <p class="story-para">&quot;够了。&quot;他拉我袖子，&quot;真的够了。&quot;</p>
+      <p class="story-para">&quot;再买条裤子。&quot;我指着那边的加绒牛仔裤。</p>
+      <p class="story-para">&quot;不要——&quot;</p>
+      <p class="story-para">&quot;你那条太薄了。&quot;我拉他过去，挑了条合他尺码的，&quot;去试。&quot;</p>
+      <p class="story-para">他抱着裤子，脚步慢吞吞的，像只不情愿的小猫。着裤子，看看我，又看看手里的裤子，最后还是妥协了，转身钻进了试衣间。</p>
+      <p class="story-para">我在外面等着，手机突然响了，是我妈打来的。</p>
+      <p class="story-para">&quot;喂，妈。&quot;</p>
+      <p class="story-para">&quot;小航啊，最近过得怎么样？小雨呢？&quot;</p>
+      <p class="story-para">&quot;都挺好的，正给他买衣服呢。&quot;</p>
+      <p class="story-para">&quot;哦对，天凉了是该添件衣服。钱够不够用？&quot;</p>
+      <p class="story-para">&quot;够。&quot;</p>
+      <p class="story-para">&quot;不够就跟妈说，别硬撑。小雨这孩子听话吧？&quot;</p>
+      <p class="story-para">&quot;听话。&quot;</p>
+      <p class="story-para">&quot;那就好。他爸妈那边的事差不多安排妥当了，说不定下个月就能接他过去。&quot;</p>
+      <p class="story-para">我愣了一下：&quot;下个月？&quot;</p>
+      <p class="story-para">&quot;嗯，年前应该就能搬过去。到时候你就不用照顾他了，也能轻松点。&quot;</p>
+      <p class="story-para">&quot;哦。&quot;我应了一声，目光落在试衣间的门上。</p>
+      <p class="story-para">&quot;行，那你们好好的。记得按时吃饭，多穿点衣服别冻着。挂了啊。&quot;</p>
+      <p class="story-para">电话挂断的瞬间，试衣间的门开了，林小雨穿着新裤子走出来——深蓝色的牛仔裤，裤脚稍长，被他卷了两道边。</p>
+      <p class="story-para">&quot;合身吗？&quot;他问。</p>
+      <p class="story-para">&quot;合身。&quot;我说，&quot;就这条吧。&quot;</p>
+      <p class="story-para">付钱的时候，我扫了眼手机屏幕：十二月三号。年前，大概还有一个多月。</p>
+      <p class="story-para">一个多月。</p>
+      <p class="story-para">&quot;哥？&quot;他叫我。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;你发什么呆呢？&quot;</p>
+      <p class="story-para">&quot;没什么。&quot;我把手机塞回口袋，&quot;走吧，回家。&quot;</p>
+      <p class="story-para">晚上，他穿着新毛衣写作业。台灯的光温柔地落在他身上，灰色毛衣泛着软乎乎的光。他写得很认真，偶尔抬手推一下滑到鼻尖的眼镜。</p>
+      <p class="story-para">&quot;小雨。&quot;我叫他。</p>
+      <p class="story-para">&quot;嗯？&quot;他没抬头，笔还在纸上沙沙地动。</p>
+      <p class="story-para">&quot;你爸妈……说没说什么时候回来？&quot;</p>
+      <p class="story-para">笔尖顿住了。他抬起头，眼镜片后面的眼睛直直看着我。</p>
+      <p class="story-para">&quot;过年的时候。&quot;他说。</p>
+      <p class="story-para">&quot;哦。&quot;我顿了顿，&quot;那……过完年，你就要回去了？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他又低下头，继续写作业。笔尖划过纸页的声音，在安静的房间里显得格外清晰。</p>
+      <p class="story-para">我没再问，翻开自己的作业本，却一个字也看不进去。</p>
+      <p class="story-para">窗外的风又刮起来了，呜呜地响，像谁在低声哭。我起身去关窗，看见楼下那排光秃秃的树在风里摇晃，影子投在地上张牙舞爪。</p>
+      <p class="story-para">&quot;哥。&quot;他忽然叫我。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;你过年……回老家吗？&quot;</p>
+      <p class="story-para">&quot;回吧，我妈肯定要回去的。&quot;</p>
+      <p class="story-para">&quot;哦。&quot;他应了一声，笔又停了，但没抬头。</p>
+      <p class="story-para">&quot;怎么了？&quot;</p>
+      <p class="story-para">&quot;没什么。&quot;他摇摇头，继续写作业，只是下笔很慢，一笔一划都用了力。</p>
+      <p class="story-para">我回到书桌前，看着他的侧脸。灯光在他的睫毛上镀了层金边，随着眨眼的动作轻轻颤动。</p>
+      <p class="story-para">&quot;小雨。&quot;</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;你要是……&quot;我顿了顿，&quot;不想回去，可以留下来。&quot;</p>
+      <p class="story-para">他猛地转过头看着我。眼镜片后面的眼睛亮晶晶的，像蒙了一层薄薄的水汽。</p>
+      <p class="story-para">&quot;可以吗？&quot;他问，声音轻得像蚊子叫。</p>
+      <p class="story-para">&quot;可以。&quot;我说，&quot;跟我回老家，或者就住这儿，我陪着你。&quot;</p>
+      <p class="story-para">他看了我很久，然后轻轻点了点头。</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">接着他转回头继续写作业，这次，笔尖划过纸页的声音轻快了不少。</p>
+      <p class="story-para">周末，我们去了趟超市。要买的东西不多：米、油、鸡蛋，还有他爱吃的巧克力面包——上次发现他喜欢，我每周都会买一份。</p>
+      <p class="story-para">超市里暖气开得足，人又多，挤得我出了一身汗。林小雨推着购物车，我负责往里面放东西。走到零食区时，我拿了一包薯片，他看了一眼，没说话。</p>
+      <p class="story-para">&quot;想吃？&quot;我问。</p>
+      <p class="story-para">&quot;太贵了。&quot;他说。</p>
+      <p class="story-para">&quot;偶尔吃一次没事。&quot;我把薯片扔进车里。</p>
+      <p class="story-para">他却又拿出来，放回了货架。</p>
+      <p class="story-para">&quot;真不用。&quot;他说着，推着车往前走。</p>
+      <p class="story-para">我站在原地看着他的背影——瘦瘦的，穿着那件灰色高领毛衣，在人群里一颠一颠地往前走。</p>
+      <p class="story-para">我追上去，从旁边货架拿了一包一模一样的薯片扔进车里。</p>
+      <p class="story-para">&quot;哥——&quot;他伸手想拿出来。</p>
+      <p class="story-para">&quot;我自己吃。&quot;我说。</p>
+      <p class="story-para">他没再坚持。</p>
+      <p class="story-para">结账时排队的人很多，我们站在队伍末尾。购物车里的东西不多，却沉得很。我站在他身后，能清楚看见他头顶的发旋——头发又长了，该剪了。</p>
+      <p class="story-para">&quot;小雨。&quot;我叫他。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;抬头。&quot;</p>
+      <p class="story-para">他抬起头，我伸手把他头顶翘起来的一撮头发按下去。</p>
+      <p class="story-para">&quot;该剪头发了。&quot;我说。</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;明天带你去剪？&quot;</p>
+      <p class="story-para">&quot;好。&quot;</p>
+      <p class="story-para">队伍慢慢往前挪，前面是一对母子。小男孩七八岁的样子，坐在购物车里，手里拿着个玩具车，嘴里咿咿呀呀地说着什么。妈妈在整理购物车里的东西，偶尔应一声&quot;嗯&quot;&quot;好&quot;。</p>
+      <p class="story-para">小男孩忽然转过头，圆溜溜的眼睛看着我们。</p>
+      <p class="story-para">&quot;哥哥。&quot;他指着林小雨，&quot;那个哥哥在看你。&quot;</p>
+      <p class="story-para">林小雨愣了一下，转过头。我也跟着回头，看见斜后方排着两个女生，年纪和我们相仿，穿着隔壁学校的校服。其中扎马尾的那个正望着林小雨，被发现后慌忙转回头，脸颊泛起红晕。</p>
+      <p class="story-para">林小雨也转了回去，耳朵尖微微发红。</p>
+      <p class="story-para">&quot;认识？&quot;我压低声音问。</p>
+      <p class="story-para">&quot;不认识。&quot;他声音轻得像一阵风。</p>
+      <p class="story-para">&quot;那个扎马尾的，长得挺好看。&quot;我目视前方，随口说道。</p>
+      <p class="story-para">他没接话。</p>
+      <p class="story-para">&quot;你喜欢什么样的女生？&quot;我又问，语气像闲聊般随意。</p>
+      <p class="story-para">&quot;……不知道。&quot;</p>
+      <p class="story-para">&quot;没想过？&quot;</p>
+      <p class="story-para">&quot;没。&quot;</p>
+      <p class="story-para">&quot;真没？&quot;</p>
+      <p class="story-para">&quot;真没。&quot;他的声音更轻了。</p>
+      <p class="story-para">队伍缓缓挪到我们面前。收银员扫码、装袋，我付了钱，林小雨把东西分装到两个购物袋里，一个装重物，一个装轻物。</p>
+      <p class="story-para">&quot;重的给我。&quot;我说。</p>
+      <p class="story-para">&quot;不用，我提得动。&quot;他已经拎起了那个重袋子。</p>
+      <p class="story-para">&quot;逞能。&quot;</p>
+      <p class="story-para">&quot;真的。&quot;他一手提着重袋子，另一只手还想来拿轻的。</p>
+      <p class="story-para">&quot;这个我来。&quot;我抢过了轻袋子。</p>
+      <p class="story-para">我们一人提一个袋子走出超市。外面天已经黑透，路灯亮起来，在地面投下黄澄澄的光晕。风依旧很大，吹得塑料袋哗啦作响。</p>
+      <p class="story-para">&quot;哥。&quot;他叫我。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;那个女生……&quot;他顿了顿，&quot;是挺好看的。&quot;</p>
+      <p class="story-para">我转头看他。他低着头，目光落在脚下的路上，围巾裹着半张脸，只露出一双眼睛。</p>
+      <p class="story-para">&quot;然后呢？&quot;我问。</p>
+      <p class="story-para">&quot;没然后。&quot;他的声音闷在围巾里。</p>
+      <p class="story-para">我笑了：&quot;你喜欢那样的？&quot;</p>
+      <p class="story-para">&quot;不知道。&quot;</p>
+      <p class="story-para">&quot;什么叫不知道？&quot;</p>
+      <p class="story-para">&quot;就是……&quot;他想了想，还是说，&quot;不知道。&quot;</p>
+      <p class="story-para">话题就此打住。我们继续往前走，影子在路灯下时而拉长，时而缩短。他的手从口袋里伸出来提着袋子，手指冻得通红。</p>
+      <p class="story-para">&quot;手套呢？&quot;我问。</p>
+      <p class="story-para">&quot;在口袋里。&quot;</p>
+      <p class="story-para">&quot;戴上。&quot;</p>
+      <p class="story-para">他把袋子换到左手，右手伸进口袋掏手套，可手套在袋子里，单手掏了半天没拿出来。</p>
+      <p class="story-para">&quot;我来。&quot;我放下自己的袋子，接过他的袋子，让他腾出手掏。</p>
+      <p class="story-para">他戴上深蓝色的毛线手套，指尖部分露在外面，方便活动。</p>
+      <p class="story-para">&quot;暖和吗？&quot;我问。</p>
+      <p class="story-para">&quot;嗯。&quot;他把手伸回口袋，又掏了掏，掏出另一只手套递给我，&quot;你的。&quot;</p>
+      <p class="story-para">&quot;我不用——&quot;</p>
+      <p class="story-para">&quot;手会冷。&quot;他说着，把手套塞进我手里。</p>
+      <p class="story-para">我接过戴上。毛线很软，里面有一层薄绒，暖乎乎的。</p>
+      <p class="story-para">&quot;谢了。&quot;我说。</p>
+      <p class="story-para">他没说话，只是提起了袋子。</p>
+      <p class="story-para">剪头发的地方在学校附近，是家很小的理发店，老板是个五十多岁的阿姨，手艺一般，但价格便宜。</p>
+      <p class="story-para">周末下午店里人不多。我们进去时，阿姨正在给一个小孩剪头发，电动推子嗡嗡作响。</p>
+      <p class="story-para">&quot;稍等啊，马上好。&quot;阿姨说。</p>
+      <p class="story-para">我们坐在长椅上等。墙上贴着过时的明星海报，镜子边缘有些污渍，空气里飘着洗发水的香味，还混着淡淡的烟草味。</p>
+      <p class="story-para">小孩剪完跳下椅子，阿姨抖了抖围布看向我们：&quot;谁先来？&quot;</p>
+      <p class="story-para">&quot;他。&quot;我指了指林小雨。</p>
+      <p class="story-para">林小雨站起来，坐到理发椅上。阿姨给他围上围布，问：&quot;剪多短？&quot;</p>
+      <p class="story-para">&quot;稍微修一下就行，别太短。&quot;我说。</p>
+      <p class="story-para">&quot;好嘞。&quot;阿姨拿起剪刀，咔嚓咔嚓地剪起来。</p>
+      <p class="story-para">头发一缕一缕落下，黑色的，柔软的，在灯光下泛着细碎的光泽。林小雨坐得笔直，眼睛看着镜子里的自己，一动不动。</p>
+      <p class="story-para">&quot;小伙子真俊。&quot;阿姨边剪边说，&quot;皮肤白，眼睛大，像个小姑娘似的。&quot;</p>
+      <p class="story-para">林小雨抿了抿嘴。</p>
+      <p class="story-para">&quot;阿姨，他是男生。&quot;我说。</p>
+      <p class="story-para">&quot;知道知道，开玩笑呢。&quot;阿姨笑起来，&quot;有这么个弟弟，当哥的可有福气啊。&quot;</p>
+      <p class="story-para">我没接话，看着镜子里的林小雨。他垂下眼睛，盯着自己放在膝盖上的手。</p>
+      <p class="story-para">大概剪了二十分钟就好了。阿姨用刷子扫掉他脖子上的碎发，解开围布。</p>
+      <p class="story-para">&quot;看看，满意不？&quot;</p>
+      <p class="story-para">林小雨站起来走到镜子前。头发修短了些，露出了耳朵和额头，看起来更清爽，也……成熟了一点。</p>
+      <p class="story-para">&quot;好看。&quot;我说。</p>
+      <p class="story-para">他摸了摸后颈，那里被碎发扎得有点痒。</p>
+      <p class="story-para">&quot;谢谢阿姨。&quot;他小声说。</p>
+      <p class="story-para">&quot;不谢不谢。来，该你了。&quot;阿姨朝我招手。</p>
+      <p class="story-para">我坐上去，围布围好。阿姨的手在我头上拨了拨：&quot;你这头发也长了，怎么剪？&quot;</p>
+      <p class="story-para">&quot;短点就行。&quot;</p>
+      <p class="story-para">&quot;好。&quot;剪刀在耳边咔嚓咔嚓响着。我闭着眼，能听见林小雨在身后走动的声音，接着是他坐下、翻动杂志的声响。</p>
+      <p class="story-para">&quot;你弟多大了？&quot;阿姨问。</p>
+      <p class="story-para">&quot;十二。&quot;</p>
+      <p class="story-para">&quot;上初一了？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;真乖。我孙子跟他差不多大，皮得要命。&quot;</p>
+      <p class="story-para">我没接话。阿姨也不再问，专心剪起头发。</p>
+      <p class="story-para">剪完，我站起来照镜子。头发短了不少，露出了眉毛，看起来精神多了。</p>
+      <p class="story-para">&quot;哥，好看。&quot;林小雨站在我身后，小声说。</p>
+      <p class="story-para">&quot;你们俩都俊。&quot;阿姨笑着说，&quot;兄弟俩长得还挺像。&quot;</p>
+      <p class="story-para">我看着镜子里的自己，又看向镜子里的林小雨。眉毛、眼睛、鼻梁——好像，是有点像。</p>
+      <p class="story-para">付了钱走出理发店，天已经快黑了，风小了些，但还是很冷。林小雨走在我旁边，新剪的头发在风里轻轻晃动。</p>
+      <p class="story-para">&quot;冷吗？&quot;我问。</p>
+      <p class="story-para">&quot;不冷。&quot;他说，却把围巾又裹紧了些。</p>
+      <p class="story-para">&quot;耳朵露出来了，会冻着。&quot;</p>
+      <p class="story-para">&quot;没事。&quot;</p>
+      <p class="story-para">我解下自己的围巾递给他：&quot;围上。&quot;</p>
+      <p class="story-para">&quot;你——&quot;</p>
+      <p class="story-para">&quot;我戴帽子。&quot;我把外套帽子戴上，&quot;快点。&quot;</p>
+      <p class="story-para">他接过围巾，一圈一圈绕在脖子上。两条围巾，一条深蓝，一条灰色，把他下半张脸裹得严严实实，只露出一双眼睛。</p>
+      <p class="story-para">&quot;像个小雪人。&quot;我笑了。</p>
+      <p class="story-para">他的眼睛弯了弯。</p>
+      <p class="story-para">回家路上，天完全黑了。路灯一盏盏亮起来，把我们的影子拉得很长，又缩短，再拉长。街上人不多，只有偶尔开过的车，和急匆匆赶路的行人。</p>
+      <p class="story-para">&quot;哥。&quot;他叫我，声音闷在围巾里。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;你过年……真的带我回老家吗？&quot;</p>
+      <p class="story-para">&quot;真的。&quot;</p>
+      <p class="story-para">&quot;你妈妈……会同意吗？&quot;</p>
+      <p class="story-para">&quot;会。&quot;我说，&quot;我妈喜欢你。&quot;</p>
+      <p class="story-para">他没说话。走了一段，又问：&quot;老家……冷吗？&quot;</p>
+      <p class="story-para">&quot;比这儿冷。会下雪。&quot;</p>
+      <p class="story-para">&quot;下雪……&quot;他声音里带着一丝向往。</p>
+      <p class="story-para">&quot;没见过雪？&quot;</p>
+      <p class="story-para">&quot;在电视上看过。&quot;</p>
+      <p class="story-para">&quot;今年带你堆雪人。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">又走了一段，快到家了。楼道里的声控灯坏了，漆黑一片。我打开手机手电筒，照亮楼梯。</p>
+      <p class="story-para">&quot;哥。&quot;他又叫我。</p>
+      <p class="story-para">&quot;又怎么了？&quot;</p>
+      <p class="story-para">&quot;谢谢你。&quot;</p>
+      <p class="story-para">&quot;谢什么。&quot;</p>
+      <p class="story-para">&quot;所有。&quot;他说，声音很轻，却在安静的楼道里格外清晰。</p>
+      <p class="story-para">我转头看他。手电筒的光从下往上照，把他的脸映得明明暗暗。眼睛在黑暗里，亮得像星星。</p>
+      <p class="story-para">&quot;傻。&quot;我说着，伸手揉了揉他新剪的头发。</p>
+      <p class="story-para">他没躲。</p>
+      <p class="story-para">上楼，开门，开灯。温暖的光洒下来，照亮这个小小的房间。两张床，一张桌子，两把椅子。灶台上还放着早上没洗的碗，书桌上摊着昨晚没看完的书。</p>
+      <p class="story-para">普通，拥挤，但很暖和。</p>
+      <p class="story-para">&quot;哥。&quot;他站在门口，没进来。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;这里……&quot;他顿了顿，&quot;很像家。&quot;</p>
+      <p class="story-para">我没说话。胸口某个地方被这句话轻轻撞了一下，酸酸软软的。</p>
+      <p class="story-para">&quot;本来就是家。&quot;我说着走进屋，把钥匙扔在桌上。</p>
+      <p class="story-para">他跟着进来，关上门。把围巾、手套、外套一样样脱下挂好，然后走到厨房，打开冰箱拿出两个鸡蛋。</p>
+      <p class="story-para">&quot;晚上吃什么？&quot;他问。</p>
+      <p class="story-para">&quot;都行。&quot;</p>
+      <p class="story-para">&quot;炒饭？&quot;</p>
+      <p class="story-para">&quot;好。&quot;</p>
+      <p class="story-para">他系上围裙，开始打蛋。蛋壳磕在碗沿，发出清脆的一声。筷子搅打蛋液，嗒嗒嗒，嗒嗒嗒。</p>
+      <p class="story-para">我坐在床上，看着他忙碌的背影。瘦瘦的，穿着那件灰色高领毛衣，系着那条有点长的围裙。新剪的头发下，露出白皙的后颈。</p>
+      <p class="story-para">窗外的风还在刮，但房间里很暖。蛋液下锅的滋啦声，米饭翻炒的沙沙声，油烟机嗡嗡的响声。</p>
+      <p class="story-para">所有这些声音混合在一起，成了这个冬天里最安稳的歌。</p>
+      <p class="story-para">&quot;小雨。&quot;我叫他。</p>
+      <p class="story-para">&quot;嗯？&quot;他没回头，专注地翻炒着锅里的饭。</p>
+      <p class="story-para">&quot;过年的时候，&quot;我说，&quot;我给你包红包。&quot;</p>
+      <p class="story-para">他翻炒的动作停了停，然后很轻地应了一声&quot;嗯&quot;。</p>
+      <p class="story-para">&quot;很大的红包。&quot;我又说。</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;然后带你放鞭炮。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;堆很大的雪人。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;吃很多好吃的。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">他关了火，把炒饭盛到两个盘子里。金黄的蛋，碧绿的葱花，白色的米饭，冒着热气。</p>
+      <p class="story-para">&quot;吃饭了。&quot;他说着，端着盘子走过来。</p>
+      <p class="story-para">&quot;好。&quot;</p>
+      <p class="story-para">我们面对面坐下，拿起筷子。窗外的风还在刮，但房间里很暖。暖气片滋滋锅里还剩一点饭，在余温里慢慢变凉。</p>
+      <p class="story-para">&quot;哥。&quot;他忽然开口。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;这个，&quot;他指了指盘子里的炒饭，&quot;好吃吗？&quot;</p>
+      <p class="story-para">我吃了一大口，鼓着腮帮子点头。</p>
+      <p class="story-para">他笑了，眼睛弯成月牙，在灯光下亮晶晶的。</p>
+    </section>
+
+    <section class="chapter" id="c6">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 6</div>
+        <h2 class="ch-zh">第六章</h2>
+        <div class="ch-rule"></div>
+      </div>
+      <p class="story-para"><span class="drop">元</span>旦前的最后一周，空气里浮着一种躁动不安的暖意。明明温度计的水银柱还在零度上下挣扎，阳光却出奇地好。午后，操场边的香樟树在风里摇晃着光秃秃的枝桠，影子在地上投出细碎跳动的图案。教室里暖气开得太足，窗玻璃凝着一层厚厚的水雾，几个男生用手指在上面涂画，写&quot;元旦快乐&quot;，画歪歪扭扭的小马——明年是马年。</p>
+      <p class="story-para">我趴在课桌上，下巴抵着交叠的手臂看窗外。阳光刺眼，我眯起眼睛，脑子里乱糟糟的，像团理不清的毛线。</p>
+      <p class="story-para">昨天我妈又打电话来，说小雨爸妈那边已经定了，一月中旬就能回来，正好赶上期末考试结束。&quot;到时候你就不用操心了，&quot;她在电话那头笑，&quot;轻松了吧？&quot;</p>
+      <p class="story-para">我含糊应了一声挂了电话，转头看见林小雨坐在书桌前写作业，背挺得笔直，眼镜片反射出台灯的光。他没问我谁打的电话，也没问说了什么，只是笔尖在纸上沙沙地响，很稳，很均匀。</p>
+      <p class="story-para">但他知道我接了电话，知道是我妈，知道内容可能跟他有关。</p>
+      <p class="story-para">他只是不问。</p>
+      <p class="story-para">下课铃响了，教室里瞬间炸开——桌椅碰撞声、拉书包拉链声、嬉笑打闹声混在一起。周明拍我肩膀：&quot;发什么呆？吃饭去。&quot;</p>
+      <p class="story-para">&quot;你们先去吧，我等我弟。&quot;</p>
+      <p class="story-para">&quot;又等？&quot;周明摇头，&quot;行行行，那我们走了。下午打球啊？&quot;</p>
+      <p class="story-para">&quot;看情况。&quot;</p>
+      <p class="story-para">&quot;别看了，必须来，好久没打了。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">他们走后，教室很快空下来。我慢吞吞收拾书包，把作业本一本本塞进去拉好拉链，走到走廊靠在栏杆上往下看。</p>
+      <p class="story-para">操场上人很多，打篮球的、踢足球的、追着跑的，阳光把他们的影子投在地上，短短黑黑的。</p>
+      <p class="story-para">然后我看见了林小雨。</p>
+      <p class="story-para">他一个人在操场角落的单杠边，没玩单杠，只是坐在旁边的长椅上，书包放在身边，手里捧着本书看。阳光落在他身上，灰色高领毛衣泛起柔软的光，新剪的头发在风里轻轻晃。</p>
+      <p class="story-para">他看得很专注，偶尔推一下滑下来的眼镜。身边有同学跑过笑闹，他没抬头。</p>
+      <p class="story-para">我看了他一会儿，转身下楼。</p>
+      <p class="story-para">走到他身后时，他还没发现。我轻轻拍他肩膀，他吓得一抖，书差点掉地上。</p>
+      <p class="story-para">&quot;哥。&quot;他转过头，眼镜片后的眼睛眨了眨。</p>
+      <p class="story-para">&quot;看什么呢，这么认真？&quot;我在他身边坐下。</p>
+      <p class="story-para">他合上书，封面是《小王子》——上次我在书店随手买的，没想到他看得进去。</p>
+      <p class="story-para">&quot;吃饭了吗？&quot;我问。</p>
+      <p class="story-para">&quot;还没。&quot;</p>
+      <p class="story-para">&quot;走，吃饭去。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他把书收进书包站起来。</p>
+      <p class="story-para">我们一起往食堂走。阳光很好，风也小了。操场上有人踢球，球滚到脚边，我停下来用脚踢回去，那边喊：&quot;谢了，高航！&quot;</p>
+      <p class="story-para">&quot;不谢。&quot;我挥挥手继续走。</p>
+      <p class="story-para">林小雨走在我旁边，手插在口袋里，围巾松垮地挂在脖子上没围。</p>
+      <p class="story-para">&quot;不冷？&quot;我问。</p>
+      <p class="story-para">&quot;有点热。&quot;他说。</p>
+      <p class="story-para">确实，今天反常地暖和。我把外套拉链往下拉了拉。</p>
+      <p class="story-para">食堂人还是多，但比平时少些——快元旦了，住得近的同学请假提前回家了。我们排队打了饭，找靠窗的位置坐下：红烧肉、炒青菜、西红柿鸡蛋汤，都是很平常的菜。</p>
+      <p class="story-para">&quot;期末考试什么时候？&quot;我夹了块肉问。</p>
+      <p class="story-para">&quot;下周。&quot;他小口吃着饭回答。</p>
+      <p class="story-para">&quot;复习得怎么样？&quot;</p>
+      <p class="story-para">&quot;还行。&quot;</p>
+      <p class="story-para">&quot;数学最后一章有点难，晚上我给你讲。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">他低头吃饭，睫毛垂下来，在眼睑上投下一小片阴影。我看着他，忽然想起第一次带他来食堂的样子：也是这个位置，周明嗓门很大，他害羞得耳朵发红，不敢抬头。</p>
+      <p class="story-para">现在他已经能自然地坐在这里，小口却稳定地吃饭，偶尔抬头看看周围，又低头继续吃。</p>
+      <p class="story-para">时间过得真快。</p>
+      <p class="story-para">&quot;哥。&quot;他叫我。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;你过年……&quot;他顿了顿，&quot;回老家待多久？&quot;&quot;大概一周吧。怎么了？&quot;</p>
+      <p class="story-para">&quot;没。&quot;他摇摇头，继续吃饭。</p>
+      <p class="story-para">但我知道他想问什么。他想问，一周后回来，我还跟不跟他一起住；想问他爸妈来了之后，他是跟他们走，还是留下来。</p>
+      <p class="story-para">我没问，他也没说。</p>
+      <p class="story-para">吃完饭，我们去小卖部。我拿了一瓶冰红茶，他拿了一瓶矿泉水。排队结账时，前面有两个女生在买零食，其中一个扎着高马尾，穿白色羽绒服，侧脸很秀气——是上次在超市见过的那个女生。</p>
+      <p class="story-para">她也看见我们了，愣了一下，脸颊微微泛红，随即转回头去。旁边的同伴凑在她耳边说了些什么，她轻轻推了同伴一下。</p>
+      <p class="story-para">林小雨站在我身后，没动。但我能感觉到，他看见了。</p>
+      <p class="story-para">结完账走出小卖部，阳光刺眼，我眯起眼睛。那个女生和同伴从我们身边走过，马尾随着脚步一甩一甩的。擦肩而过时，她飞快地看了林小雨一眼，随即加快了脚步。</p>
+      <p class="story-para">&quot;认识？&quot;我问。</p>
+      <p class="story-para">&quot;不认识。&quot;他说着，拧开矿泉水喝了一口。</p>
+      <p class="story-para">&quot;那她老看你。&quot;</p>
+      <p class="story-para">&quot;不知道。&quot;他拧上瓶盖，把水塞进书包侧袋。</p>
+      <p class="story-para">&quot;可能对你有意思。&quot;我开玩笑道。</p>
+      <p class="story-para">他耳朵尖红了：&quot;别胡说。&quot;</p>
+      <p class="story-para">&quot;怎么是胡说？我弟这么帅，有小姑娘喜欢不是很正常？&quot;</p>
+      <p class="story-para">&quot;哥——&quot;他声音里带着点求饶的意味。</p>
+      <p class="story-para">我笑了，没再逗他。</p>
+      <p class="story-para">下午体育课，我真的去打球了。脚踝早就好了，跑跳都没问题。周明传球给我，我接住、运球、过人、上篮，球进了。</p>
+      <p class="story-para">&quot;可以啊高航！&quot;周明拍了拍我的肩膀。</p>
+      <p class="story-para">&quot;还行。&quot;我抹了把汗。</p>
+      <p class="story-para">打到一半，我往操场边瞥了一眼。林小雨还坐在那里，但没看书了，正专注地看着我们打球，双手放在膝盖上，背挺得笔直。</p>
+      <p class="story-para">我朝他挥挥手，他愣了一下，随即也抬起手，很小幅度地挥了挥。</p>
+      <p class="story-para">&quot;你弟真乖，&quot;周明顺着我的视线看过去，&quot;每次都等你。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;要是我弟，早自己跑没影了。&quot;</p>
+      <p class="story-para">&quot;你弟才八岁。&quot;</p>
+      <p class="story-para">&quot;八岁也是弟。&quot;周明笑了笑，&quot;不过说真的，你弟来了之后，你变了不少。&quot;</p>
+      <p class="story-para">&quot;有吗？&quot;</p>
+      <p class="story-para">&quot;当然。以前放学就跑，现在天天准时回家；以前周末睡到中午，现在一大早就能在食堂看见你；以前……&quot;他想了想，&quot;以前没那么爱操心。&quot;</p>
+      <p class="story-para">我没说话，继续运着球。</p>
+      <p class="story-para">&quot;不过也挺好，&quot;周明接着说，&quot;有个伴，总比一个人有意思。&quot;</p>
+      <p class="story-para">是啊，有个伴。</p>
+      <p class="story-para">我看向操场边，林小雨还坐在那里，阳光落在他身上，整个人像镶了圈毛茸茸的金边。他看见我在看他，眨了眨眼。</p>
+      <p class="story-para">我朝他笑了笑。</p>
+      <p class="story-para">晚上，我真的给他讲了数学。最后一章是函数，涉及图像、增减性和最值。我讲得很慢，一步一步地拆解。他在草稿纸上跟着画，偶尔会问：&quot;这里为什么？&quot;</p>
+      <p class="story-para">&quot;因为定义域有限制。&quot;我解释道。</p>
+      <p class="story-para">&quot;哦。&quot;他点点头，在笔记本上记下要点。</p>
+      <p class="story-para">讲完三道例题，已经九点了。我伸了个懒腰，骨头发出轻微的声响。他也放下笔，揉了揉眼睛。</p>
+      <p class="story-para">&quot;累了？&quot;我问。</p>
+      <p class="story-para">&quot;有点。&quot;</p>
+      <p class="story-para">&quot;休息会儿吧。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">他去厨房热牛奶，微波炉&quot;叮&quot;的一声，在安静的夜里格外清晰。我靠在椅背上，看着天花板——灯管有点旧了，一头发黑，光线也暗沉沉的。</p>
+      <p class="story-para">&quot;哥，牛奶。&quot;他把杯子放在我手边。</p>
+      <p class="story-para">&quot;谢了。&quot;我端起来喝了一口，烫，但暖得舒服。</p>
+      <p class="story-para">他也坐下，捧着杯子小口小口地喝着。热气蒸腾上来，他的脸在雾气里显得有些模糊。</p>
+      <p class="story-para">&quot;小雨。&quot;我叫他。</p>
+      <p class="story-para">&quot;嗯？&quot;他抬头，眼镜片上蒙了层白雾。</p>
+      <p class="story-para">&quot;你……&quot;我顿了顿，&quot;你想你爸妈吗？&quot;</p>
+      <p class="story-para">他沉默了片刻，然后很轻地点了点头：&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;那……等他们回来，你高兴吗？&quot;</p>
+      <p class="story-para">他又沉默了。手指摩挲着杯壁，指节泛白。</p>
+      <p class="story-para">&quot;高兴。&quot;他说，但声音很轻，轻得像一声叹息。</p>
+      <p class="story-para">我没再问。房间里安静下来，只有窗外远处传来的车声，和他轻轻吹凉牛奶的声音。</p>
+      <p class="story-para">&quot;哥。&quot;他忽然叫我。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;我爸妈……&quot;他顿了顿，&quot;他们很忙。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;以前也是，经常出差，把我放在爷爷奶奶家。&quot;他声音很平静，像在说别人的事，&quot;这次来这边，也是因为工作。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;所以……&quot;他抬起头，眼镜片上的雾气散了，他的眼睛亮得干净，只轻轻一句：&quot;我习惯了。&quot;</p>
+      <p class="story-para">我望着对面坐着的十二岁男孩，他捧着热牛奶，声音与表情都平静得像一潭深水，可我心里却陡然被什么揪紧，酸意漫上来，涩得发疼。</p>
+      <p class="story-para">&quot;小雨。&quot;我放下杯子，伸手揉了揉他的头发。</p>
+      <p class="story-para">他没躲，只是垂着眼，望着杯里晃荡的牛奶。</p>
+      <p class="story-para">&quot;以后，&quot;我开口，&quot;你想什么时候来就什么时候来，想住多久就住多久。&quot;</p>
+      <p class="story-para">他猛地抬头看我。灯光下，他的眼睛亮晶晶的，像蒙着一层薄薄的水汽。</p>
+      <p class="story-para">&quot;真的？&quot;</p>
+      <p class="story-para">&quot;真的。&quot;</p>
+      <p class="story-para">&quot;不麻烦吗？&quot;</p>
+      <p class="story-para">&quot;不麻烦。&quot;</p>
+      <p class="story-para">他凝视我许久，才极轻地&quot;嗯&quot;了一声。</p>
+      <p class="story-para">喝完牛奶，他去洗碗。我坐在椅子上，听着厨房里传来的水声、海绵擦过碗壁的沙沙声、碗碟落进沥水架的轻响——这些声音，三个月来我早已习惯。</p>
+      <p class="story-para">习惯了他清晨轻悄悄的起床声，习惯了他煮粥时咕嘟咕嘟的冒泡声，习惯了他写字时笔尖划过纸页的沙沙声，习惯了他叫我&quot;哥&quot;时那轻轻的、带着认真的语调。</p>
+      <p class="story-para">习惯了他的存在。</p>
+      <p class="story-para">可现在有人告诉我，一个月后，我或许就再也不用习惯这些了。</p>
+      <p class="story-para">水声停了。他擦着手走出来，毛巾在手上轻轻蹭着。</p>
+      <p class="story-para">&quot;哥，我洗完了。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;那我先睡了，明天还要早起。&quot;</p>
+      <p class="story-para">&quot;好。&quot;</p>
+      <p class="story-para">他爬上床，窸窸窣窣地躺下。我坐在椅子上没动。</p>
+      <p class="story-para">&quot;哥。&quot;上铺传来他的声音。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;晚安。&quot;</p>
+      <p class="story-para">&quot;晚安。&quot;</p>
+      <p class="story-para">我关了台灯，只留床头一盏小夜灯。昏暗中能看见上铺边缘，他伸出来搭在栏杆上的手，手指细长，在黑暗里白得发亮。</p>
+      <p class="story-para">我望了许久，才轻轻起身走到窗边。</p>
+      <p class="story-para">窗外夜色浓稠，远处零星的灯光像散落的星子。一弯新月挂在光秃秃的树枝间，清冷又安静。</p>
+      <p class="story-para">站了一会儿，我转身走到床边，没上床，蹲下来翻床底的箱子。</p>
+      <p class="story-para">找到了——一个漆皮斑驳的铁皮盒，是我小时候装弹珠的。打开，里面是过期的游戏点卡、褪色的明星贴纸、几枚生锈的硬币，还有个蓝色小布袋，上面歪歪扭扭绣着&quot;平安&quot;二字，是我妈从前去庙里求的。</p>
+      <p class="story-para">我掏出布袋，倒出里面的东西：一块小玉，雕成小鱼形状，系着红绳。玉质普通，雕工也粗糙，却摸起来温温的，很光滑。</p>
+      <p class="story-para">这是我十岁生日时外婆送的，她说鱼是&quot;余&quot;，寓意年年有余、平安顺遂。我一直嫌幼稚，从没戴过。</p>
+      <p class="story-para">现在我拿着这块小鱼玉走到书桌前，打开台灯，从抽屉里找出一根新红绳，比量好长度，慢慢编起来。手指笨拙得很，小时候看外婆编过，可早忘了步骤，试了好几次才勉强打出像样的结。</p>
+      <p class="story-para">编完抬头，上铺的林小雨已经睡熟，呼吸均匀又轻浅。那只搭在栏杆上的手还搁在那儿，手指微微蜷着。</p>
+      <p class="story-para">我站起来，轻轻爬上梯子，蹲在上铺边望着他。他侧躺着面朝我，眼睛闭着，长睫毛在眼睑投下细碎的阴影，嘴唇微张，呼吸一起一伏。</p>
+      <p class="story-para">睡得很沉。</p>
+      <p class="story-para">我轻轻握住他搁在栏杆上的手，小小的，凉凉的。然后慢慢把编好的红绳系在他手腕上，小鱼玉垂下来贴着他的皮肤，在昏光里泛着温润的光。</p>
+      <p class="story-para">他动了动，眉头微蹙，却没醒，只是手指无意识地蜷了蜷，碰到了我的手。</p>
+      <p class="story-para">我僵住，没敢动。</p>
+      <p class="story-para">几秒后，他翻了个身背对我，手还搭在栏杆上，红绳松松系着，小鱼玉随他的呼吸轻轻晃。</p>
+      <p class="story-para">我望了他一会儿，才轻轻下床。</p>
+      <p class="story-para">躺回自己的床，关了夜灯。房间里一片漆黑，只有窗外的月光在地上投出模糊的光斑。</p>
+      <p class="story-para">我睁着眼望天花板，脑子里空空的，又像被什么填得满满的。</p>
+      <p class="story-para">过了很久，上铺传来极轻的梦呓：&quot;哥……&quot;</p>
+      <p class="story-para">&quot;嗯？&quot;我下意识应了一声。</p>
+      <p class="story-para">可他没再说话，只有均匀的呼吸声在黑暗里一起一伏。</p>
+      <p class="story-para">我闭上眼睛。</p>
+      <p class="story-para">手腕上，仿佛还留着他手指的温度，凉凉的，却真实得很。</p>
+      <p class="story-para">窗外，月亮慢慢移过树梢。夜色很浓，很静。</p>
+    </section>
+
+    <section class="chapter" id="c7">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 7</div>
+        <h2 class="ch-zh">第七章</h2>
+        <div class="ch-rule"></div>
+      </div>
+      <p class="story-para"><span class="drop">期</span>末考试结束的那天，下了场小雪。</p>
+      <p class="story-para">说是雪，其实更像雨夹雪。细密的白色颗粒从灰蒙蒙的天空飘下来，落在头发上、肩膀上，很快便化成湿漉漉的水渍。走廊里挤满刚考完试的学生，吵闹声、对答案声、收拾书包的哗啦声混作一片，空气里浮动着一种如释重负的躁动。</p>
+      <p class="story-para">我交完卷，最后一个走出教室。走廊已空了大半，只剩几个值日生在慢吞吞地擦黑板。我靠在栏杆上，往下望去。</p>
+      <p class="story-para">初中部楼下，那棵光秃秃的桂花树前，林小雨已经在那里了。他没打伞，穿着那件白色羽绒服——上周刚买的，是我坚持要买白色，嘴上说耐脏，其实是觉得他穿白色好看。头发上落了层薄薄的雪粒，在昏暗的天光下泛着细碎的银光。</p>
+      <p class="story-para">他双手插在口袋里，仰着头看天。雪花落在他脸上，他眨了眨眼，睫毛上沾了星星点点的白。</p>
+      <p class="story-para">&quot;小雨。&quot;我喊了一声。</p>
+      <p class="story-para">他低下头，看见我，抬手挥了挥。动作不大，眼睛却亮了一下。</p>
+      <p class="story-para">我跑下楼。雪下得密了些，地上已积起一层湿漉漉的白。踩上去，咯吱咯吱响。</p>
+      <p class="story-para">&quot;等多久了？&quot;我跑到他面前，拍了拍他头发上的雪。</p>
+      <p class="story-para">&quot;刚出来。&quot;他说，声音在冷空气里裹着一点白雾。</p>
+      <p class="story-para">&quot;考得怎么样？&quot;</p>
+      <p class="story-para">&quot;还行。&quot;他顿了顿，反问，&quot;你呢？&quot;</p>
+      <p class="story-para">&quot;还行。&quot;我说，其实是真的还行。最后这段时间，他每天晚上都给我讲数学题——没错，是他给我讲。我发现他思路比我清楚，讲题时逻辑清晰、步骤严谨。我的数学期末考了89分，是三个月来的最高分。</p>
+      <p class="story-para">&quot;走吧，&quot;我说，&quot;回家。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">我们一起往校门口走。雪还在下，细密而安静。路上已有学生在打雪仗，虽然雪还没积厚，但团起来的雪球砸在身上，还是冷得人一哆嗦。</p>
+      <p class="story-para">&quot;高航！&quot;周明从后面追上来，手里抓着个松垮垮的雪球，&quot;接招！&quot;</p>
+      <p class="story-para">雪球砸在我背上，碎了，冰水渗进毛衣。</p>
+      <p class="story-para">&quot;靠，周明你——&quot;我转身弯腰抓雪，可雪太湿，根本团不起来。</p>
+      <p class="story-para">周明早已跑远，边跑边笑：&quot;放假了！解放了！&quot;</p>
+      <p class="story-para">是啊，放假了。</p>
+      <p class="story-para">我直起身，拍了拍背上的雪水。林小雨站在旁边看着我，嘴角弯了弯。</p>
+      <p class="story-para">&quot;笑什么？&quot;我问。</p>
+      <p class="story-para">&quot;没。&quot;他摇头，眼睛却还弯着。</p>
+      <p class="story-para">我们继续走。校门口挤满接学生的家长，车来人往，嘈杂一片。我们挤过去，走进熟悉的街道。路边店铺已挂上红灯笼、贴了春联，空气里飘着炒货的焦香和糖葫芦的甜味。</p>
+      <p class="story-para">年味，突然就浓了。</p>
+      <p class="story-para">&quot;哥。&quot;林小雨叫我。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;明天……去买年货吗？&quot;</p>
+      <p class="story-para">&quot;去。&quot;我说，&quot;你想买什么？&quot;</p>
+      <p class="story-para">&quot;不知道。&quot;他想了想，&quot;瓜子？花生？&quot;</p>
+      <p class="story-para">&quot;还有糖。我妈说年三十要摆糖盒。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;再买点鞭炮。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;给你买新衣服。&quot;</p>
+      <p class="story-para">&quot;不用，有新的了。&quot;</p>
+      <p class="story-para">&quot;过年要穿新的。&quot;我坚持。</p>
+      <p class="story-para">他没再反驳。走到路口等红灯时，他忽然把手从口袋里伸出来，摊开掌心。</p>
+      <p class="story-para">一片完整的雪花落在他手心里，六角形，精致剔透，在掌心的温度里慢慢融化，化成一颗小小的水珠。</p>
+      <p class="story-para">&quot;化了。&quot;他说，声音里带着点遗憾。</p>
+      <p class="story-para">&quot;还会下的。&quot;我说。</p>
+      <p class="story-para">绿灯亮了，我们过马路。他把手重新插回口袋，眼睛却还望着天空。雪花落在他睫毛上，他眨了眨眼，没掉。</p>
+      <p class="story-para">回到家，暖气开得很足，一进门眼镜就蒙了白雾。我摘下来擦，林小雨也摘了。他脸上被冷风吹得有点红，鼻尖尤其红，像颗小草莓。</p>
+      <p class="story-para">&quot;冷死了。&quot;我脱下外套挂在衣架上。</p>
+      <p class="story-para">&quot;嗯。&quot;他也脱了羽绒服，里面是那件灰色高领毛衣，袖口往上卷了卷，露出手腕。红绳还系在那里，小鱼玉贴着皮肤，泛着温润的光泽。</p>
+      <p class="story-para">这三个多月，他一直戴着。洗澡时摘下来，洗完又戴上，从没问过是谁给的、为什么给，仿佛那本就是他手腕上该有的东西。</p>
+      <p class="story-para">&quot;晚上吃什么？&quot;我打开冰箱问。里面空了大半，只剩几个鸡蛋和半颗白菜。</p>
+      <p class="story-para">&quot;面条？&quot;他走过来，看了看冰箱。</p>
+      <p class="story-para">&quot;行，再加个蛋。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">他系上围裙，开始烧水。我坐在床上，看着他忙碌的背影。这三个月，这个背影从生疏变得熟练，从小心翼翼变得理所当然。切菜的手势、打蛋的力道、下面条的时间——全都印在了我的记忆里。</p>
+      <p class="story-para">水开了。他下面条、打蛋、下白菜。热气蒸腾起来，笼着他的脸。他推了推滑下来的眼镜，用勺子搅了搅锅。</p>
+      <p class="story-para">&quot;哥，拿碗。&quot;</p>
+      <p class="story-para">&quot;来了。&quot;</p>
+      <p class="story-para">我拿了两个碗递给他。他盛面，一碗多，一碗少。多的那碗推给我。</p>
+      <p class="story-para">&quot;你吃多的。&quot;我说。</p>
+      <p class="story-para">&quot;我吃不下。&quot;</p>
+      <p class="story-para">&quot;你正在长身体。&quot;</p>
+      <p class="story-para">&quot;你也是。&quot;他说着，已经坐下拿起了筷子。</p>
+      <p class="story-para">我笑了笑，没再争，坐下吃面。热腾腾的面条下肚，冻僵的身体慢慢暖和起来。</p>
+      <p class="story-para">&quot;小雨。&quot;我叫他。</p>
+      <p class="story-para">&quot;嗯？&quot;他抬头，嘴角沾了片葱叶。</p>
+      <p class="story-para">我伸手，用拇指擦掉。他僵了一下，耳朵随即红了。</p>
+      <p class="story-para">&quot;你爸妈……&quot;我顿了顿，&quot;什么时候到？&quot;</p>
+      <p class="story-para">他沉默片刻，筷子在碗里拨了拨。</p>
+      <p class="story-para">&quot;下周三。&quot;他声音很轻。</p>
+      <p class="story-para">下周三。四天后。</p>
+      <p class="story-para">&quot;哦。&quot;我应了一声，低头吃面。面条突然没那么香了。</p>
+      <p class="story-para">&quot;他们……租好了房子。&quot;他继续说，语气像在汇报，&quot;在城西，两室一厅。&quot;</p>
+      <p class="story-para">&quot;挺好啊。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;离学校远吗？&quot;</p>
+      <p class="story-para">&quot;有点，要转一趟公交。&quot;</p>
+      <p class="story-para">&quot;那早上得早点起。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">对话又断了。只有吃面的呼噜声，在安静的房间里格外清晰。</p>
+      <p class="story-para">窗外，雪还在下。天色暗下来，路灯一盏盏亮起，昏黄的光晕在雪幕里晕开，朦朦胧胧的。</p>
+      <p class="story-para">&quot;哥。&quot;他忽然叫我。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;你……&quot;他顿了顿，&quot;你过年回老家，什么时候回来？&quot;</p>
+      <p class="story-para">&quot;初七吧。&quot;我说。</p>
+      <p class="story-para">&quot;哦。&quot;他应了一声，低头继续吃面，却吃得很慢，一根一根地挑。</p>
+      <p class="story-para">&quot;怎么了？&quot;我问。</p>
+      <p class="story-para">&quot;没。&quot;他摇头，几秒后又说，&quot;你回来……我可能已经搬过去了。&quot;</p>
+      <p class="story-para">我心里咯噔一下。</p>
+      <p class="story-para">是啊，下周三他爸妈来接他走，我周五回老家。等我回来，这个房间就又只剩下我一个人了。</p>
+      <p class="story-para">&quot;没事，&quot;我声音有点干，&quot;我可以去看你。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他点头，没抬头。</p>
+      <p class="story-para">&quot;你也可以过来玩，周末、放假，随时。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">他应着，声音越来越轻。最后放下筷子，碗里还剩小半碗面。</p>
+      <p class="story-para">&quot;不吃了？&quot;我问。</p>
+      <p class="story-para">&quot;饱了。&quot;他说着站起来，端碗去厨房。</p>
+      <p class="story-para">我看着他洗碗的背影，瘦瘦的，肩膀微微耸着。水声哗哗，蒸汽升腾，把他的背影笼得模糊。</p>
+      <p class="story-para">我忽然觉得，这碗面怎么也吃不下去了。</p>
+      <p class="story-para">第二天，我们真的去买年货了。</p>
+      <p class="story-para">商场里人山人海，到处都是置办年货的人。推着购物车挤在货架前，挑挑拣拣、讨价还价。空气里混杂着炒货香、糖果甜，还有新衣服的布料味。</p>
+      <p class="story-para">林小雨推着车，我往里面扔东西：瓜子、花生、糖果、巧克力、饼干、饮料。又去生鲜区买了条鱼、一块肉、几样蔬菜。</p>
+      <p class="story-para">&quot;够了吧？&quot;他看着满满一车的东西。</p>
+      <p class="story-para">&quot;再买点。&quot;我又拿了两包薯片扔进去。</p>
+      <p class="story-para">&quot;吃不完的。&quot;</p>
+      <p class="story-para">&quot;慢慢吃。&quot;</p>
+      <p class="story-para">推着车去结账，队伍排得很长。我们排在末尾，一点点往前挪。前面是一大家子：爷爷奶奶、爸爸妈妈，还有个和林小雨差不多大的男孩。男孩坐在购物车里，手里拿着玩具咿咿呀呀地说着什么，爸爸逗他，妈妈整理东西，爷爷奶奶在旁边笑。</p>
+      <p class="story-para">很热闹，很团圆。</p>
+      <p class="story-para">林小雨看着他们，看了一会儿，转开视线低头看着购物车里的东西。</p>
+      <p class="story-para">&quot;小雨。&quot;我叫他。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;你过年跟你爸妈过，也挺好。&quot;</p>
+      <p class="story-para">他沉默片刻，很轻地嗯了一声。</p>
+      <p class="story-para">&quot;他们肯定想你了。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;你也想他们吧？&quot;</p>
+      <p class="story-para">&quot;……嗯。&quot;</p>
+      <p class="story-para">他应着，眼睛却一直看着购物车里的那包薯片，没抬头。</p>
+      <p class="story-para">结完账，两大袋东西。我提重的，他提轻的。走出商场，雪停了，但地上积了薄薄一层，白茫茫的。踩上去，咯吱咯吱，声音很脆。</p>
+      <p class="story-para">&quot;哥，看。&quot;他忽然说。</p>
+      <p class="story-para">我顺着他指的方向看。路边，有个老人在卖糖葫芦。草靶子上插满了红艳艳的糖葫芦，在雪地里格外扎眼。</p>
+      <p class="story-para">&quot;想吃？&quot;我问。</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">我走过去，买了两串——一串山楂的，一串橘子的。山楂的递给他，橘子的留给自己。</p>
+      <p class="story-para">&quot;谢谢哥。&quot;他接过，咬了一口。糖壳&quot;咔嚓&quot;一声碎了，他满足地眯起眼睛。</p>
+      <p class="story-para">&quot;甜吗？&quot;</p>
+      <p class="story-para">&quot;甜。&quot;</p>
+      <p class="story-para">我们一边啃着糖葫芦，一边往家走。雪地里留下两串脚印，一大一小，并排着，一直延伸向远方。</p>
+      <p class="story-para">&quot;哥。&quot;他含着糖葫芦，含糊不清地叫我。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;你小时候……过年都干什么呀？&quot;</p>
+      <p class="story-para">&quot;放鞭炮，吃好吃的，收红包。&quot;我回忆着，&quot;然后看春晚，熬到十二点，吃饺子。&quot;</p>
+      <p class="story-para">&quot;好玩吗？&quot;</p>
+      <p class="story-para">&quot;当然好玩。一大家子人聚在一起，热闹极了。&quot;</p>
+      <p class="story-para">&quot;哦。&quot;他应了一声，又咬了口山楂，慢慢嚼着。</p>
+      <p class="story-para">&quot;你呢？&quot;我问，&quot;以前过年怎么过？&quot;</p>
+      <p class="story-para">&quot;跟爷爷奶奶过。&quot;他说，&quot;吃顿饭，看会儿春晚，就睡觉了。&quot;</p>
+      <p class="story-para">&quot;不放鞭炮？&quot;</p>
+      <p class="story-para">&quot;城里不让放。&quot;</p>
+      <p class="story-para">&quot;那……不觉得冷清吗？&quot;</p>
+      <p class="story-para">&quot;还行吧。&quot;他声音淡淡的。</p>
+      <p class="story-para">我没再问。沉默着走了一段，糖葫芦吃完了，只剩光秃秃的竹签。</p>
+      <p class="story-para">&quot;哥。&quot;他又开口。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;今年……&quot;他顿了顿，&quot;我能跟你一起放鞭炮吗？&quot;</p>
+      <p class="story-para">我转头看他。他仰着脸，眼睛在雪地反光里亮晶晶的，带着点小心翼翼的期待。</p>
+      <p class="story-para">&quot;当然能。&quot;我说，&quot;买好多好多，放个够。&quot;</p>
+      <p class="story-para">他笑了，眼睛弯成月牙，嘴角还沾着点糖渣。</p>
+      <p class="story-para">&quot;嗯！&quot;</p>
+      <p class="story-para">周一，他爸妈打电话来了。</p>
+      <p class="story-para">是我接的。晚上七点多，电话铃响，我拿起听筒，那边是个温和却带着点急促的女声。</p>
+      <p class="story-para">&quot;喂，请问是高航吗？&quot;</p>
+      <p class="story-para">&quot;我是。您是哪位？&quot;</p>
+      <p class="story-para">&quot;我是小雨的妈妈。小雨在吗？&quot;</p>
+      <p class="story-para">&quot;在呢。您稍等。&quot;我捂住话筒，转头喊，&quot;小雨，你妈妈电话。&quot;</p>
+      <p class="story-para">林小雨从书桌前抬起头，愣了一下，放下笔走过来，接过电话，声音轻轻的：&quot;喂，妈。&quot;</p>
+      <p class="story-para">我走到厨房倒水，耳朵却不自觉地竖着，能听见他断断续续的回应。</p>
+      <p class="story-para">&quot;嗯……考完了……还行……嗯……知道了……好……嗯……&quot;</p>
+      <p class="story-para">简短又规矩，像在回答老师的问题。</p>
+      <p class="story-para">过了会儿，他叫我：&quot;哥。&quot;</p>
+      <p class="story-para">我走回去，他把电话递过来：&quot;我妈想跟你说话。&quot;</p>
+      <p class="story-para">我接过：&quot;阿姨好。&quot;</p>
+      <p class="story-para">&quot;小航啊，真是麻烦你了。&quot;小雨妈妈的声音带着笑意，&quot;小雨这段时间多亏你照顾。&quot;</p>
+      <p class="story-para">&quot;没事，应该的。&quot;</p>
+      <p class="story-para">&quot;我们周三下午到，大概三点。到时候去接小雨，你把地址发我一下？&quot;</p>
+      <p class="story-para">&quot;好的。&quot;</p>
+      <p class="story-para">&quot;还有这段时间的费用……&quot;</p>
+      <p class="story-para">&quot;不用了阿姨，没花多少钱。&quot;</p>
+      <p class="story-para">&quot;那怎么行。见面再说吧，真是谢谢你了。&quot;</p>
+      <p class="story-para">&quot;不客气。&quot;</p>
+      <p class="story-para">挂了电话，房间里静悄悄的。林小雨已经坐回书桌前，却没写作业，只是盯着桌上的台灯，一动不动。</p>
+      <p class="story-para">&quot;周三下午三点到。&quot;我说。</p>
+      <p class="story-para">&quot;嗯。&quot;他应了一声，没回头。</p>
+      <p class="story-para">&quot;东西收拾了吗？&quot;</p>
+      <p class="story-para">&quot;还没。&quot;</p>
+      <p class="story-para">&quot;明天收拾吧，我帮你。&quot;</p>
+      <p class="story-para">&quot;……嗯。&quot;</p>
+      <p class="story-para">对话断了。我站在房间中央，忽然不知道该做什么——倒水？洗澡？还是睡觉？</p>
+      <p class="story-para">最后，我拉了把椅子坐在他身边。</p>
+      <p class="story-para">&quot;小雨。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他还是没回头。</p>
+      <p class="story-para">&quot;你……&quot;我想说点什么，话到嘴边又咽了回去，最后只说，&quot;早点睡吧。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">我起身去洗澡。热水冲下来，蒸汽弥漫。我闭着眼，脑子里空空的，又好像塞满了什么。</p>
+      <p class="story-para">洗完出来，他已经躺下了，面朝墙壁，被子盖到头顶，只露出一小撮头发。</p>
+      <p class="story-para">我关了灯，躺下。黑暗里，能听见他轻轻的呼吸声，很平稳，却又好像太平稳了。</p>
+      <p class="story-para">&quot;小雨。&quot;我对着黑暗喊。</p>
+      <p class="story-para">&quot;嗯。&quot;他从被子里闷闷地应了一声。</p>
+      <p class="story-para">&quot;睡不着？&quot;</p>
+      <p class="story-para">&quot;……嗯。&quot;</p>
+      <p class="story-para">&quot;想什么呢？&quot;</p>
+      <p class="story-para">&quot;……没什么。&quot;</p>
+      <p class="story-para">我没再问。翻了个身面朝天花板，窗外的月光透过窗帘缝漏进来，在地上投出一道细细的光带。</p>
+      <p class="story-para">过了很久，久到我以为他睡着了，他忽然轻轻说：</p>
+      <p class="story-para">&quot;哥。&quot;</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;我搬过去之后……还能过来玩吗？&quot;</p>
+      <p class="story-para">&quot;当然能。&quot;我说，&quot;随时来。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">又陷入沉默。月光慢慢移过地板，那道细细的光带，爬上了床脚。&quot;哥。&quot;</p>
+      <p class="story-para">&quot;又怎么了？&quot;</p>
+      <p class="story-para">&quot;你……会想我吗？&quot;</p>
+      <p class="story-para">我心里像被什么东西重重撞了一下，酸酸涩涩的，胀得发疼。</p>
+      <p class="story-para">&quot;会。&quot;我说，声音有点发哑。</p>
+      <p class="story-para">他没再说话。过了一会儿，我听见很轻的窸窸窣窣的声响，随即一只小小的、冰凉的手从旁边伸过来，轻轻碰了碰我的手。</p>
+      <p class="story-para">我僵了一下，随即翻过手掌，握住了那只手。</p>
+      <p class="story-para">很小，很凉，却真实得很。</p>
+      <p class="story-para">他轻轻回握了一下，力道轻得像蝴蝶扇动翅膀。</p>
+      <p class="story-para">然后他松开手，缩了回去。被子动了动，他翻了个身，背对着我。</p>
+      <p class="story-para">&quot;晚安，哥。&quot;黑暗里传来他的声音，很轻，带着点鼻音。</p>
+      <p class="story-para">&quot;……晚安。&quot;</p>
+    </section>
+
+    <section class="chapter" id="c8">
+      <div class="chapter-head">
+        <div class="ch-compact">Chapter 8</div>
+        <h2 class="ch-zh">第八章</h2>
+        <div class="ch-rule"></div>
+      </div>
+      <p class="story-para"><span class="drop">周</span>三的雪在中午停了。</p>
+      <p class="story-para">太阳从云层后探出头，苍白的光斜斜照在积雪上，反射出刺眼的白。窗台上的雪开始融化，水珠顺着玻璃蜿蜒流下，留下一道道透明的痕迹。</p>
+      <p class="story-para">我坐在床上，看着林小雨收拾行李。</p>
+      <p class="story-para">那个银灰色的小行李箱又被拖了出来，摊开在地上。他蹲在旁边，一件一件往里放东西：叠得方方正正的毛衣，卷好的袜子，叠好的裤子，然后是书、作业本、文具盒。动作很慢，很仔细，像在做一件需要全神贯注的事。</p>
+      <p class="story-para">&quot;这个要带吗？&quot;他拿起床头那本《小王子》，转头问我。</p>
+      <p class="story-para">&quot;带着吧。&quot;我说，&quot;看完了？&quot;</p>
+      <p class="story-para">&quot;看完了。&quot;</p>
+      <p class="story-para">&quot;好看吗？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他点点头，把书放进箱子侧袋。</p>
+      <p class="story-para">我又看向别处。房间里其实没多少他的东西——才三个多月，能留下多少痕迹？但那件挂在椅背上的灰色毛衣，那个放在书桌上的黑框眼镜盒，那双摆在门口的蓝色棉拖鞋，还有阳台上晾着的那双深蓝色袜子——所有这些，突然变得刺眼。</p>
+      <p class="story-para">&quot;哥。&quot;他叫我。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;这个，&quot;他手里拿着那条深蓝色围巾，&quot;是你的。&quot;</p>
+      <p class="story-para">&quot;你戴着吧。&quot;</p>
+      <p class="story-para">&quot;可是——&quot;</p>
+      <p class="story-para">&quot;戴着。&quot;我说，&quot;我还有很多。&quot;</p>
+      <p class="story-para">他看了看我，没再坚持，把围巾叠好，放进箱子。</p>
+      <p class="story-para">然后是手套、袜子，那件白色羽绒服。箱子一点点满起来。</p>
+      <p class="story-para">&quot;这个呢？&quot;他拿起书桌上那个小小的仙人掌盆栽——上周在学校门口买的，他说好养，不占地方。</p>
+      <p class="story-para">&quot;留着吧，放你这儿。&quot;我说，&quot;记得浇水。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他看了看花盆，又看了看我，把它轻轻放回了书桌上。</p>
+      <p class="story-para">最后，是床上用品。被子、枕头、床单。他拆下被套，叠好；枕头套褪下来，叠好；床单扯下来，叠好。那张睡了三个多月的上铺，又变回光秃秃的木板，露出陈旧的纹理。</p>
+      <p class="story-para">房间里突然空了一大块。</p>
+      <p class="story-para">&quot;差不多了。&quot;他拉上行李箱的拉链，咔哒一声，在安静的房间里格外响亮。</p>
+      <p class="story-para">我看了看手机，两点二十。</p>
+      <p class="story-para">&quot;你爸妈……说三点到？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;那还有一会儿。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">我们面对面站着，中间隔着那个行李箱。阳光从窗户照进来，在两人之间的地板上投下一道明晃晃的光带，灰尘在光里飞舞。</p>
+      <p class="story-para">&quot;坐会儿吧。&quot;我说。</p>
+      <p class="story-para">我们在床边坐下。床垫因为少了一层床单，显得有点硬。我看着他放在膝盖上的手，手腕上那根红绳，小鱼玉垂下来，随着他的呼吸轻轻晃动。</p>
+      <p class="story-para">&quot;这个，&quot;我指了指小鱼玉，&quot;一直戴着？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他低头看了看，&quot;戴着……安心。&quot;</p>
+      <p class="story-para">我没说话。胸口某个地方，被这句话轻轻撞了一下。</p>
+      <p class="story-para">窗外传来小孩玩雪的笑闹声，远远的，朦朦胧胧。房间里很安静，能听见暖气片滋滋的水流声，和他平稳的呼吸声。</p>
+      <p class="story-para">&quot;哥。&quot;他忽然叫我。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;这三个月……&quot;他顿了顿，&quot;谢谢你。&quot;</p>
+      <p class="story-para">&quot;谢什么。&quot;</p>
+      <p class="story-para">&quot;所有。&quot;他说，声音很轻，但很清晰，&quot;谢谢你收留我。谢谢你给我做饭。谢谢你给我讲题。谢谢你……陪我。&quot;</p>
+      <p class="story-para">我看着他的侧脸。阳光落在他脸上，睫毛在眼睑上投下小小的阴影。鼻梁挺直，嘴唇抿着，下巴有一道很浅的、属于少年的弧线。</p>
+      <p class="story-para">&quot;你也陪我了。&quot;我说。</p>
+      <p class="story-para">他转过头，看着我。眼睛在阳光下，是浅浅的褐色，很干净，很亮。</p>
+      <p class="story-para">&quot;我其实……&quot;他顿了顿，&quot;挺怕来的。&quot;</p>
+      <p class="story-para">&quot;怕什么？&quot;</p>
+      <p class="story-para">&quot;怕麻烦你。怕你不喜欢我。怕……&quot;他低头，手指摩挲着红绳，&quot;怕又一个人。&quot;</p>
+      <p class="story-para">我没说话，等他说下去。</p>
+      <p class="story-para">&quot;但是来了之后，&quot;他继续说，声音很轻，像在自言自语，&quot;发现……挺好的。早上有人叫我起床。晚上有人一起吃饭。作业不会了，有人教。冷了，有人给围巾。生病了，有人倒水。&quot;</p>
+      <p class="story-para">他抬起头，看着我，眼睛亮晶晶的。</p>
+      <p class="story-para">&quot;就像……有家了。&quot;</p>
+      <p class="story-para">我心里一酸，伸手揉了揉他的头发。</p>
+      <p class="story-para">&quot;傻。这里就是你家。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他点头，很用力。</p>
+      <p class="story-para">手机响了，是他妈妈的电话。</p>
+      <p class="story-para">&quot;喂，妈……嗯，好……知道了……嗯，马上下来。&quot;</p>
+      <p class="story-para">挂了电话，他站起来：&quot;他们到了。&quot;</p>
+      <p class="story-para">&quot;我送你下去。&quot;</p>
+      <p class="story-para">&quot;不用——&quot;</p>
+      <p class="story-para">&quot;我送你。&quot;我也站起来。</p>
+      <p class="story-para">他望着我，随后点了点头。</p>
+      <p class="story-para">我帮他提过行李箱。箱子不重，可轮子在楼道里咕噜咕噜地响，声音在安静的楼梯间里荡开，又折回来。一楼，二楼，三楼。走到楼门口时，冷风&quot;呼&quot;地灌进来，我不由得打了个哆嗦。</p>
+      <p class="story-para">路边停着一辆银灰色轿车。车旁立着一对中年男女，裹着厚外套，脖子上围着围巾。看见我们，女人快步迎上来。</p>
+      <p class="story-para">&quot;小雨！&quot;她声音里带着点激动，伸手想抱他，却又停住，只是轻轻摸了摸他的头，&quot;又长高了。&quot;</p>
+      <p class="story-para">&quot;妈。&quot;林小雨小声喊了一句，接着看向她身后的男人，&quot;爸。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;男人应了一声，走上前来，接过我手里的行李箱，&quot;你就是高航吧？谢谢你这段时间照顾小雨。&quot;</p>
+      <p class="story-para">&quot;应该的，叔叔。&quot;</p>
+      <p class="story-para">&quot;真是太麻烦你了。&quot;小雨妈妈握住我的手，她的掌心很暖，&quot;这孩子不懂事，肯定给你添了不少麻烦。&quot;</p>
+      <p class="story-para">&quot;没有，小雨很乖。&quot;</p>
+      <p class="story-para">&quot;那就好，那就好。&quot;她松开手，转向林小雨，&quot;东西都带齐了吗？没落下什么吧？&quot;</p>
+      <p class="story-para">&quot;齐了。&quot;</p>
+      <p class="story-para">&quot;那……我们走吧。跟哥哥说再见。&quot;</p>
+      <p class="story-para">林小雨转过身对着我。他望着我，嘴唇动了动，却没发出声音。眼睛有点红，但没掉眼泪。</p>
+      <p class="story-para">&quot;哥。&quot;他终于开口，声音带着点沙哑。</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;我……走了。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;你……照顾好自己。&quot;</p>
+      <p class="story-para">&quot;你也是。&quot;</p>
+      <p class="story-para">&quot;记得按时吃饭。&quot;</p>
+      <p class="story-para">&quot;记得。&quot;</p>
+      <p class="story-para">&quot;天冷，多穿点衣服。&quot;</p>
+      <p class="story-para">&quot;你也是。&quot;</p>
+      <p class="story-para">&quot;作业要是……不会做，可以打电话问我。&quot;</p>
+      <p class="story-para">&quot;好。&quot;</p>
+      <p class="story-para">&quot;哥。&quot;</p>
+      <p class="story-para">&quot;怎么了？&quot;</p>
+      <p class="story-para">&quot;我……&quot;他顿了顿，然后用很轻的声音说，&quot;会想你的。&quot;</p>
+      <p class="story-para">我心里像被什么东西重重撞了一下，闷得发疼。但我还是扯了扯嘴角，说：&quot;我也会想你。&quot;</p>
+      <p class="story-para">他点点头，转过身，拉开了车门。坐进去之前，又回头看了我一眼。</p>
+      <p class="story-para">阳光正好落在他脸上。眼睛亮晶晶的，很干净。嘴角努力往上扬了扬，想笑，却没完全笑出来。</p>
+      <p class="story-para">然后他坐进车里，关上了门。</p>
+      <p class="story-para">车窗缓缓摇下来。他趴在窗口，望着我。</p>
+      <p class="story-para">&quot;哥，再见。&quot;</p>
+      <p class="story-para">&quot;再见。&quot;</p>
+      <p class="story-para">车发动了，慢慢往前开。他的脸在车窗后，越来越小，越来越模糊。</p>
+      <p class="story-para">我站在原地，看着车拐过街角，消失在楼宇之间。</p>
+      <p class="story-para">风刮过来，卷起地上的积雪，扑在我脸上，凉丝丝的。</p>
+      <p class="story-para">我站了一会儿，然后转身，上楼。</p>
+      <p class="story-para">楼道里很暗，声控灯还是坏的。我一步一步往上走，脚步声在空荡荡的楼梯间里响着，显得格外清晰。走到三楼，我拿出钥匙，开了门。</p>
+      <p class="story-para">房间里静悄悄的。</p>
+      <p class="story-para">阳光从窗户照进来，落在地板上，明晃晃的一片。上铺是光秃秃的木板，书桌上空了一块，椅背上没了那件灰色毛衣，门口也不见了那双蓝色拖鞋。</p>
+      <p class="story-para">空气中，还残留着他洗发水的味道，淡淡的，像青草。</p>
+      <p class="story-para">我走到床边，坐下。床垫有点硬。我伸出手，摸了摸上铺的木板。木纹粗糙，冰凉。</p>
+      <p class="story-para">然后我躺下，面朝墙壁。</p>
+      <p class="story-para">墙壁上有块水渍，形状像一只张开翅膀的鸟。我盯着那只&quot;鸟&quot;，看了很久。</p>
+      <p class="story-para">窗外的阳光慢慢西斜，从地板移到墙上，又从墙上移到天花板。房间里一点一点暗下来。</p>
+      <p class="story-para">我没有开灯。</p>
+      <p class="story-para">晚上，我煮了面。一个人的面。水放多了，面煮得坨成一团，鸡蛋打散了，青菜也煮黄了。</p>
+      <p class="story-para">我坐在桌子前，看着那碗卖相惨淡的面。拿起筷子，吃了一口。</p>
+      <p class="story-para">淡的。忘了放盐。</p>
+      <p class="story-para">我放下筷子，坐着。房间里很安静，只有冰箱嗡嗡的运转声。</p>
+      <p class="story-para">手机响了。是我妈。</p>
+      <p class="story-para">&quot;喂，妈。&quot;</p>
+      <p class="story-para">&quot;小航啊，小雨走了？&quot;</p>
+      <p class="story-para">&quot;嗯，下午走的。&quot;</p>
+      <p class="story-para">&quot;他爸妈来接的？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;那就好。你这下轻松了吧？一个人多自在。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;对了，你什么时候回老家？车票买了吗？&quot;</p>
+      <p class="story-para">&quot;买了，周五。&quot;</p>
+      <p class="story-para">&quot;行，那周五见。记得带厚衣服，家里冷。&quot;</p>
+      <p class="story-para">&quot;知道了。&quot;</p>
+      <p class="story-para">挂了电话。我继续看着那碗面。看了很久，然后端起碗，走到厨房，倒进垃圾桶。</p>
+      <p class="story-para">碗空空的，白白的，在灯光下发着冷光。</p>
+      <p class="story-para">我洗了碗，擦干，放回碗柜。碗柜里，两个碗，两个盘子，两双筷子，整整齐齐地摆着。</p>
+      <p class="story-para">我看了它们一会儿，然后关上柜门。</p>
+      <p class="story-para">洗完澡，我躺回床上。上铺是空的，没有窸窸窣窣的声音，没有轻轻的呼吸声，也没有偶尔的梦呓。</p>
+      <p class="story-para">我翻了个身，面朝天花板。天花板上的水渍鸟，在黑暗里模糊成一团。</p>
+      <p class="story-para">手机屏幕亮了一下，是条短信。</p>
+      <p class="story-para">&quot;哥，我到了。新家很大。你吃饭了吗？&quot;</p>
+      <p class="story-para">我盯着那条短信看了很久，然后打字：&quot;吃了。你呢？&quot;</p>
+      <p class="story-para">&quot;也吃了。我妈做的，有点咸。&quot;</p>
+      <p class="story-para">&quot;多喝水。&quot;</p>
+      <p class="story-para">&quot;嗯。哥，你一个人，记得锁门。&quot;</p>
+      <p class="story-para">&quot;知道了。&quot;</p>
+      <p class="story-para">&quot;暖气开足点，别省电。&quot;</p>
+      <p class="story-para">&quot;知道了。&quot;</p>
+      <p class="story-para">&quot;早点睡。&quot;</p>
+      <p class="story-para">&quot;你也是。&quot;</p>
+      <p class="story-para">&quot;晚安，哥。&quot;</p>
+      <p class="story-para">&quot;晚安。&quot;</p>
+      <p class="story-para">屏幕暗下去，房间里又陷入黑暗。我把手机放在胸口，闭上眼睛。</p>
+      <p class="story-para">周五，我坐上了回老家的火车。车厢里挤满了人，大包小包，吵吵嚷嚷。空气里飘着泡面味、汗味，还有小孩的哭闹声。我靠窗坐着，看着窗外飞速后退的景物——田野、村庄、光秃秃的树、积雪的屋顶，一切都在往后跑。</p>
+      <p class="story-para">手机震动了一下，是林小雨。</p>
+      <p class="story-para">&quot;哥，你上车了吗？&quot;</p>
+      <p class="story-para">&quot;上了。&quot;</p>
+      <p class="story-para">&quot;路上小心。&quot;</p>
+      <p class="story-para">&quot;知道了。你在干嘛？&quot;</p>
+      <p class="story-para">&quot;写作业。寒假作业好多。&quot;</p>
+      <p class="story-para">&quot;慢慢写。&quot;</p>
+      <p class="story-para">&quot;嗯。哥，老家冷吗？&quot;</p>
+      <p class="story-para">&quot;冷。下雪了。&quot;</p>
+      <p class="story-para">&quot;真好。这边没下。&quot;</p>
+      <p class="story-para">&quot;过年会下的。&quot;</p>
+      <p class="story-para">&quot;嗯。哥，你那边……热闹吗？&quot;</p>
+      <p class="story-para">&quot;热闹。一大家子人。&quot;</p>
+      <p class="story-para">&quot;哦。&quot;</p>
+      <p class="story-para">&quot;你呢？过年怎么过？&quot;</p>
+      <p class="story-para">&quot;就……吃饭，看春晚。&quot;</p>
+      <p class="story-para">&quot;不放鞭炮？&quot;</p>
+      <p class="story-para">&quot;城里不让放。&quot;</p>
+      <p class="story-para">我想了想，打字：&quot;等我回去，给你带鞭炮。&quot;</p>
+      <p class="story-para">过了几秒，他回：&quot;好。&quot;</p>
+      <p class="story-para">火车钻进隧道，窗外一片漆黑，玻璃上映出我的脸，有点模糊，有点陌生。隧道很长，黑暗很长。</p>
+      <p class="story-para">在老家的日子，过得很慢，又很快。白天被亲戚拉着拜年、吃饭、打牌；晚上一大家子围在电视机前看春晚，嗑瓜子，聊天。热闹，嘈杂，烟火气十足。但我总觉得少了点什么——少了一个安静坐在角落看书的人，少了一个会小声提醒我&quot;瓜子吃多了上火&quot;的人，少了一个会在午夜钟声响起时迷迷糊糊揉着眼睛说&quot;哥，新年快乐&quot;的人。</p>
+      <p class="story-para">除夕夜，零点钟声敲响时，我给林小雨发了条短信：&quot;新年快乐。&quot;</p>
+      <p class="story-para">过了几分钟，他回：&quot;新年快乐，哥。&quot;</p>
+      <p class="story-para">&quot;在干嘛？&quot;</p>
+      <p class="story-para">&quot;看春晚。外面在放烟花。&quot;</p>
+      <p class="story-para">&quot;好看吗？&quot;</p>
+      <p class="story-para">&quot;好看。就是……有点吵。&quot;</p>
+      <p class="story-para">&quot;你那能看到吗？&quot;</p>
+      <p class="story-para">&quot;能。从窗户能看到一点。&quot;</p>
+      <p class="story-para">&quot;我这边也在放。很响。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;小雨。&quot;</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;新年快乐。&quot;</p>
+      <p class="story-para">&quot;哥，你说了两遍了。&quot;</p>
+      <p class="story-para">&quot;哦。那……祝你学习进步。&quot;</p>
+      <p class="story-para">&quot;嗯。也祝你……万事如意。&quot;</p>
+      <p class="story-para">我笑了，放下手机走到院子里。天上炸开一朵朵烟花，红的、绿的、金的、银的，噼里啪啦，震耳欲聋。堂弟堂妹在院子里放小烟花，手里拿着&quot;仙女棒&quot;，火花四溅，映着他们笑得通红的脸。</p>
+      <p class="story-para">&quot;哥，来放鞭炮！&quot;堂弟叫我。</p>
+      <p class="story-para">&quot;来了。&quot;</p>
+      <p class="story-para">我走过去，拿起一挂鞭炮拆开铺在地上，用香点燃引信，刺啦一声，火花窜起。我跑开，鞭炮炸响，噼里啪啦，红色的纸屑飞溅，空气里弥漫着硝烟的味道。很响，很热闹。但我忽然想起，答应过一个人，要和他一起放鞭炮。</p>
+      <p class="story-para">鞭炮放完了，纸屑撒了一地，红艳艳的。堂弟堂妹又去玩别的了。我站在院子里，看着满地红纸和渐渐散去的硝烟。手机在口袋里震动，我拿出来，是林小雨。</p>
+      <p class="story-para">&quot;哥，我好像听到你那边在放鞭炮。&quot;</p>
+      <p class="story-para">&quot;嗯，刚放完。&quot;</p>
+      <p class="story-para">&quot;响吗？&quot;</p>
+      <p class="story-para">&quot;响。&quot;</p>
+      <p class="story-para">&quot;真好。&quot;</p>
+      <p class="story-para">&quot;等你来了，我们一起放。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;小雨。&quot;</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;新年真的快乐。&quot;</p>
+      <p class="story-para">&quot;嗯。哥也是。&quot;</p>
+      <p class="story-para">初七，我回了城。火车到站时是下午，天阴沉沉的，像要下雪。我拖着行李箱坐公交回家，路上经过城西，想起林小雨说过他爸妈租的房子在那边，但我不知道具体地址。算了。</p>
+      <p class="story-para">回到家，打开门，房间里还是我走时的样子——冷清，整齐，空旷。我放下行李开窗通风，冷空气灌进来，带着城市特有的灰尘味。走到厨房烧了壶水，水开了，鸣笛声在安静的房间里格外刺耳。</p>
+      <p class="story-para">我倒了一杯水坐在床上喝，水很烫，烫得舌头有点发麻。</p>
+      <p class="story-para">手机响了，是林小雨打来的。</p>
+      <p class="story-para">&quot;哥，你回来了？&quot;</p>
+      <p class="story-para">&quot;嗯，刚到家。&quot;</p>
+      <p class="story-para">&quot;老家好玩吗？&quot;</p>
+      <p class="story-para">&quot;还行，挺热闹的。&quot;</p>
+      <p class="story-para">&quot;哦。&quot;</p>
+      <p class="story-para">&quot;你作业写完了吗？&quot;</p>
+      <p class="story-para">&quot;还没，快了。&quot;</p>
+      <p class="story-para">&quot;慢慢写。&quot;</p>
+      <p class="story-para">&quot;嗯。哥，你……一个人吗？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;晚上吃什么？&quot;</p>
+      <p class="story-para">&quot;不知道，可能煮面。&quot;</p>
+      <p class="story-para">&quot;哦。&quot;</p>
+      <p class="story-para">对话停了。电话那头传来细微的电流声，混着他轻浅的呼吸。</p>
+      <p class="story-para">&quot;哥。&quot;他忽然开口。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;我……&quot;他顿了顿，&quot;我想吃你煮的面了。&quot;</p>
+      <p class="story-para">我心里一酸，握着手机没说话。</p>
+      <p class="story-para">&quot;我妈煮的……没你煮的好吃。&quot;他小声说。</p>
+      <p class="story-para">&quot;瞎说。&quot;我的声音有点哑。</p>
+      <p class="story-para">&quot;真的。她老是煮得太软，要么太硬。蛋也总是煎破。&quot;</p>
+      <p class="story-para">&quot;那你教她。&quot;</p>
+      <p class="story-para">&quot;教了，她学不会。&quot;</p>
+      <p class="story-para">我笑了：&quot;那你来，我煮给你吃。&quot;</p>
+      <p class="story-para">说完，我们都沉默了。</p>
+      <p class="story-para">&quot;哥。&quot;他又叫。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;我……能过来吗？&quot;</p>
+      <p class="story-para">&quot;现在？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">我看向窗外，天快黑了，阴云沉沉的。</p>
+      <p class="story-para">&quot;太晚了，明天吧。&quot;</p>
+      <p class="story-para">&quot;……哦。&quot;他的声音低了下去。</p>
+      <p class="story-para">&quot;明天，&quot;我说，&quot;明天你来，我给你煮面。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他应了一声，声音轻快了些。</p>
+      <p class="story-para">挂了电话，我坐在床上看着窗外。天彻底黑了，路灯亮起来，楼下那排香樟树在风里晃着光秃秃的枝桠。</p>
+      <p class="story-para">明天。</p>
+      <p class="story-para">第二天，林小雨真的来了。</p>
+      <p class="story-para">下午两点，门铃响了。我开门，他站在门外，穿着那件白色羽绒服，围着深蓝色围巾，背着书包。鼻尖冻得红红的，眼镜片上蒙着一层白雾。</p>
+      <p class="story-para">&quot;哥。&quot;他叫我，声音带着室外冷空气的清冽。</p>
+      <p class="story-para">&quot;进来。&quot;我侧身让他进门。</p>
+      <p class="story-para">他走进来，脱了外套和围巾，里面是那件灰色高领毛衣，袖口往上卷了卷，露出手腕——红绳还在，小鱼玉随着他的动作轻轻晃。</p>
+      <p class="story-para">&quot;坐。&quot;我说。</p>
+      <p class="story-para">他在床边坐下，双手放在膝盖上，有点拘谨。眼睛先扫了扫房间，又看向我。</p>
+      <p class="story-para">&quot;喝水吗？&quot;我问，在他旁边坐下。</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">我倒了两杯热水递给他一杯，他双手捧着，小口小口地喝。热气往上冒，他的脸在雾气里显得有些模糊。</p>
+      <p class="story-para">&quot;作业写完了？&quot;</p>
+      <p class="story-para">&quot;嗯，刚写完。&quot;他打开书包拿出作业本，&quot;最后一道题不太会，你帮我看看？&quot;</p>
+      <p class="story-para">&quot;好。&quot;</p>
+      <p class="story-para">我接过作业本，是道几何证明题，需要作辅助线。我看了看，拿起笔在草稿纸上画：&quot;这里连这里，然后这里连这里，看出来了吗？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他点头，眼睛跟着我的笔尖，&quot;这样就是两个相似三角形。&quot;</p>
+      <p class="story-para">&quot;对，然后呢？&quot;</p>
+      <p class="story-para">&quot;对应边成比例。&quot;</p>
+      <p class="story-para">&quot;聪明。&quot;</p>
+      <p class="story-para">他笑了，眼睛弯成了月牙。</p>
+      <p class="story-para">讲完题已经三点多，窗外开始飘雪，细密又安静。</p>
+      <p class="story-para">&quot;饿了吗？&quot;我问。</p>
+      <p class="story-para">&quot;有点。&quot;</p>
+      <p class="story-para">&quot;煮面？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">我们一起进了厨房。我烧水，他洗青菜。水开了，我下面、打蛋，他站在旁边看着，很专注。</p>
+      <p class="story-para">&quot;哥。&quot;他忽然叫我。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;你打蛋的技术变好了。&quot;</p>
+      <p class="story-para">&quot;练的。&quot;我说着，把煎得圆圆的荷包蛋盛出来。</p>
+      <p class="story-para">面煮好了，两碗清汤面，卧着荷包蛋，放了青菜，撒了点葱花——我的碗里多些，他的少些。</p>
+      <p class="story-para">我们在桌子前坐下，他拿起筷子吹了吹，吃了一口。</p>
+      <p class="story-para">&quot;怎么样？&quot;</p>
+      <p class="story-para">&quot;好吃。&quot;他说着，又吃了一大口。</p>
+      <p class="story-para">我笑了，也低头吃起来。面条软硬适中，蛋是溏心的，青菜翠绿，盐味不多不少。</p>
+      <p class="story-para">这是我这三个月来，吃过最好吃的一碗面。</p>
+      <p class="story-para">&quot;哥。&quot;他含着面含糊地叫。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;我爸妈……可能要调回去。&quot;</p>
+      <p class="story-para">我的筷子顿了顿：&quot;调回哪？&quot;</p>
+      <p class="story-para">&quot;原来的城市。&quot;</p>
+      <p class="story-para">&quot;什么时候？&quot;</p>
+      <p class="story-para">&quot;不知道，可能下半年。&quot;</p>
+      <p class="story-para">&quot;那你……&quot;</p>
+      <p class="story-para">&quot;我也得回去。&quot;他声音低了下去。</p>
+      <p class="story-para">我没说话，房间里只有吃面的声音。窗外的雪下大了些，一片一片慢悠悠地飘着。</p>
+      <p class="story-para">&quot;不过，&quot;他忽然抬头看我，&quot;我跟我妈说了，暑假想来这边过。&quot;</p>
+      <p class="story-para">&quot;她同意了？&quot;</p>
+      <p class="story-para">&quot;嗯。我说……我想哥哥了。&quot;</p>
+      <p class="story-para">我心里一暖，伸手揉了揉他的头发：&quot;想来就来。&quot;时。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他点头，继续吃面，嘴角却弯着。</p>
+      <p class="story-para">吃完饭，他主动去洗碗。我坐在床上，望着他忙碌的背影——系着围裙，袖子卷到手肘，洗得认真又仔细。</p>
+      <p class="story-para">洗完后，他擦干手走过来，在我身边坐下。</p>
+      <p class="story-para">&quot;哥。&quot;</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;我该走了。&quot;</p>
+      <p class="story-para">我看向窗外，天已经暗了，雪还在下。</p>
+      <p class="story-para">&quot;我送你。&quot;</p>
+      <p class="story-para">&quot;不用，我自己能回去。&quot;</p>
+      <p class="story-para">&quot;不行，下雪了，路滑。&quot;</p>
+      <p class="story-para">&quot;真的不用——&quot;</p>
+      <p class="story-para">&quot;我送你。&quot;我站起来，穿上外套。</p>
+      <p class="story-para">他看着我，然后点了点头。</p>
+      <p class="story-para">我们一起下楼。雪下得很大，地上积了厚厚一层，踩上去咯吱作响，脚印很深。</p>
+      <p class="story-para">&quot;冷吗？&quot;我问。</p>
+      <p class="story-para">&quot;不冷。&quot;他说着，却把围巾又裹紧了些。</p>
+      <p class="story-para">我们慢慢走。雪落在头发和肩膀上，很快染白了发梢。街上行人寥寥，偶尔有车驶过，车灯在雪幕里晕开两团昏黄的光。</p>
+      <p class="story-para">公交站在街角。我们走到站牌下，并肩站着，雪落在站牌顶上，积了薄薄一层白。</p>
+      <p class="story-para">&quot;车什么时候来？&quot;我问。</p>
+      <p class="story-para">&quot;还有十分钟。&quot;他看着手机说。</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">我们沉默地站着。雪落在肩头、发间、睫毛上。他眨了眨眼，睫毛上的雪便落了下来。</p>
+      <p class="story-para">&quot;哥。&quot;他忽然开口。</p>
+      <p class="story-para">&quot;嗯？&quot;</p>
+      <p class="story-para">&quot;这三个月，&quot;他转过头看我，&quot;是我过得最开心的三个月。&quot;</p>
+      <p class="story-para">我望着他，雪落在他的头发和眉毛上，像撒了层糖霜，眼睛在雪光里亮晶晶的。</p>
+      <p class="story-para">&quot;我也是。&quot;我说。</p>
+      <p class="story-para">他笑了，眼睛弯成月牙，嘴角扬起一个小小的、干净的弧度。</p>
+      <p class="story-para">公交车来了，车灯刺破雪幕，缓缓停在我们面前。车门打开，热气涌了出来。</p>
+      <p class="story-para">&quot;我走了。&quot;他说。</p>
+      <p class="story-para">&quot;嗯，路上小心。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;他转身上车，刷了卡，在靠窗的位置坐下。</p>
+      <p class="story-para">车门关上，车慢慢启动。他趴在车窗上望着我，挥了挥手。</p>
+      <p class="story-para">我也挥了挥手。</p>
+      <p class="story-para">车开远了，消失在雪幕里。我站在原地，望着车消失的方向。雪越下越大，漫天飞舞，世界一片白茫茫。肩上的雪已经积了厚厚一层，我伸手拍了拍，雪扑簌簌落在脚边。</p>
+      <p class="story-para">然后我转身往回走。雪地里留着两串脚印，一串大，一串小，并排延伸向远方。但走着走着，小的那串拐了个弯，朝着另一个方向去了。只剩下大的那串，继续往前，深深浅浅，在雪地里一路延伸，延伸。</p>
+      <p class="story-para">我抬起头，雪花落进眼睛里，凉凉的。但忽然觉得，这个冬天好像没那么冷了。</p>
+      <p class="story-para">（全文完）</p>
+    </section>
+
+    <section class="chapter" id="ex1">
+      <div class="chapter-head extra-head">
+        <div class="ch-compact">Extra</div>
+        <h2 class="ch-zh">三月末的某个傍晚</h2>
+        <div class="ch-rule"></div>
+      </div>
+      <p class="story-para"><span class="drop">三</span>月末的雨下得黏糊糊的。不是那种痛快的暴雨，而是细密连绵的雨丝，从早上淅淅沥沥到傍晚，没有要停的意思。空气里浮着一层潮湿的凉，混着泥土和新生植物的气息，从窗缝钻进来，黏在皮肤上。</p>
+      <p class="story-para">我坐在书桌前，对着摊开的物理练习册，笔尖在草稿纸上无意识地画圈。窗外天色昏沉，路灯还没亮，整个世界罩在灰蒙蒙的雨幕里。</p>
+      <p class="story-para">桌角的手机震动了一下，屏幕亮起——是林小雨发来的照片。</p>
+      <p class="story-para">照片是作业本的局部，字迹工整清晰，在台灯下泛着微光。上面是道数学题，他解了一半，步骤停在一个关键等式前。下面跟着一行字：&quot;哥，这一步之后怎么做？&quot;</p>
+      <p class="story-para">我盯着那行字看了两秒，放下笔拿起手机，放大照片。题目不难，是二次函数的应用，他卡在了化简步骤。我打字回复：&quot;等式两边同时平方，注意定义域。&quot;</p>
+      <p class="story-para">发送后大概过了一分钟，他回：&quot;会了。谢谢哥。&quot;</p>
+      <p class="story-para">&quot;嗯。吃饭了吗？&quot;</p>
+      <p class="story-para">&quot;还没。我妈在烧，今天有红烧鱼。&quot;</p>
+      <p class="story-para">&quot;挺好。&quot;</p>
+      <p class="story-para">&quot;哥你呢？&quot;</p>
+      <p class="story-para">&quot;等会儿煮面。&quot;</p>
+      <p class="story-para">&quot;又煮面？&quot;</p>
+      <p class="story-para">&quot;方便。&quot;</p>
+      <p class="story-para">&quot;加点青菜，别只放蛋。&quot;</p>
+      <p class="story-para">&quot;知道了。&quot;</p>
+      <p class="story-para">对话短暂停下。我放下手机，重新拿起笔，却没继续写，只是望着窗外。雨丝斜斜打在玻璃上，汇成细细的水流，蜿蜒而下。</p>
+      <p class="story-para">林小雨搬走已经快三个月了。</p>
+      <p class="story-para">一开始确实不习惯：早上闹钟响到第五遍也没人叫我，煮面时总会不自觉打两个蛋，晚上写作业时总觉得旁边该有个安静的身影。有几次半夜醒来，迷迷糊糊往上铺看，看到的只是一片空旷的黑暗。</p>
+      <p class="story-para">但时间最擅长的，就是把不习惯熬成习惯。</p>
+      <p class="story-para">现在我已经能准时在闹钟第三遍响起时起床，煮面时精准地敲进一个鸡蛋，晚上写作业时也能享受独处的安静。房间又恢复成他来之前的模样——书堆在椅子上，脏衣服塞在床底，周末能一觉睡到中午。</p>
+      <p class="story-para">好像什么都没变。</p>
+      <p class="story-para">除了书桌上多了盆小小的仙人掌——他原本说要带走的，临走时却留下了，只说&quot;放你这儿吧，记得浇水&quot;。</p>
+      <p class="story-para">我每周浇一次水。仙人掌长得很慢，三个月过去，只冒出一根米粒大的新刺。但它绿油油的，在窗台的阳光下，透着勃勃生机。</p>
+      <p class="story-para">手机又震动起来，这次是周明。</p>
+      <p class="story-para">&quot;高航，出来打球！雨停了！&quot;</p>
+      <p class="story-para">我走到窗边望了望。雨确实小了，却还没停，细细密密的。天色更暗了，远处楼房的轮廓模糊在雨幕里。</p>
+      <p class="story-para">&quot;还下着。&quot;我回他。</p>
+      <p class="story-para">&quot;毛毛雨而已！来不来？好久没打了。&quot;</p>
+      <p class="story-para">&quot;不了，作业多。&quot;</p>
+      <p class="story-para">&quot;靠，你又来了。自从你弟走了，你比老头还宅。&quot;</p>
+      <p class="story-para">我没再回复。过了几秒，他又发来消息：&quot;说真的，你弟啥时候再来玩？上次他说教我那道几何题，我还没搞懂呢。&quot;</p>
+      <p class="story-para">&quot;暑假吧。&quot;</p>
+      <p class="story-para">&quot;行，到时候叫他来打球。看他那小身板，得练练。&quot;</p>
+      <p class="story-para">我笑了笑，放下手机。走到厨房，烧水，从冰箱里拿出一个鸡蛋、一把青菜。水开了，下面，打蛋，下青菜，动作熟练得一气呵成。</p>
+      <p class="story-para">面煮好了，我端到书桌前，一边吃一边继续看物理题。力学、斜面、摩擦系数，数字在眼前跳，脑子里却闪过另一道题——林小雨刚才问的那道二次函数，关于定义域和取值范围的。</p>
+      <p class="story-para">他数学确实比我好。上次视频讲题，我卡在一道立体几何上，他在电话那头沉默了几秒，然后说：&quot;哥，你试试从这个点作垂线。&quot;</p>
+      <p class="story-para">我试了，果然通了。</p>
+      <p class="story-para">那一刻的感觉很奇妙。好像那个一直需要我照顾的小孩，不知不觉间，已经能反过来为我指路了。</p>
+      <p class="story-para">面吃到一半，手机响了，是视频通话，林小雨打来的。</p>
+      <p class="story-para">我接通。屏幕上出现他的脸，在台灯的光晕里有些模糊。头发好像又长了，刘海垂到眉毛上。他戴着那副黑框眼镜，镜片后面的眼睛眨了眨。</p>
+      <p class="story-para">&quot;哥。&quot;</p>
+      <p class="story-para">&quot;嗯。作业写完了？&quot;</p>
+      <p class="story-para">&quot;嗯，刚写完。&quot;他把手机拿远了些，能看到他身后的书桌：摊开的作业本、合上的课本，还有那个我熟悉的蓝色笔袋。</p>
+      <p class="story-para">&quot;你吃饭了吗？&quot;他问。</p>
+      <p class="story-para">&quot;正在吃。&quot;我把手机对准面碗。</p>
+      <p class="story-para">&quot;真的只有面和蛋啊。&quot;</p>
+      <p class="story-para">&quot;还有青菜。&quot;</p>
+      <p class="story-para">&quot;就两片。&quot;</p>
+      <p class="story-para">&quot;够了。&quot;我把手机转回来，&quot;你吃完了？&quot;</p>
+      <p class="story-para">&quot;嗯。鱼有点咸，但我妈说正好。&quot;他顿了顿，&quot;哥，你周末干嘛？&quot;</p>
+      <p class="story-para">&quot;写作业，睡觉。&quot;</p>
+      <p class="story-para">&quot;不去打球？&quot;</p>
+      <p class="story-para">&quot;下雨呢。&quot;</p>
+      <p class="story-para">&quot;哦。&quot;他点点头，忽然想起什么似的，&quot;对了哥，我们学校下周有开放日，家长可以来参观。你来吗？&quot;</p>
+      <p class="story-para">我愣了一下：&quot;家长？&quot;</p>
+      <p class="story-para">&quot;嗯……其实随便谁都能来，看看教室，听听课就行。&quot;他声音小了点，&quot;你要是有空的话……&quot;</p>
+      <p class="story-para">&quot;周几？&quot;</p>
+      <p class="story-para">&quot;周三下午。&quot;</p>
+      <p class="story-para">我想了想周三的课表：下午两节自习，一节体育，可以请假。</p>
+      <p class="story-para">&quot;行。几点？&quot;</p>
+      <p class="story-para">&quot;两点开始，在初中部门口集合。&quot;他眼睛亮了一下，&quot;你真来？&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">&quot;那……我在门口等你。&quot;</p>
+      <p class="story-para">&quot;好。&quot;</p>
+      <p class="story-para">我们又聊了几句。他说他们班最近在练合唱，五一要表演；我说我们月考刚结束，数学终于上了九十分。他说他爸这周末要出差，他妈又得加班；我说我妈昨天打电话，问我暑假回不回去。</p>
+      <p class="story-para">都是些琐碎的日常，没什么重点的对话。</p>
+      <p class="story-para">但就是这样的话，我们一周会聊好几次。有时是文字，有时是电话，偶尔视频。时间不长，十分钟、二十分钟，说说作业，说说吃饭，说说那些细小到转眼就忘的事。</p>
+      <p class="story-para">好像也没聊什么，但挂了电话，房间里似乎就没那么安静了。</p>
+      <p class="story-para">&quot;哥，我妈叫我了。&quot;他说。</p>
+      <p class="story-para">&quot;嗯，去吧。&quot;</p>
+      <p class="story-para">&quot;那……周三见。&quot;</p>
+      <p class="story-para">&quot;周三见。&quot;</p>
+      <p class="story-para">视频挂断，屏幕暗下去，映出我的脸。我看了看，发现自己嘴角是翘着的。</p>
+      <p class="story-para">吃完面，洗完碗，我继续写作业。雨还在下，声音却变了，从淅淅沥沥变成滴滴答答——雨快停了。窗外，路灯一盏盏亮起来，昏黄的光晕在湿漉漉的地面上漾开，碎成一片片晃动的金箔。</p>
+      <p class="story-para">写完物理作业，我站起来伸了个懒腰，走到窗边推开窗户。雨后潮湿清凉的空气涌进来，裹挟着泥土与青草的气息。楼下那排香樟树，叶子被雨水洗得油亮，在路灯下泛着暗绿的光泽。</p>
+      <p class="story-para">远处，城市灯火明明灭灭，在夜色里连成一片朦胧的光海。</p>
+      <p class="story-para">我站了一会儿，转身从书桌抽屉里拿出一个信封。普通的白色信封，分量有些沉。打开倒出一沓照片——是过年时拍的。老家雪地里，我和堂弟堂妹打雪仗，笑出一口白气。有一张，我正弯腰团雪球，头发与肩膀落满雪花，脸冻得通红，眼睛却弯成了月牙。</p>
+      <p class="story-para">我一张张翻过去，最后一张是回城前在火车站拍的。月台上，我背着书包对镜头比耶，身后的绿皮火车车窗蒙着水汽，模糊一片。</p>
+      <p class="story-para">拍这张时，林小雨在电话里说：&quot;哥，你笑得太假了。&quot;</p>
+      <p class="story-para">我说：&quot;那你来给我拍。&quot;</p>
+      <p class="story-para">他说：&quot;下次。&quot;</p>
+      <p class="story-para">下次。</p>
+      <p class="story-para">我把照片收好放回信封，走到床边从枕头底下摸出另一个东西——一个蓝色小布袋，绣着歪歪扭扭的&quot;平安&quot;二字，是装小鱼玉的那个。小鱼玉已经送出去了，布袋还在。我捏了捏，空空软软的，凑近能闻到一丝几乎淡得闻不到的檀香，是以前外婆放进去的。</p>
+      <p class="story-para">我走到仙人掌盆栽前蹲下，台灯下它的轮廓清晰，每根刺都泛着微光。三个月过去，它没长多大，却依旧鲜亮，透着勃勃生机。我轻轻碰了碰顶端那粒新刺，硬而尖。</p>
+      <p class="story-para">&quot;好好长。&quot;我的声音在安静的房间里轻得像叹息。</p>
+      <p class="story-para">窗外雨彻底停了，云层散开一角，露出深蓝色天幕与一弯朦胧的月亮。风从窗户吹进来，带着雨后清冽的凉意。</p>
+      <p class="story-para">我关窗拉上窗帘，走到书桌前合上作业本、收拾好书包，关掉台灯只留一盏小夜灯。躺到床上，被子带着午后阳光晒过的味道。我闭上眼，房间里静得能听见自己的呼吸，还有窗外远处偶尔的车声。</p>
+      <p class="story-para">手机在枕边震动了一下，我摸过来眯眼一看——林小雨发来两个字：&quot;晚安。&quot;</p>
+      <p class="story-para">我打字回复：&quot;晚安。&quot;发送后把手机放回枕边，翻了个身面朝墙壁。夜灯昏暗的光线下，墙上那块水渍鸟还在，展开翅膀像是要飞，又像永远飞不走。我看着它看了很久，在沉入睡梦的前一刻忽然想起：周三要记得早点起床，穿那件他说&quot;挺好看&quot;的黑色外套，在他学校门口的小卖部买两瓶水，一瓶冰红茶一瓶矿泉水，等他看见时朝他挥手，说：&quot;小雨，我来了。&quot;</p>
+      <p class="story-para">窗外，月亮完全从云层后探出来，清冷的月光洒在湿漉漉的街道上，落在香樟树的新叶上，也照在这座城市无数亮着灯的窗户上。三月末的雨停了，春天，就要来了。</p>
+    </section>
+
+    <section class="chapter" id="ex2">
+      <div class="chapter-head extra-head">
+        <div class="ch-compact">Extra</div>
+        <h2 class="ch-zh">鱼知道</h2>
+        <div class="ch-rule"></div>
+      </div>
+      <p class="story-para"><span class="drop">高</span>航爬上梯子时，我以为自己在做梦。</p>
+      <p class="story-para">吱呀——很轻的一声，木板像在叹气。我闭着眼，左手搭在栏杆上，冷空气从指缝钻进来。被子太薄，月光透过窗帘缝照在背上，凉得像贴了片冰刀片。我保持呼吸均匀，一下，两下，装作真的睡着了。</p>
+      <p class="story-para">他的影子投在墙上，大团大团地晃了晃。我闻到红花油的味道，混着晚上面条的酱油香。他的手指碰到我手腕时，我差点缩回来——太凉了，像刚从冰箱里拿出来的铁块。但我没动。</p>
+      <p class="story-para">红绳很糙，磨得皮肤发痒。他编得很慢，好几次缠到我小指上。我想起外婆编的红绳，又快又紧，最后打结时会用牙齿咬断线头，可高航用的是剪刀，我听见抽屉那边传来很轻的&quot;咔擦&quot;声。</p>
+      <p class="story-para">小鱼玉贴上来时，我抖了一下。不是因为凉，是因为它刚好压在那道疤上——上周削苹果划的，快好了，只剩一条粉色细线。他没看见，或者看见了也没问。那道疤现在被玉盖着，像秘密盖上了印章。</p>
+      <p class="story-para">他手指在我腕上停了很久，久到我几乎以为他察觉我醒了。可他只是将那枚玉轻轻翻转，让雕得光滑温润的那面贴着我的皮肤。</p>
+      <p class="story-para">然后他下去了。</p>
+      <p class="story-para">梯子又发出吱呀一声，比之前更轻，像是怕惊扰了什么。</p>
+      <p class="story-para">我始终没睁眼。外婆说过，梦里不能睁眼，一睁眼，好东西就会飞走。虽然我清楚这不是梦——膝盖磕到床板的钝痛是真的，空气中红花油的气味是真的，手腕上绳子勒紧的触感也是真的。</p>
+      <p class="story-para">但我还是没睁眼。</p>
+      <p class="story-para">我悄悄把手缩回被子里，手心早已被冷汗浸湿。小鱼玉在黑暗中贴着腕上那道疤，圆滚滚的，像一颗温热的眼泪。</p>
+      <p class="story-para">我忽然想起奶奶家的阁楼。小时候半夜想上厕所，却不敢下楼，因为楼梯总会发出吱呀的声响。我就憋着，数羊，数到第一百只时，天就亮了。奶奶总夸我：&quot;小雨最乖，从不半夜吵人。&quot;</p>
+      <p class="story-para">原来乖就是安静，安静就是不添麻烦。</p>
+      <p class="story-para">可高航爬梯子的声音很响，走路时拖鞋拖地的声音很响，打喷嚏的声音像炸开的炮仗，煮面忘了关火时油锅冒烟的动静，几乎能把整栋楼的人都吵醒。</p>
+      <p class="story-para">他好像什么都不怕吵。</p>
+      <p class="story-para">我攥紧腕上的小鱼玉，红绳勒进肉里，传来细微的痛感。但疼是好的，疼说明这一切都是真的。</p>
+      <p class="story-para">第二天早上，我醒得比平时早。</p>
+      <p class="story-para">天还是灰蓝色的，下铺的高航正打着呼噜，一声长一声短。我慢慢坐起身，低头看向手腕——红绳在晨光里泛着暗红，小鱼玉是青白色的，腕上那道疤被盖得严严实实。</p>
+      <p class="story-para">我看了很久，才把手腕往袖子里塞了塞。</p>
+      <p class="story-para">下床时梯子没发出声响，我记得哪块木板会&quot;叫&quot;，特意把脚踩在边缘。厨房地上有些水渍，是昨晚他洗碗时没擦干净的。我绕过去打开冰箱，里面有两个鸡蛋、四个昨天买的馒头，还有半包榨菜。</p>
+      <p class="story-para">煎蛋时我盯着油锅，墙上用铅笔写的&quot;147&quot;还在，那是我上周量的——油温到147度就会冒烟，他从来没发现。</p>
+      <p class="story-para">鸡蛋下锅，滋啦一声。蛋白迅速变白，边缘卷起焦黄的花边。我盯着火，心里数到五，轻轻翻面，另一面也煎出了一样的焦黄色。</p>
+      <p class="story-para">高航的脚步声从身后传来，拖鞋依旧拖着地。&quot;这么早？&quot;他声音哑哑的，像喉咙里卡了沙子。</p>
+      <p class="story-para">&quot;嗯。&quot;我把煎好的蛋盛出来，蛋白完整，蛋黄在中间颤巍巍的。</p>
+      <p class="story-para">他凑过来看了看：&quot;可以啊，比我煎得好。&quot;</p>
+      <p class="story-para">我没说话，把锅递给他。他煎第二个时，油温太高，鸡蛋一下锅就溅起油星，他手忙脚乱地关小火，蛋却破了，蛋黄流出来，在锅里摊成一片。</p>
+      <p class="story-para">&quot;靠。&quot;他骂了一句。</p>
+      <p class="story-para">我转身去拿盘子，嘴角悄悄往上弯了一下，弧度很小，没人看见。</p>
+      <p class="story-para">吃饭时他坐在我对面，头发睡成了一团草。我想起昨晚他爬上梯子时的影子，头发也是翘着的，在墙上晃来晃去。</p>
+      <p class="story-para">&quot;今天放学别等我了，&quot;他说，&quot;我们班大扫除，会晚些。&quot;</p>
+      <p class="story-para">&quot;嗯。&quot;我点头，咬了口馒头。馒头冷了，有点硬，得慢慢嚼。</p>
+      <p class="story-para">&quot;你自己先回，钥匙在哪儿知道吧？&quot;</p>
+      <p class="story-para">&quot;知道，&quot;我说，&quot;在门框上。&quot;</p>
+      <p class="story-para">他愣了一下：&quot;你怎么知道？&quot;</p>
+      <p class="story-para">我没说话。上周他忘带钥匙，就是从门框上摸下来的，我看见了，也记住了。</p>
+      <p class="story-para">他盯着我看了一会儿，然后低头扒拉着碗里的面：&quot;行。&quot;</p>
+      <p class="story-para">他吃得很急，吸面的声音呼噜响。我慢慢吃着，数着他咀嚼的次数——左边十五下，右边十五下，规律得很。他做什么都这样，打球投篮的姿势、走路甩手的幅度，甚至打哈欠的时长，都一模一样。</p>
+      <p class="story-para">像某种密码，记住了，就不会被丢下。</p>
+      <p class="story-para">放学时，我还是去等了。</p>
+      <p class="story-para">没在他们班门口，而是躲在楼下那棵桂花树后面。从这里能看见楼梯口，又不会被他的同学发现。我知道他怕什么——怕别人说他&quot;弟控&quot;，虽然他从没说过，但每次同学起哄，他的耳朵都会红。</p>
+      <p class="story-para">我靠着树干，书包放在脚边。地上有蚂蚁，排着队往树根爬。我蹲下来看，用手指在它们前面画了条线，蚂蚁停了停，绕过去，继续爬。</p>
+      <p class="story-para">&quot;小雨？&quot;</p>
+      <p class="story-para">我抬头，是那个扎高马尾的女生，他们班的，叫林薇。她抱着几本书，站在两步外，马尾在夕阳里泛着金色的光。</p>
+      <p class="story-para">&quot;在等你哥？&quot;她笑着问，眼睛弯弯的。</p>
+      <p class="story-para">&quot;嗯。&quot;我站起来，拍拍裤子上的灰。</p>
+      <p class="story-para">&quot;他们班在拖地，估计还要一会儿，&quot;她说着走近些，&quot;上次借你的笔记，有用吗？&quot;</p>
+      <p class="story-para">&quot;有用，&quot;我说，&quot;谢谢。&quot;</p>
+      <p class="story-para">&quot;不客气，&quot;她歪了歪头，&quot;你数学真好，那道题我想了半天都没做出来。&quot;</p>
+      <p class="story-para">我没说话。其实那道题很简单，她借我橡皮蹭过手指时带着凉意，碰到我手背，我缩了一下。后来看笔记，才发现她漏写了一个条件。</p>
+      <p class="story-para">&quot;你手怎么了？&quot;她忽然开口问。</p>
+      <p class="story-para">我顺着她的目光看去——手腕露在外面，系着红绳，坠着玉小鱼。</p>
+      <p class="story-para">&quot;没什么。&quot;我把袖子往下扯了扯。</p>
+      <p class="story-para">&quot;挺好看的。&quot;她说，&quot;在哪买的？&quot;</p>
+      <p class="story-para">&quot;别人送的。&quot;</p>
+      <p class="story-para">&quot;哦。&quot;她点点头，马尾跟着晃了晃，&quot;那我先走了。明天见？&quot;</p>
+      <p class="story-para">&quot;明天见。&quot;</p>
+      <p class="story-para">她走了几步，又转过身：&quot;对了，下周我们班有篮球赛，来看吗？&quot;</p>
+      <p class="story-para">我想说&quot;我哥不打班赛&quot;，话到嘴边又咽了回去，只是点了点头。</p>
+      <p class="story-para">她又笑了，转回身继续走。马尾在风里一甩一甩的，像某种信号旗。</p>
+      <p class="story-para">我重新蹲下来看蚂蚁。它们已经绕过我画的线，爬到了树根的裂缝里。那里有只死虫子，蚂蚁们正围着它，合力把它抬起来，往洞里搬。</p>
+      <p class="story-para">高航下楼时天已经暗了。</p>
+      <p class="story-para">他看见我，愣了一下：&quot;不是让你先回吗？&quot;</p>
+      <p class="story-para">&quot;忘了。&quot;我说。</p>
+      <p class="story-para">&quot;钥匙呢？&quot;</p>
+      <p class="story-para">&quot;在门框上。&quot;</p>
+      <p class="story-para">&quot;那你怎么进去？&quot;</p>
+      <p class="story-para">我没说话。他立刻明白了，叹了口气，伸手揉我的头发：&quot;傻不傻。&quot;</p>
+      <p class="story-para">他的手很大，很暖，把我头发揉得乱糟糟的。我没躲。</p>
+      <p class="story-para">回家路上，他问我晚上想吃什么。我说都行。他说煮面吧，加两个蛋。我说好。</p>
+      <p class="story-para">经过便利店时，他进去买了瓶可乐，给我买了瓶酸奶。结账时柜台在放歌，声音很吵，是那种咚咚响的电子乐。他跟着节奏晃了晃肩膀，样子有点蠢。</p>
+      <p class="story-para">我低头拧酸奶盖。盖子很紧，怎么也拧不开。</p>
+      <p class="story-para">他接过去，一下就拧开了，递回给我：&quot;这点力气都没有。&quot;</p>
+      <p class="story-para">我喝了一口，很甜，甜得发腻。但我没停，一口接一口地喝，直到喝完。</p>
+      <p class="story-para">他把空瓶子扔进垃圾桶，咚的一声，准头很好。</p>
+      <p class="story-para">&quot;投篮。&quot;他说，冲我挑了挑眉。</p>
+      <p class="story-para">我想说垃圾桶离他只有一米，但没说。只是把酸奶瓶也扔过去，没那么准，砸在桶边上，滚到了地上。</p>
+      <p class="story-para">他捡起来，重新扔了一次，这次进去了。</p>
+      <p class="story-para">&quot;得多练练。&quot;他说。</p>
+      <p class="story-para">&quot;嗯。&quot;</p>
+      <p class="story-para">晚上他给我讲题时睡着了。</p>
+      <p class="story-para">头枕在手臂上，笔还握在手里，练习册上画了条长长的线。呼吸很沉，肩膀随着呼吸一起一伏。</p>
+      <p class="story-para">我轻轻抽出他手里的笔，放在桌上。台灯的光落在他侧脸上，睫毛在脸颊投下小小的阴影。他嘴唇微微张着，有点干，起了皮。</p>
+      <p class="story-para">我想起昨晚他爬梯子的样子。那么小心，又那么笨拙。</p>
+      <p class="story-para">原来被人需要，不一定得&quot;有用&quot;。</p>
+      <p class="story-para">不用会煎完整的蛋，不用记得门框上的钥匙，不用拧得开酸奶盖。甚至可以在讲题时睡着，笔掉在地上，题只讲了一半。</p>
+      <p class="story-para">我盯着他看了一会儿，然后伸手，很轻地把他翘起来的那撮头发按下去。</p>
+      <p class="story-para">他没醒，只是咂了咂嘴，翻了个身。</p>
+      <p class="story-para">我继续写题。写得很慢，很仔细，铅笔在纸上沙沙作响。窗外有车经过，灯光滑过天花板，像流星。</p>
+      <p class="story-para">写完最后一道题，我合上本子。他还在睡，呼吸均匀。</p>
+      <p class="story-para">我没叫他。只是坐在那里，听着他的呼吸声，一下，两下，三下。</p>
+      <p class="story-para">手腕上的玉小鱼贴着皮肤，温温的。我把它转了个面，雕花那面朝外，在台灯下泛着淡淡的光。</p>
+      <p class="story-para">然后我拿起笔，在练习册的空白处，很轻地画了条小鱼。</p>
+      <p class="story-para">很简单，就一个圈，加个尾巴。</p>
+      <p class="story-para">画完，我看着那条小鱼，看了很久。</p>
+      <p class="story-para">然后我把它涂掉了。</p>
+      <p class="story-para">涂得很黑，很彻底，什么也看不出来。</p>
+    </section>
+
+<!-- ================= STORY SEVEN ENDING ================= -->
+<section class="ending">
+  <div class="glyph">﹡</div>
+  <div class="big">我弟弟好像不太一样</div>
+  <div class="en">He Is Not Quite the Same</div>
+  <p>有些温柔，是藏在每天的面条、感冒冲剂和走廊等待里的。<br>不说出口，却比什么都重。</p>
+</section>
+
+<footer><div class="small">— 献给那些把温柔轻轻放进你手心的人 —</div></footer>
+
+<script>
+(function(){
+  var p=document.getElementById('progress');
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+    p.style.width=(window.scrollY/h*100)+'%';
+  });
+  var wrap=document.getElementById('motes');
+  for(var i=0;i<18;i++){
+    var s=document.createElement('span');
+    s.className='mote';
+    var size=2+Math.random()*3;
+    s.style.width=size+'px';s.style.height=size+'px';
+    s.style.left=(Math.random()*100)+'%';
+    s.style.animationDuration=(16+Math.random()*18)+'s';
+    s.style.animationDelay=(Math.random()*18)+'s';
+    wrap.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>
