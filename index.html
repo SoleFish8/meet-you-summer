@@ -65,7 +65,6 @@ body::before{
   90%{opacity:var(--o,.5);}
   100%{transform:translateY(-110vh) translateX(var(--dx,20px)) scale(.55);opacity:0;}
 }
-
 /* ---------- Hero ---------- */
 .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;
   justify-content:center;text-align:center;padding:6rem 1.6rem 4.5rem;}
@@ -87,14 +86,12 @@ body::before{
   animation:hint 2.4s ease-in-out infinite;}
 @keyframes hint{0%,100%{opacity:.5;transform:translate(-50%,0);}50%{opacity:1;transform:translate(-50%,7px);}}
 @keyframes enter{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
-
 /* ---------- Stories ---------- */
 .stories{max-width:920px;margin:0 auto;padding:0 1.6rem 5rem;}
 .stories-head{text-align:center;margin-bottom:2.8rem;}
 .stories-kicker{font-family:"InstrumentSerif",serif;font-style:italic;color:var(--accent);
   letter-spacing:.3em;font-size:.85rem;text-transform:lowercase;}
 .stories-title{font-size:clamp(1.7rem,4vw,2.2rem);font-weight:700;letter-spacing:.14em;margin-top:.6rem;}
-
 .card{position:relative;display:block;text-decoration:none;color:inherit;
   background:var(--paper);border:1px solid var(--rule);border-radius:18px;
   padding:2rem 1.9rem 1.7rem;overflow:hidden;
@@ -107,11 +104,15 @@ body::before{
   font-size:1.02rem;letter-spacing:.16em;}
 .card-t{font-size:1.5rem;font-weight:700;letter-spacing:.1em;margin-top:.55rem;}
 .card-s{margin-top:.7rem;color:var(--muted);font-size:.95rem;line-height:1.8;}
+/* Reading progress bar on card */
+.card-progress-wrap{display:flex;align-items:center;gap:0.5rem;margin-top:1rem;}
+.card-progress-bar{flex:1;height:4px;background:var(--rule);border-radius:2px;overflow:hidden;}
+.card-progress-fill{height:100%;background:var(--c);border-radius:2px;transition:width 0.5s ease;}
+.card-progress-pct{font-size:0.75rem;color:var(--muted);white-space:nowrap;}
 .card-go{margin-top:1.35rem;display:inline-flex;align-items:center;gap:.45rem;
   color:var(--c);font-size:.88rem;letter-spacing:.14em;}
 .card-go .arr{transition:transform .25s ease;}
 .card:hover .card-go .arr{transform:translateX(5px);}
-
 .card.featured{
   display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:2.2rem;
   background:linear-gradient(120deg,#fff7ec,var(--paper) 55%);
@@ -120,17 +121,13 @@ body::before{
   border-right:1px solid var(--rule);}
 .card.featured .card-t{font-size:clamp(1.7rem,4vw,2.2rem);}
 .card.featured .card-go{font-size:.95rem;white-space:nowrap;}
-
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;}
-
 /* ---------- Footer ---------- */
 .foot{text-align:center;padding:2.6rem 1.6rem 3.6rem;color:var(--muted);
   font-size:.85rem;letter-spacing:.22em;border-top:1px solid var(--rule);}
-
 /* ---------- Reveal ---------- */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s ease;}
 .reveal.in{opacity:1;transform:none;}
-
 @media (max-width:720px){
   .hero{padding-top:5rem;}
   .card.featured{grid-template-columns:1fr;gap:1.1rem;padding:2rem 1.7rem;}
@@ -147,7 +144,6 @@ body::before{
 </head>
 <body>
 <div class="particles" aria-hidden="true"></div>
-
 <header class="hero">
   <p class="hero-kicker">Seven Stories, One Summer</p>
   <h1 class="hero-title">我们的故事</h1>
@@ -158,64 +154,66 @@ body::before{
   </div>
   <a class="scroll-hint" href="#stories">查看故事</a>
 </header>
-
 <main class="stories" id="stories">
   <div class="stories-head reveal">
     <p class="stories-kicker">The Collection</p>
     <h2 class="stories-title">故事目录</h2>
   </div>
-
-  <a class="card featured reveal" href="story1.html" style="--c:#d97a4e">
+  <a class="card featured reveal" href="story1.html" style="--c:#d97a4e" data-story="story1">
     <div class="card-num">01</div>
     <div class="card-body">
       <div class="card-t">很高兴认识你</div>
       <div class="card-s">一个夏天，一颗橘子糖，和两个彼此温暖的少年。盛夏的午后，蝉鸣盖过整座城市。</div>
+      <div class="card-progress-wrap"><div class="card-progress-bar"><div class="card-progress-fill" style="width:0%"></div></div><span class="card-progress-pct"></span></div>
     </div>
     <div class="card-go">开始阅读 <span class="arr">→</span></div>
   </a>
-
   <div class="grid">
-    <a class="card reveal" href="story2.html" style="--c:#5f8f9e">
+    <a class="card reveal" href="story2.html" style="--c:#5f8f9e" data-story="story2">
       <div class="card-num">02</div>
       <div class="card-t">三生有幸</div>
       <div class="card-s">一颗玻璃弹珠，和一个自带阳光的少年。遇见一个人，是三生有幸。</div>
+      <div class="card-progress-wrap"><div class="card-progress-bar"><div class="card-progress-fill" style="width:0%"></div></div><span class="card-progress-pct"></span></div>
       <div class="card-go">开始阅读 <span class="arr">→</span></div>
     </a>
-    <a class="card reveal" href="story3.html" style="--c:#e8b45a">
+    <a class="card reveal" href="story3.html" style="--c:#e8b45a" data-story="story3">
       <div class="card-num">03</div>
       <div class="card-t">未说完的晚安</div>
       <div class="card-s">半块带着橘子香气的橡皮，和一个心脏像破风筝的少年。</div>
+      <div class="card-progress-wrap"><div class="card-progress-bar"><div class="card-progress-fill" style="width:0%"></div></div><span class="card-progress-pct"></span></div>
       <div class="card-go">开始阅读 <span class="arr">→</span></div>
     </a>
-    <a class="card reveal" href="story4.html" style="--c:#a9b08a">
+    <a class="card reveal" href="story4.html" style="--c:#a9b08a" data-story="story4">
       <div class="card-num">04</div>
       <div class="card-t">风拥枯葵</div>
       <div class="card-s">遇见他的那天，我正在修一个漏水的水龙头。</div>
+      <div class="card-progress-wrap"><div class="card-progress-bar"><div class="card-progress-fill" style="width:0%"></div></div><span class="card-progress-pct"></span></div>
       <div class="card-go">开始阅读 <span class="arr">→</span></div>
     </a>
-    <a class="card reveal" href="story5.html" style="--c:#f0b35a">
+    <a class="card reveal" href="story5.html" style="--c:#f0b35a" data-story="story5">
       <div class="card-num">05</div>
       <div class="card-t">元日启蛰</div>
       <div class="card-s">除夕夜，对门新搬来的小孩敲开了我的门。</div>
+      <div class="card-progress-wrap"><div class="card-progress-bar"><div class="card-progress-fill" style="width:0%"></div></div><span class="card-progress-pct"></span></div>
       <div class="card-go">开始阅读 <span class="arr">→</span></div>
     </a>
-    <a class="card reveal" href="story6.html" style="--c:#c0814a">
+    <a class="card reveal" href="story6.html" style="--c:#c0814a" data-story="story6">
       <div class="card-num">06</div>
       <div class="card-t">那就这样吧</div>
       <div class="card-s">深夜十一点四十七分，楼道里蹲着一个忘带钥匙的小男孩。</div>
+      <div class="card-progress-wrap"><div class="card-progress-bar"><div class="card-progress-fill" style="width:0%"></div></div><span class="card-progress-pct"></span></div>
       <div class="card-go">开始阅读 <span class="arr">→</span></div>
     </a>
-    <a class="card reveal" href="story7.html" style="--c:#c8903a">
+    <a class="card reveal" href="story7.html" style="--c:#c8903a" data-story="story7">
       <div class="card-num">07</div>
       <div class="card-t">我弟弟好像不太一样</div>
       <div class="card-s">一间小屋，两碗热面，和一个安静得像株植物的少年。</div>
+      <div class="card-progress-wrap"><div class="card-progress-bar"><div class="card-progress-fill" style="width:0%"></div></div><span class="card-progress-pct"></span></div>
       <div class="card-go">开始阅读 <span class="arr">→</span></div>
     </a>
   </div>
 </main>
-
 <footer class="foot">— 献给那些把温柔轻轻放进你手心的人 —</footer>
-
 <script>
 (function(){
   var colors=['#d97a4e','#5f8f9e','#e8b45a','#a9b08a','#f0b35a','#c0814a','#c8903a'];
@@ -241,6 +239,18 @@ body::before{
   }else{
     document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
   }
+  // Reading progress on cards
+  document.querySelectorAll('.card[data-story]').forEach(function(card){
+    var storyId = card.dataset.story;
+    var progressPct = localStorage.getItem('reader_' + storyId + '_progressPct');
+    var fill = card.querySelector('.card-progress-fill');
+    var pct = card.querySelector('.card-progress-pct');
+    if (progressPct && fill) {
+      var v = Math.round(parseFloat(progressPct));
+      fill.style.width = v + '%';
+      if (pct) pct.textContent = '已读 ' + v + '%';
+    }
+  });
 })();
 </script>
 </body>
