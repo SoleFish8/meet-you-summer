@@ -173,7 +173,6 @@ body::before{
 <header class="hero">
   <p class="hero-kicker">Seven Stories, One Summer</p>
   <h1 class="hero-title">我们的故事</h1>
-  <p class="hero-sub">四季流转，七段温柔而明亮的相遇</p>
   <div class="hero-rule"></div>
   <div class="cover-frame">
     <img src="./assets/cover_16x9.jpg" alt="黄昏老街，一簇光，两双手，满城花">
@@ -189,7 +188,7 @@ body::before{
     <span style="font-size:0.82rem;color:var(--muted);letter-spacing:0.1em;">继续阅读</span>
     <a id="continue-link" href="#" style="display:block;margin-top:0.4rem;color:var(--accent);font-size:1.05rem;font-weight:700;text-decoration:none;letter-spacing:0.08em;"></a>
   </div>
-  <div id="total-stats" class="reveal" style="text-align:center;margin-bottom:1.6rem;font-size:0.82rem;color:var(--muted);letter-spacing:0.06em;"></div>
+  
   <a class="card featured reveal" href="story1.html" style="--c:#d97a4e" data-story="story1">
     <div class="card-num">01</div>
     <div class="card-body">
@@ -316,8 +315,6 @@ body::before{
       link.textContent = '「' + s.name + '」继续阅读 →';
     }
   }
-  // Total stats
-  document.getElementById('total-stats').textContent = '全站共 ' + Math.round(totalWords / 10000) + ' 万字 · 7 篇小说';
   // Service Worker
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js', { scope: '/meet-you-summer/' }).catch(function(){});
