@@ -77,18 +77,47 @@
     document.body.appendChild(toolbar);
 
     // Show/hide on scroll
-    let lastY = 0, toolbarTimer;
+    let lastY = 0, toolbarTimer, toolbarVisible = false;
+
+    function showToolbar() {
+      if (!toolbarVisible) {
+        toolbar.classList.add('visible');
+        toolbarVisible = true;
+      }
+      clearTimeout(toolbarTimer);
+      toolbarTimer = setTimeout(function () {
+        toolbar.classList.remove('visible');
+        toolbarVisible = false;
+      }, 5000);
+    }
+
+    function hideToolbar() {
+      toolbar.classList.remove('visible');
+      toolbarVisible = false;
+      clearTimeout(toolbarTimer);
+    }
+
     window.addEventListener('scroll', function () {
       const y = window.scrollY;
-      if (y > 400 && y < lastY - 20) {
-        toolbar.classList.add('visible');
-      } else if (y < 300 || y > lastY + 40) {
-        toolbar.classList.remove('visible');
+      if (y < 300) {
+        hideToolbar();
+      } else if (y < lastY - 5) {
+        // Scrolling UP — show toolbar
+        showToolbar();
       }
       lastY = y;
-      clearTimeout(toolbarTimer);
-      if (y > 400) {
-        toolbarTimer = setTimeout(function () { toolbar.classList.remove('visible'); }, 4000);
+    }, { passive: true });
+
+    // Show toolbar on mouse/touch near bottom of screen
+    document.addEventListener('mousemove', function (e) {
+      if (window.scrollY > 300 && e.clientY > window.innerHeight - 120) {
+        showToolbar();
+      }
+    }, { passive: true });
+
+    document.addEventListener('touchstart', function (e) {
+      if (window.scrollY > 300 && e.touches[0].clientY > window.innerHeight - 120) {
+        showToolbar();
       }
     }, { passive: true });
 
