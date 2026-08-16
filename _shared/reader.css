@@ -286,3 +286,8 @@ body.immersive {
 button:focus-visible, a:focus-visible {
   outline: 2px solid var(--accent); outline-offset: 2px;
 }
+
+/* ========== Author tag ========== */
+.author {
+  margin-top: 0.5rem; font-size: 0.85rem; letter-spacing: 0.12em;
+}
