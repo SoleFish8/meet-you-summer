@@ -1,4 +1,4 @@
-const CACHE = 'meet-you-summer-v2';
+const CACHE = 'meet-you-summer-v3';
 const ASSETS = [
   '/meet-you-summer/',
   '/meet-you-summer/index.html',
