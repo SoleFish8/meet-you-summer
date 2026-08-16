@@ -424,8 +424,7 @@
   }
 
   // ── 13. Giscus Comments ──
-  // 需要在 GitHub 仓库 Settings > Features 中启用 Discussions，
-  // 并在 https://giscus.app 配置后替换下面的 data-repo-id 和 data-category-id
+  // Discussions 已启用，repo-id 和 category-id 已配置
   function initGiscus() {
     var container = document.createElement('div');
     container.id = 'giscus-container';
