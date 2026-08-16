@@ -3,6 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="深夜十一点四十七分，楼道里蹲着一个忘带钥匙的小男孩。有时候，就这样也挺好。">
+<meta property="og:title" content="那就这样吧 · 深夜十一点四十七分，楼道里蹲着一个忘带钥匙的小男孩">
+<meta property="og:description" content="深夜十一点四十七分，楼道里蹲着一个忘带钥匙的小男孩">
+<meta property="og:image" content="https://SoleFish8.github.io/meet-you-summer/assets/cover_16x9.jpg">
+<meta property="og:url" content="https://SoleFish8.github.io/meet-you-summer/story6.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="那就这样吧 · 深夜十一点四十七分，楼道里蹲着一个忘带钥匙的小男孩">
+<meta name="twitter:description" content="深夜十一点四十七分，楼道里蹲着一个忘带钥匙的小男孩">
+<meta name="twitter:image" content="https://SoleFish8.github.io/meet-you-summer/assets/cover_16x9.jpg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#c0814a">
+<link rel="icon" type="image/jpeg" href="assets/icon-192.jpg">
+<link rel="apple-touch-icon" href="assets/icon-192.jpg">
 <title>那就这样吧</title>
 <link rel="preload" href="./_shared/fonts/CrimsonPro-Regular.ttf" as="font" type="font/ttf" crossorigin="">
 <link rel="preload" href="./_shared/fonts/CrimsonPro-Bold.ttf" as="font" type="font/ttf" crossorigin="">
@@ -26,22 +40,22 @@
 @font-face{
   font-family:'CrimsonPro';
   src:url('./_shared/fonts/CrimsonPro-Regular.ttf') format('truetype');
-  font-weight:400;font-style:normal;
+  font-weight:400;font-style:normal;font-display:swap;
 }
 @font-face{
   font-family:'CrimsonPro';
   src:url('./_shared/fonts/CrimsonPro-Italic.ttf') format('truetype');
-  font-weight:400;font-style:italic;
+  font-weight:400;font-style:italic;font-display:swap;
 }
 @font-face{
   font-family:'CrimsonPro';
   src:url('./_shared/fonts/CrimsonPro-Bold.ttf') format('truetype');
-  font-weight:700;font-style:normal;
+  font-weight:700;font-style:normal;font-display:swap;
 }
 @font-face{
   font-family:'InstrumentSerif';
   src:url('./_shared/fonts/InstrumentSerif-Italic.ttf') format('truetype');
-  font-weight:400;font-style:italic;
+  font-weight:400;font-style:italic;font-display:swap;
 }
 html{scroll-behavior:smooth;}
 body{
@@ -75,7 +89,7 @@ body::before{
   border-bottom:1px solid var(--rule);}
 .topnav a{color:var(--muted);text-decoration:none;font-size:0.85rem;letter-spacing:0.08em;transition:color .2s;}
 .topnav a:hover{color:var(--accent);}
-.topnav .brand{font-family:"CrimsonPro",serif;font-style:italic;color:var(--accent);letter-spacing:0.06em;}
+.topnav .brand{font-family:"CrimsonPro",serif;font-style:italic;font-display:swap;color:var(--accent);letter-spacing:0.06em;}
 
 /* ---------- Hero (old building lamplight, no illustration) ---------- */
 .s6-hero{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;
@@ -85,7 +99,7 @@ body::before{
     radial-gradient(500px 350px at 26% 62%, rgba(138,149,144,0.10), transparent 62%),
     linear-gradient(180deg,var(--bg3) 0%,var(--bg) 50%,var(--bg2) 100%);}
 .s6-hero .wrap{max-width:780px;position:relative;z-index:3;}
-.s6-kicker{font-family:"CrimsonPro",serif;font-style:italic;letter-spacing:0.32em;font-size:0.9rem;
+.s6-kicker{font-family:"CrimsonPro",serif;font-style:italic;font-display:swap;letter-spacing:0.32em;font-size:0.9rem;
   color:var(--accent);margin-bottom:1.7rem;text-transform:lowercase;}
 .s6-title{font-size:clamp(2.8rem,8vw,5rem);font-weight:700;letter-spacing:0.16em;line-height:1.15;color:var(--ink);
   text-shadow:0 0 40px rgba(192,129,74,0.20);}
@@ -158,7 +172,7 @@ mark.key{background:none;color:var(--accent);font-weight:600;}
   animation:pulseGlyph 3s ease-in-out infinite;}
 @keyframes pulseGlyph{0%,100%{opacity:0.7;transform:scale(1);}50%{opacity:1;transform:scale(1.12);}}
 .ending .big{font-size:clamp(2rem,5.5vw,2.8rem);font-weight:700;letter-spacing:0.2em;margin-top:2rem;color:var(--ink);}
-.ending .en{font-family:"InstrumentSerif",serif;font-style:italic;font-size:clamp(1.2rem,3.4vw,1.7rem);
+.ending .en{font-family:"InstrumentSerif",serif;font-style:italic;font-display:swap;font-size:clamp(1.2rem,3.4vw,1.7rem);
   color:var(--accent2);margin-top:1.4rem;letter-spacing:0.06em;}
 .ending p{margin:2rem auto 0;max-width:32rem;color:var(--muted);font-size:1rem;line-height:2.1;}
 
@@ -190,8 +204,21 @@ footer .small{letter-spacing:0.2em;}
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="83ac92dc-f4b5-4266-9c81-300cca5a505e"></script>
 <link rel="stylesheet" href="./_shared/reader.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "那就这样吧",
+  "description": "深夜十一点四十七分，楼道里蹲着一个忘带钥匙的小男孩",
+  "url": "https://SoleFish8.github.io/meet-you-summer/story6.html",
+  "inLanguage": "zh-CN",
+  "author": { "@type": "Person", "name": "SoleFish" }
+}
+</script>
 </head>
 <body>
+<a href="#toc" id="skip-to-content">跳到内容</a>
 <div class="progress" id="progress"></div>
 <nav class="topnav"><span class="brand">那就这样吧</span><a href="index.html">返回首页</a></nav>
 
@@ -3613,5 +3640,6 @@ footer .small{letter-spacing:0.2em;}
 })();
 </script>
 <script src="./_shared/reader.js"></script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js',{scope:'/meet-you-summer/'}).catch(function(){});}</script>
 </body>
 </html>

@@ -1,0 +1,14 @@
+{
+  "name": "我们的故事 · 小说集",
+  "short_name": "我们的故事",
+  "description": "四季流转，七段温柔而明亮的相遇",
+  "start_url": "/meet-you-summer/",
+  "scope": "/meet-you-summer/",
+  "display": "standalone",
+  "background_color": "#faf6ee",
+  "theme_color": "#d97a4e",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

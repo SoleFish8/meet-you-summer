@@ -3,6 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="半块带着橘子香气的橡皮，和一个心脏像破风筝的少年。那些没有说出口的晚安，都藏在风里。">
+<meta property="og:title" content="未说完的晚安 · 半块带着橘子香气的橡皮，和一个心脏像破风筝的少年">
+<meta property="og:description" content="半块带着橘子香气的橡皮，和一个心脏像破风筝的少年">
+<meta property="og:image" content="https://SoleFish8.github.io/meet-you-summer/assets/cover_16x9.jpg">
+<meta property="og:url" content="https://SoleFish8.github.io/meet-you-summer/story3.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="未说完的晚安 · 半块带着橘子香气的橡皮，和一个心脏像破风筝的少年">
+<meta name="twitter:description" content="半块带着橘子香气的橡皮，和一个心脏像破风筝的少年">
+<meta name="twitter:image" content="https://SoleFish8.github.io/meet-you-summer/assets/cover_16x9.jpg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e8b45a">
+<link rel="icon" type="image/jpeg" href="assets/icon-192.jpg">
+<link rel="apple-touch-icon" href="assets/icon-192.jpg">
 <title>未说完的晚安</title>
 <link rel="preload" href="./_shared/fonts/CrimsonPro-Regular.ttf" as="font" type="font/ttf" crossorigin="">
 <link rel="preload" href="./_shared/fonts/InstrumentSerif-Italic.ttf" as="font" type="font/ttf" crossorigin="">
@@ -25,27 +39,27 @@
 @font-face{
   font-family:'CrimsonPro';
   src:url('./_shared/fonts/CrimsonPro-Regular.ttf') format('truetype');
-  font-weight:400;font-style:normal;
+  font-weight:400;font-style:normal;font-display:swap;
 }
 @font-face{
   font-family:'CrimsonPro';
   src:url('./_shared/fonts/CrimsonPro-Italic.ttf') format('truetype');
-  font-weight:400;font-style:italic;
+  font-weight:400;font-style:italic;font-display:swap;
 }
 @font-face{
   font-family:'CrimsonPro';
   src:url('./_shared/fonts/CrimsonPro-Bold.ttf') format('truetype');
-  font-weight:700;font-style:normal;
+  font-weight:700;font-style:normal;font-display:swap;
 }
 @font-face{
   font-family:'InstrumentSerif';
   src:url('./_shared/fonts/InstrumentSerif-Regular.ttf') format('truetype');
-  font-weight:400;font-style:normal;
+  font-weight:400;font-style:normal;font-display:swap;
 }
 @font-face{
   font-family:'InstrumentSerif';
   src:url('./_shared/fonts/InstrumentSerif-Italic.ttf') format('truetype');
-  font-weight:400;font-style:italic;
+  font-weight:400;font-style:italic;font-display:swap;
 }
 html{scroll-behavior:smooth;}
 body{
@@ -80,7 +94,7 @@ body::before{
   border-bottom:1px solid var(--rule);}
 .topnav a{color:var(--muted);text-decoration:none;font-size:0.85rem;letter-spacing:0.08em;transition:color .2s;}
 .topnav a:hover{color:var(--accent);}
-.topnav .brand{font-family:"CrimsonPro",serif;font-style:italic;color:var(--accent);letter-spacing:0.06em;}
+.topnav .brand{font-family:"CrimsonPro",serif;font-style:italic;font-display:swap;color:var(--accent);letter-spacing:0.06em;}
 
 /* ---------- Hero (night sky, no illustration) ---------- */
 .s3-hero{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;
@@ -89,7 +103,7 @@ body::before{
     radial-gradient(900px 520px at 50% 118%, rgba(127,168,201,0.16), transparent 62%),
     linear-gradient(180deg,var(--bg3) 0%,var(--bg) 55%,var(--bg2) 100%);}
 .s3-hero .wrap{max-width:780px;position:relative;z-index:2;}
-.s3-kicker{font-family:"CrimsonPro",serif;font-style:italic;letter-spacing:0.32em;font-size:0.9rem;
+.s3-kicker{font-family:"CrimsonPro",serif;font-style:italic;font-display:swap;letter-spacing:0.32em;font-size:0.9rem;
   color:var(--accent);margin-bottom:1.7rem;text-transform:lowercase;}
 .s3-title{font-size:clamp(2.8rem,8vw,5rem);font-weight:700;letter-spacing:0.16em;line-height:1.15;color:var(--ink);
   text-shadow:0 0 40px rgba(232,180,90,0.25);}
@@ -155,10 +169,10 @@ mark.key{background:none;color:var(--accent);font-weight:600;}
 .dialogue{color:#eef2fa;position:relative;padding-left:1.05em;}
 .dialogue::before{content:"";position:absolute;left:0;top:0.4em;bottom:0.4em;width:2px;
   background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:2px;opacity:0.45;}
-.story-para.em{text-align:center;color:var(--muted);font-style:normal;padding:1.8rem 0 1rem;
+.story-para.em{text-align:center;color:var(--muted);font-style:normal;font-display:swap;padding:1.8rem 0 1rem;
   margin:2rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
   background:var(--accent-soft);}
-.story-para.em .quote{font-family:"InstrumentSerif",serif;font-style:italic;color:var(--accent2);
+.story-para.em .quote{font-family:"InstrumentSerif",serif;font-style:italic;font-display:swap;color:var(--accent2);
   font-size:1.1rem;letter-spacing:0.08em;line-height:1.8;}
 
 /* ornament */
@@ -193,7 +207,7 @@ mark.key{background:none;color:var(--accent);font-weight:600;}
   animation:pulseGlyph 3s ease-in-out infinite;}
 @keyframes pulseGlyph{0%,100%{opacity:0.7;transform:scale(1);}50%{opacity:1;transform:scale(1.15);}}
 .ending .big{font-size:clamp(2rem,5.5vw,2.8rem);font-weight:700;letter-spacing:0.2em;margin-top:2rem;color:var(--ink);}
-.ending .en{font-family:"InstrumentSerif",serif;font-style:italic;font-size:clamp(1.2rem,3.4vw,1.7rem);
+.ending .en{font-family:"InstrumentSerif",serif;font-style:italic;font-display:swap;font-size:clamp(1.2rem,3.4vw,1.7rem);
   color:var(--accent2);margin-top:1.4rem;letter-spacing:0.06em;}
 .ending p{margin:2rem auto 0;max-width:32rem;color:var(--muted);font-size:1rem;line-height:2.1;}
 
@@ -224,8 +238,21 @@ footer .small{letter-spacing:0.2em;}
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="83ac92dc-f4b5-4266-9c81-300cca5a505e"></script>
 <link rel="stylesheet" href="./_shared/reader.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "未说完的晚安",
+  "description": "半块带着橘子香气的橡皮，和一个心脏像破风筝的少年",
+  "url": "https://SoleFish8.github.io/meet-you-summer/story3.html",
+  "inLanguage": "zh-CN",
+  "author": { "@type": "Person", "name": "SoleFish" }
+}
+</script>
 </head>
 <body>
+<a href="#toc" id="skip-to-content">跳到内容</a>
 <div class="progress" id="progress"></div>
 <nav class="topnav"><span class="brand">未说完的晚安</span><a href="index.html">返回首页</a></nav>
 
@@ -4172,5 +4199,6 @@ footer .small{letter-spacing:0.2em;}
 })();
 </script>
 <script src="./_shared/reader.js"></script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js',{scope:'/meet-you-summer/'}).catch(function(){});}</script>
 </body>
 </html>

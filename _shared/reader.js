@@ -1,7 +1,8 @@
 /**
  * Reader.js — 通用小说阅读器功能模块
  * 功能：阅读进度保存、回到顶部、浮动目录、上下章导航、字体调节、
- *       深色模式、书签、朗读、字数统计、阅读时长、选中复制、分享、评论
+ *       深色模式、书签、朗读、字数统计、阅读时长、选中复制、分享、评论、
+ *       沉浸模式、Giscus主题同步、键盘导航、无障碍支持
  */
 (function () {
   'use strict';
@@ -15,6 +16,7 @@
   let bookmarks = JSON.parse(localStorage.getItem(LS_PREFIX + 'bookmarks') || '[]');
   let ttsSpeaking = false;
   let ttsUtterance = null;
+  let immersiveMode = false;
 
   // ── DOM helpers ──
   function $(sel, ctx) { return (ctx || document).querySelector(sel); }
@@ -61,15 +63,16 @@
     const toolbar = document.createElement('div');
     toolbar.id = 'reader-toolbar';
     toolbar.innerHTML = `
-      <button id="btn-font-down" title="缩小字体">A-</button>
-      <span id="font-size-label">${Math.round(fontScale * 100)}%</span>
-      <button id="btn-font-up" title="放大字体">A+</button>
-      <span class="sep"></span>
-      <button id="btn-dark-mode" title="深色模式">🌙</button>
-      <span class="sep"></span>
-      <button id="btn-tts" title="朗读">🔊</button>
-      <button id="btn-bookmark" title="添加书签">🔖</button>
-      <button id="btn-share" title="分享">↗</button>
+      <button id="btn-font-down" title="缩小字体" aria-label="缩小字体">A-</button>
+      <span id="font-size-label" aria-live="polite">${Math.round(fontScale * 100)}%</span>
+      <button id="btn-font-up" title="放大字体" aria-label="放大字体">A+</button>
+      <span class="sep" aria-hidden="true"></span>
+      <button id="btn-dark-mode" title="深色模式" aria-label="切换深色模式">🌙</button>
+      <span class="sep" aria-hidden="true"></span>
+      <button id="btn-immersive" title="沉浸阅读" aria-label="沉浸阅读模式">⊡</button>
+      <button id="btn-tts" title="朗读" aria-label="朗读当前章节">🔊</button>
+      <button id="btn-bookmark" title="添加书签" aria-label="添加书签">🔖</button>
+      <button id="btn-share" title="分享" aria-label="分享当前页面">↗</button>
     `;
     document.body.appendChild(toolbar);
 
@@ -112,11 +115,14 @@
       if (darkMode) {
         document.body.classList.add('dark-mode');
         $('#btn-dark-mode').textContent = '☀️';
+        $('#btn-dark-mode').setAttribute('aria-label', '切换浅色模式');
       } else {
         document.body.classList.remove('dark-mode');
         $('#btn-dark-mode').textContent = '🌙';
+        $('#btn-dark-mode').setAttribute('aria-label', '切换深色模式');
       }
       localStorage.setItem(LS_PREFIX + 'darkMode', darkMode ? '1' : '0');
+      setTimeout(syncGiscusTheme, 600);
     }
     $('#btn-dark-mode').addEventListener('click', function () {
       darkMode = !darkMode;
@@ -132,6 +138,27 @@
 
     // Share
     $('#btn-share').addEventListener('click', sharePage);
+
+    // Immersive mode
+    $('#btn-immersive').addEventListener('click', toggleImmersive);
+  }
+
+  // ── 3b. Immersive Mode ──
+  function toggleImmersive() {
+    immersiveMode = !immersiveMode;
+    document.body.classList.toggle('immersive', immersiveMode);
+    $('#btn-immersive').textContent = immersiveMode ? '⊟' : '⊡';
+    if (immersiveMode) {
+      showToast('沉浸模式 · 点击任意位置或按 Esc 退出');
+    }
+  }
+
+  // ── 3c. Giscus Dark Mode Sync ──
+  function syncGiscusTheme() {
+    var iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    var theme = darkMode ? 'dark' : 'light';
+    iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: theme } } }, 'https://giscus.app');
   }
 
   // ── 4. Back to Top ──
@@ -140,6 +167,7 @@
     btn.id = 'btn-back-to-top';
     btn.innerHTML = '↑';
     btn.title = '回到顶部';
+    btn.setAttribute('aria-label', '回到顶部');
     document.body.appendChild(btn);
     window.addEventListener('scroll', function () {
       btn.classList.toggle('visible', window.scrollY > 600);
@@ -169,6 +197,7 @@
     btn.id = 'btn-toc-float';
     btn.innerHTML = '☰';
     btn.title = '目录';
+    btn.setAttribute('aria-label', '打开目录');
     document.body.appendChild(btn);
     window.addEventListener('scroll', function () {
       btn.classList.toggle('visible', window.scrollY > 600);
@@ -461,7 +490,7 @@
     container.appendChild(script);
   }
 
-  // ── 14. Smooth Scroll (already in CSS, but ensure anchor clicks are smooth) ──
+  // ── 14. Smooth Scroll + Keyboard ──
   function initSmoothScroll() {
     document.addEventListener('click', function (e) {
       var a = e.target.closest('a[href^="#"]');
@@ -470,6 +499,32 @@
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+
+  // ── 15. Keyboard Shortcuts ──
+  function initKeyboard() {
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && immersiveMode) {
+        toggleImmersive();
+        return;
+      }
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+      if (e.key === 'Escape' && document.getElementById('toc-sidebar').classList.contains('open')) {
+        document.getElementById('toc-overlay').classList.remove('open');
+        document.getElementById('toc-sidebar').classList.remove('open');
+        return;
+      }
+      if (e.key === 't' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        document.getElementById('btn-toc-float').click();
+      }
+    });
+    // Click to exit immersive mode
+    document.addEventListener('click', function (e) {
+      if (immersiveMode && !e.target.closest('#reader-toolbar') && !e.target.closest('#btn-back-to-top') && !e.target.closest('#btn-toc-float') && !e.target.closest('#selection-tooltip') && !e.target.closest('#share-toast')) {
+        toggleImmersive();
       }
     });
   }
@@ -484,6 +539,7 @@
     initChapterNav();
     initChapterMeta();
     initSmoothScroll();
+    initKeyboard();
     initSelectionCopy();
     initGiscus();
   }

@@ -3,7 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>我们的故事 · 小说集</title>
+<title>我们的故事 · 小说集 | 七段温柔而明亮的相遇</title>
+<meta name="description" content="四季流转，七段温柔而明亮的相遇。一个关于夏天、橘子糖、玻璃弹珠与少年心事的小说集。">
+<meta property="og:title" content="我们的故事 · 小说集">
+<meta property="og:description" content="四季流转，七段温柔而明亮的相遇。很高兴认识你、三生有幸、未说完的晚安、风拥枯葵、元日启蛰、那就这样吧、我弟弟好像不太一样。">
+<meta property="og:image" content="https://SoleFish8.github.io/meet-you-summer/assets/cover_16x9.jpg">
+<meta property="og:url" content="https://SoleFish8.github.io/meet-you-summer/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="我们的故事 · 小说集">
+<meta name="twitter:description" content="四季流转，七段温柔而明亮的相遇。">
+<meta name="twitter:image" content="https://SoleFish8.github.io/meet-you-summer/assets/cover_16x9.jpg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#d97a4e">
+<link rel="icon" type="image/jpeg" href="assets/icon-192.jpg">
+<link rel="apple-touch-icon" href="assets/icon-192.jpg">
 <link rel="preload" href="./_shared/fonts/CrimsonPro-Regular.ttf" as="font" type="font/ttf" crossorigin="">
 <link rel="preload" href="./_shared/fonts/CrimsonPro-Bold.ttf" as="font" type="font/ttf" crossorigin="">
 <link rel="preload" href="./_shared/fonts/InstrumentSerif-Italic.ttf" as="font" type="font/ttf" crossorigin="">
@@ -21,22 +35,22 @@
 @font-face{
   font-family:'CrimsonPro';
   src:url('./_shared/fonts/CrimsonPro-Regular.ttf') format('truetype');
-  font-weight:400;font-style:normal;
+  font-weight:400;font-style:normal;font-display:swap;
 }
 @font-face{
   font-family:'CrimsonPro';
   src:url('./_shared/fonts/CrimsonPro-Bold.ttf') format('truetype');
-  font-weight:700;font-style:normal;
+  font-weight:700;font-style:normal;font-display:swap;
 }
 @font-face{
   font-family:'CrimsonPro';
   src:url('./_shared/fonts/CrimsonPro-Italic.ttf') format('truetype');
-  font-weight:400;font-style:italic;
+  font-weight:400;font-style:italic;font-display:swap;
 }
 @font-face{
   font-family:'InstrumentSerif';
   src:url('./_shared/fonts/InstrumentSerif-Italic.ttf') format('truetype');
-  font-weight:400;font-style:italic;
+  font-weight:400;font-style:italic;font-display:swap;
 }
 html{scroll-behavior:smooth;}
 body{
@@ -141,8 +155,20 @@ body::before{
 }
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="83ac92dc-f4b5-4266-9c81-300cca5a505e"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "我们的故事 · 小说集",
+  "url": "https://SoleFish8.github.io/meet-you-summer/",
+  "description": "四季流转，七段温柔而明亮的相遇。",
+  "inLanguage": "zh-CN",
+  "author": { "@type": "Person", "name": "SoleFish" }
+}
+</script>
 </head>
 <body>
+<a href="#stories" id="skip-to-content">跳到内容</a>
 <div class="particles" aria-hidden="true"></div>
 <header class="hero">
   <p class="hero-kicker">Seven Stories, One Summer</p>
@@ -159,6 +185,11 @@ body::before{
     <p class="stories-kicker">The Collection</p>
     <h2 class="stories-title">故事目录</h2>
   </div>
+  <div id="continue-reading" class="reveal" style="display:none;text-align:center;margin-bottom:1.8rem;padding:1rem 1.4rem;background:var(--paper);border:1px solid var(--rule);border-radius:12px;">
+    <span style="font-size:0.82rem;color:var(--muted);letter-spacing:0.1em;">继续阅读</span>
+    <a id="continue-link" href="#" style="display:block;margin-top:0.4rem;color:var(--accent);font-size:1.05rem;font-weight:700;text-decoration:none;letter-spacing:0.08em;"></a>
+  </div>
+  <div id="total-stats" class="reveal" style="text-align:center;margin-bottom:1.6rem;font-size:0.82rem;color:var(--muted);letter-spacing:0.06em;"></div>
   <a class="card featured reveal" href="story1.html" style="--c:#d97a4e" data-story="story1">
     <div class="card-num">01</div>
     <div class="card-body">
@@ -216,6 +247,7 @@ body::before{
 <footer class="foot">— 献给那些把温柔轻轻放进你手心的人 —</footer>
 <script>
 (function(){
+  // Particles
   var colors=['#d97a4e','#5f8f9e','#e8b45a','#a9b08a','#f0b35a','#c0814a','#c8903a'];
   var wrap=document.querySelector('.particles');
   for(var i=0;i<16;i++){
@@ -240,9 +272,22 @@ body::before{
     document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
   }
   // Reading progress on cards
+  var stories = [
+    { id: 'story1', name: '很高兴认识你' },
+    { id: 'story2', name: '三生有幸' },
+    { id: 'story3', name: '未说完的晚安' },
+    { id: 'story4', name: '风拥枯葵' },
+    { id: 'story5', name: '元日启蛰' },
+    { id: 'story6', name: '那就这样吧' },
+    { id: 'story7', name: '我弟弟好像不太一样' }
+  ];
+  var totalWords = 0;
+  var lastRead = null;
+  var lastReadTime = 0;
   document.querySelectorAll('.card[data-story]').forEach(function(card){
     var storyId = card.dataset.story;
     var progressPct = localStorage.getItem('reader_' + storyId + '_progressPct');
+    var scrollPos = localStorage.getItem('reader_' + storyId + '_scrollPos');
     var fill = card.querySelector('.card-progress-fill');
     var pct = card.querySelector('.card-progress-pct');
     if (progressPct && fill) {
@@ -250,7 +295,33 @@ body::before{
       fill.style.width = v + '%';
       if (pct) pct.textContent = '已读 ' + v + '%';
     }
+    // Track last read
+    if (scrollPos) {
+      var t = parseFloat(scrollPos);
+      if (t > lastReadTime) { lastReadTime = t; lastRead = storyId; }
+    }
+    // Approximate word counts per story
+    var wc = [32000, 28000, 35000, 18000, 22000, 25000, 30000];
+    var idx = stories.findIndex(function(s) { return s.id === storyId; });
+    if (idx >= 0) totalWords += wc[idx];
   });
+  // Continue reading
+  if (lastRead) {
+    var s = stories.find(function(s) { return s.id === lastRead; });
+    if (s) {
+      var el = document.getElementById('continue-reading');
+      var link = document.getElementById('continue-link');
+      el.style.display = 'block';
+      link.href = s.id + '.html';
+      link.textContent = '「' + s.name + '」继续阅读 →';
+    }
+  }
+  // Total stats
+  document.getElementById('total-stats').textContent = '全站共 ' + Math.round(totalWords / 10000) + ' 万字 · 7 篇小说';
+  // Service Worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js', { scope: '/meet-you-summer/' }).catch(function(){});
+  }
 })();
 </script>
 </body>
