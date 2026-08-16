@@ -444,9 +444,9 @@
     var script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
     script.setAttribute('data-repo', 'SoleFish8/meet-you-summer');
-    script.setAttribute('data-repo-id', 'R_kgDOOZyecw');
+    script.setAttribute('data-repo-id', 'R_kgDOT3OSIQ');
     script.setAttribute('data-category', 'General');
-    script.setAttribute('data-category-id', 'DIC_kwDOOZyec84CpZ-X');
+    script.setAttribute('data-category-id', 'DIC_kwDOT3OSIc4DDgTF');
     script.setAttribute('data-mapping', 'pathname');
     script.setAttribute('data-strict', '0');
     script.setAttribute('data-reactions-enabled', '1');
